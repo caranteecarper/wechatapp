@@ -33,7 +33,13 @@ function rpx2px(rpx, screenWidth) {
 function imageMogr(url, options) {
   if (!isString(url) || !url) return '';
 
+  var isRemoteUrl =
+    url.indexOf('http://') === 0 ||
+    url.indexOf('https://') === 0 ||
+    url.indexOf('//') === 0;
+
   if (
+    !isRemoteUrl ||
     url.indexOf('qlogo.cn') !== -1 ||
     url.indexOf('wxfile://') === 0 ||
     url.indexOf('http://tmp/wx') === 0 ||
@@ -131,7 +137,7 @@ function getSrc(options) {
     });
   }
 
-  return '';
+  return options.src;
 }
 
 module.exports = {

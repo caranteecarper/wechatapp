@@ -6,11 +6,15 @@ Component({
     },
     tip: {
       type: String,
-      value: '购物车是空的',
+      value: '今日心愿篮还是空的',
     },
     btnText: {
       type: String,
-      value: '去首页',
+      value: '去写心愿',
+    },
+    theme: {
+      type: String,
+      value: '',
     },
   },
   data: {},

@@ -3,6 +3,7 @@
  id="{{id}}"
  layout="{{layout}}"
  data="{{data}}"
+ theme="{{theme}}"
  currency="{{currency}}"
  price-fill="{{priceFill}}"
  lazy-load="{{lazyLoad}}"

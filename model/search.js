@@ -1,4 +1,5 @@
 import { getGoodsList } from './goods';
+import { hasPersonaContent } from './persona-content';
 
 /**
  * @param {number} sort
@@ -47,14 +48,16 @@ export function getSearchPopular() {
   };
 }
 
-export function getSearchResult() {
+export function getSearchResult(params = {}) {
+  const { persona = '', groupId = '' } = params;
+  const spuList = hasPersonaContent(persona) ? getGoodsList(0, 30, persona, groupId) : getGoodsList(7);
   return {
     saasId: null,
     storeId: null,
     pageNum: 1,
     pageSize: 30,
-    totalCount: 1,
-    spuList: getGoodsList(7),
+    totalCount: spuList.length,
+    spuList,
     algId: 0,
   };
 }

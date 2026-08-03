@@ -1,45 +1,44 @@
-<!-- 优惠券 -->
-<view class="coupon-card-wrap">
-  <coupon-card couponDTO="{{detail}}" />
-</view>
-<!-- 说明 -->
-<view class="desc-wrap">
-  <t-cell-group t-class="desc-group-wrap">
-    <t-cell
-      wx:if="{{detail && detail.desc}}"
-      t-class="t-class-cell"
-      t-class-title="t-class-title"
-      t-class-note="t-class-note"
-      title="规则说明"
-      note="{{detail && detail.desc}}"
-    />
-    <t-cell
-      wx:if="{{detail && detail.timeLimit}}"
-      t-class="t-class-cell"
-      t-class-title="t-class-title"
-      t-class-note="t-class-note"
-      title="有效时间"
-      note="{{detail && detail.timeLimit}}"
-    />
-    <t-cell
-      wx:if="{{detail && detail.storeAdapt}}"
-      t-class="t-class-cell"
-      t-class-title="t-class-title"
-      t-class-note="t-class-note"
-      title="适用范围"
-      note="{{detail && detail.storeAdapt}}"
-    />
-    <t-cell
-      wx:if="{{detail && detail.useNotes}}"
-      t-class="t-class-cell"
-      t-class-title="t-class-title"
-      t-class-note="t-class-note"
-      title="使用须知"
-      note="{{detail && detail.useNotes}}"
-    />
-  </t-cell-group>
-  <!-- 查看可用商品 -->
-  <view class="button-wrap">
-    <t-button shape="round" block bindtap="navGoodListHandle"> 查看可用商品 </t-button>
+<view class="persona-surface theme-{{currentPersona}} voucher-detail-page">
+  <view class="persona-page-intro">
+    <view class="persona-page-eyebrow">{{pageCopy.detailEyebrow}}</view>
+    <view class="persona-page-title">{{pageCopy.detailTitle}}</view>
+    <view class="persona-page-description">{{pageCopy.description}}</view>
   </view>
+
+  <view class="voucher-detail-card persona-card">
+    <view class="voucher-detail-card__symbol">
+      <t-icon name="{{voucher.icon}}" size="58rpx" />
+    </view>
+    <view class="voucher-detail-card__label">ONLY FOR US</view>
+    <view class="voucher-detail-card__title">{{voucher.title}}</view>
+    <view class="voucher-detail-card__subtitle">{{voucher.subtitle}}</view>
+    <view class="voucher-detail-card__meta">{{voucher.meta}}</view>
+  </view>
+
+  <view class="persona-section persona-card voucher-rules">
+    <view class="voucher-rule">
+      <view class="voucher-rule__index">01</view>
+      <view>
+        <view class="voucher-rule__title">怎么使用</view>
+        <view class="voucher-rule__description">打开这张券并告诉对方，确认后就进入当前人设的回应记录。</view>
+      </view>
+    </view>
+    <view class="voucher-rule">
+      <view class="voucher-rule__index">02</view>
+      <view>
+        <view class="voucher-rule__title">适用范围</view>
+        <view class="voucher-rule__description">仅限你们两个人，不与现实商品、付款或物流产生关系。</view>
+      </view>
+    </view>
+    <view class="voucher-rule">
+      <view class="voucher-rule__index">03</view>
+      <view>
+        <view class="voucher-rule__title">私密说明</view>
+        <view class="voucher-rule__description">这张券和使用记录，只在你们的小屋里显示。</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="persona-primary-button voucher-detail-action" bindtap="collectVoucher">{{pageCopy.action}}</view>
 </view>
+<t-toast id="t-toast" />

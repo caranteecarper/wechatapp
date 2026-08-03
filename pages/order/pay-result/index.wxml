@@ -1,22 +1,26 @@
-<t-navbar background="#ffffff" left-icon="slot" />
-<view class="pay-result">
-	<view class="pay-status">
-		<t-icon name="check-circle-filled" size="60rpx" color="#47D368" />
-		<text>支付成功</text>
-	</view>
-	<view class="pay-money">
-		微信支付：
-		<price
-		 wx:if="{{totalPaid}}"
-		 price="{{totalPaid}}"
-		 wr-class="pay-money__price"
-		 decimalSmaller
-		 fill
-		/>
-	</view>
-	<view class="btn-wrapper">
-		<view class="status-btn" data-type="orderList" bindtap="onTapReturn">查看订单</view>
-		<view class="status-btn" data-type="home" bindtap="onTapReturn">返回首页</view>
-	</view>
-</view>
+<view class="persona-surface theme-{{currentPersona}} success-page">
+  <view class="success-mark">
+    <view class="success-mark__inner">
+      <t-icon name="check" size="60rpx" />
+    </view>
+  </view>
 
+  <view class="persona-page-eyebrow success-eyebrow">{{pageCopy.eyebrow}}</view>
+  <view class="success-title">{{pageCopy.title}}</view>
+  <view class="success-description">{{pageCopy.description}}</view>
+  <view class="success-badge">
+    <t-icon name="lock-on" size="24rpx" />
+    <text>{{pageCopy.badge}}</text>
+  </view>
+
+  <view class="success-divider">
+    <view></view>
+    <text>ONLY FOR US</text>
+    <view></view>
+  </view>
+
+  <view class="success-actions">
+    <view class="persona-primary-button" bindtap="viewRecords">{{pageCopy.primary}}</view>
+    <view class="persona-secondary-button" bindtap="goHome">{{pageCopy.secondary}}</view>
+  </view>
+</view>

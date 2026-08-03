@@ -1,6 +1,12 @@
-<view class="goods-category custom-class">
-  <c-sidebar custom-class="custom-sidebar" bindchange="onParentChange" activeKey="{{activeKey}}">
-    <c-sidebar-item wx:for="{{ category }}" wx:key="index" title="{{ item.name }}" disabled="{{ item.disabled }}" />
+<view class="goods-category custom-class theme-{{theme}}">
+  <c-sidebar custom-class="custom-sidebar" bindchange="onParentChange" activeKey="{{activeKey}}" theme="{{theme}}">
+    <c-sidebar-item
+      wx:for="{{ category }}"
+      wx:key="index"
+      title="{{ item.name }}"
+      disabled="{{ item.disabled }}"
+      theme="{{theme}}"
+    />
   </c-sidebar>
   <view class="goods-category__right">
     <c-tabbar wx:if="{{isSlotRight}}" activeKey="{{subActiveKey}}" bindchange="onChildChange" showMore>
@@ -13,10 +19,13 @@
       >
         <block
           wx:for="{{category[activeKey].children}}"
-          wx:key="index"
+          wx:key="groupId"
           wx:if="{{level === 3 && item.children && item.children.length > 0}}"
         >
-          <view class="flex goods-category-normal-item-title"> {{item.name}} </view>
+          <view class="goods-category-normal-item-head">
+            <view class="goods-category-normal-item-title">{{item.name}}</view>
+            <view class="goods-category-normal-item-count">{{item.children.length}} 项</view>
+          </view>
           <view class="goods-category-normal-item-container">
             <view
               class="goods-category-normal-item-container-item"
@@ -27,8 +36,8 @@
               bindtap="changCategory"
               data-item="{{subItem}}"
             >
-              <t-image src="{{subItem.thumbnail}}" t-class="image" />
-              <view class="flex goods-category-normal-item-container-item-title"> {{subItem.name}} </view>
+              <t-image src="{{subItem.thumbnail}}" mode="aspectFill" lazy t-class="image" />
+              <view class="flex goods-category-normal-item-container-item-title">{{subItem.name}}</view>
             </view>
           </view>
         </block>
@@ -40,7 +49,7 @@
               bindtap="changCategory"
               data-item="{{item}}"
             >
-              <t-image src="{{item.thumbnail}}" t-class="image" />
+              <t-image src="{{item.thumbnail}}" mode="aspectFill" lazy t-class="image" />
               <view class="flex goods-category-normal-item-container-item-title"> {{item.name}} </view>
             </view>
           </block>

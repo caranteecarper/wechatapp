@@ -1,19 +1,21 @@
+import { getPersonaContent } from './persona-content';
+
 const userInfo = {
   avatarUrl:
     'https://we-retail-static-1300977798.cos.ap-guangzhou.myqcloud.com/retail-ui/components-exp/avatar/avatar-1.jpg',
-  nickName: 'TDesign 🌟',
-  phoneNumber: '13438358888',
+  nickName: '宝宝的小屋主人',
+  phoneNumber: '',
   gender: 2,
 };
 const countsData = [
   {
     num: 2,
-    name: '积分',
+    name: '专属暗号',
     type: 'point',
   },
   {
     num: 10,
-    name: '优惠券',
+    name: '纪念日',
     type: 'coupon',
   },
 ];
@@ -38,15 +40,21 @@ const orderTagInfos = [
 ];
 
 const customerServiceInfo = {
-  servicePhone: '4006336868',
-  serviceTimeDuration: '每周三至周五 9:00-12:00  13:00-15:00',
+  servicePhone: '10086',
+  serviceTimeDuration: '想我的时候，优先级最高',
 };
 
 export const genSimpleUserInfo = () => ({ ...userInfo });
 
-export const genUsercenter = () => ({
-  userInfo,
-  countsData,
-  orderTagInfos,
-  customerServiceInfo,
-});
+export const genUsercenter = (persona = '') => {
+  const system = getPersonaContent(persona);
+  if (system) {
+    return system.getUsercenter();
+  }
+  return {
+    userInfo,
+    countsData,
+    orderTagInfos,
+    customerServiceInfo,
+  };
+};

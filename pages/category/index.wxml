@@ -1,8 +1,9 @@
-<view class="wrap">
+<view class="wrap theme-{{currentPersona}}">
   <goods-category
     level="{{3}}"
     custom-class="goods-category-class"
     category="{{list}}"
+    theme="{{currentPersona}}"
     bind:changeCategory="onChange"
   />
 </view>

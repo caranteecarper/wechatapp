@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "我的订单",
+  "navigationBarTitleText": "我们的小记录",
   "usingComponents": {
     "t-tabs": "tdesign-miniprogram/tabs/tabs",
     "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",

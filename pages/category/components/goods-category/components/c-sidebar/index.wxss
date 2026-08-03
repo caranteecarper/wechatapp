@@ -1,9 +1,22 @@
 .c-sidebar {
   width: 176rpx;
-  height: 100vh;
+  height: 100%;
+  box-sizing: border-box;
 }
 .c-sidebar::-webkit-scrollbar {
   width: 0;
   height: 0;
   color: transparent;
+}
+
+.c-sidebar.theme-teacher {
+  background-color: #351820;
+}
+
+.c-sidebar.theme-baby {
+  background-color: #ffebf0;
+}
+
+.c-sidebar.theme-princess {
+  background-color: #512431;
 }

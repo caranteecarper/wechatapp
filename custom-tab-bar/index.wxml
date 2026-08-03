@@ -1,4 +1,6 @@
 <t-tab-bar
+ class="persona-tab-bar"
+ style="--td-tab-bar-bg-color: {{theme.background}}; --td-tab-bar-border-color: {{theme.border}}; --td-tab-bar-color: {{theme.color}}; --td-tab-bar-active-color: {{theme.activeColor}}; --td-tab-bar-active-bg: {{theme.activeBackground}};"
  value="{{active}}"
  bindchange="onChange"
  split="{{false}}"

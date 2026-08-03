@@ -1,121 +1,85 @@
-import { fetchPerson } from '../../../services/usercenter/fetchPerson';
-import { phoneEncryption } from '../../../utils/util';
 import Toast from 'tdesign-miniprogram/toast/index';
+import { getPersonaContent } from '../../../model/persona-content';
+import { syncPersonaPage } from '../../../utils/personas';
+import { getPersonaPageCopy } from '../../../utils/persona-pages';
+
+const getProfileKey = (persona) => `love.profile.${persona}`;
 
 Page({
   data: {
-    personInfo: {
+    currentPersona: '',
+    personaUi: {},
+    pageCopy: {},
+    profile: {
       avatarUrl: '',
       nickName: '',
-      gender: 0,
-      phoneNumber: '',
     },
-    showUnbindConfirm: false,
-    pickerOptions: [
-      {
-        name: '男',
-        code: '1',
-      },
-      {
-        name: '女',
-        code: '2',
-      },
-    ],
-    typeVisible: false,
-    genderMap: ['', '男', '女'],
   },
-  onLoad() {
-    this.init();
-  },
-  init() {
-    this.fetchData();
-  },
-  fetchData() {
-    fetchPerson().then((personInfo) => {
-      this.setData({
-        personInfo,
-        'personInfo.phoneNumber': phoneEncryption(personInfo.phoneNumber),
-      });
-    });
-  },
-  onClickCell({ currentTarget }) {
-    const { dataset } = currentTarget;
-    const { nickName } = this.data.personInfo;
 
-    switch (dataset.type) {
-      case 'gender':
-        this.setData({
-          typeVisible: true,
-        });
-        break;
-      case 'name':
-        wx.navigateTo({
-          url: `/pages/user/name-edit/index?name=${nickName}`,
-        });
-        break;
-      case 'avatarUrl':
-        this.toModifyAvatar();
-        break;
-      default: {
-        break;
-      }
-    }
+  onLoad() {
+    this.syncPage();
   },
-  onClose() {
+
+  onShow() {
+    this.syncPage();
+  },
+
+  syncPage() {
+    const persona = syncPersonaPage(this);
+    const pageCopy = getPersonaPageCopy(persona.key, 'profile');
+    const system = getPersonaContent(persona.key);
+    const stored = wx.getStorageSync(getProfileKey(persona.key)) || {};
+    const fallbackInfo = system ? system.getUsercenter().userInfo : {};
+    const profile = {
+      avatarUrl: stored.avatarUrl || fallbackInfo.avatarUrl || '',
+      nickName: stored.nickName || pageCopy.defaultName,
+    };
+
     this.setData({
-      typeVisible: false,
+      currentPersona: persona.key,
+      pageCopy,
+      profile,
+    });
+    wx.setNavigationBarTitle({ title: pageCopy.navTitle });
+  },
+
+  editName() {
+    wx.navigateTo({
+      url: `/pages/user/name-edit/index?persona=${this.data.currentPersona}&name=${encodeURIComponent(
+        this.data.profile.nickName,
+      )}`,
     });
   },
-  onConfirm(e) {
-    const { value } = e.detail;
-    this.setData(
-      {
-        typeVisible: false,
-        'personInfo.gender': value,
-      },
-      () => {
-        Toast({
-          context: this,
-          selector: '#t-toast',
-          message: '设置成功',
-          theme: 'success',
-        });
-      },
-    );
-  },
-  async toModifyAvatar() {
+
+  async editAvatar() {
     try {
-      const tempFilePath = await new Promise((resolve, reject) => {
-        wx.chooseImage({
+      const result = await new Promise((resolve, reject) => {
+        wx.chooseMedia({
           count: 1,
+          mediaType: ['image'],
           sizeType: ['compressed'],
           sourceType: ['album', 'camera'],
-          success: (res) => {
-            const { path, size } = res.tempFiles[0];
-            if (size <= 10485760) {
-              resolve(path);
-            } else {
-              reject({ errMsg: '图片大小超出限制，请重新上传' });
-            }
-          },
-          fail: (err) => reject(err),
+          success: resolve,
+          fail: reject,
         });
       });
-      const tempUrlArr = tempFilePath.split('/');
-      const tempFileName = tempUrlArr[tempUrlArr.length - 1];
+      const avatarUrl = result.tempFiles?.[0]?.tempFilePath;
+      if (!avatarUrl) return;
+      const profile = { ...this.data.profile, avatarUrl };
+      wx.setStorageSync(getProfileKey(this.data.currentPersona), profile);
+      this.setData({ profile });
       Toast({
         context: this,
         selector: '#t-toast',
-        message: `已选择图片-${tempFileName}`,
+        message: '头像已经换好',
         theme: 'success',
       });
     } catch (error) {
-      if (error.errMsg === 'chooseImage:fail cancel') return;
+      if (`${error?.errMsg || ''}`.includes('cancel')) return;
       Toast({
         context: this,
         selector: '#t-toast',
-        message: error.errMsg || error.msg || '修改头像出错了',
-        theme: 'error',
+        message: '这次没有选好头像',
       });
     }
   },

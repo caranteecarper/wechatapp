@@ -1,4 +1,4 @@
-<view class="cart-empty">
+<view class="cart-empty theme-{{theme}}">
 	<t-image t-class="cart-img" src="{{imgUrl}}" />
 	<view class="tip">{{tip}}</view>
 	<view class="btn" bind:tap="handleClick">{{btnText}}</view>

@@ -25,15 +25,18 @@
 //   },
 // ];
 
+import { getPersonaContent } from './persona-content';
+
 const images = [
-  'https://tdesign.gtimg.com/miniprogram/template/retail/home/v2/banner1.png',
-  'https://tdesign.gtimg.com/miniprogram/template/retail/home/v2/banner2.png',
-  'https://tdesign.gtimg.com/miniprogram/template/retail/home/v2/banner3.png',
   'https://tdesign.gtimg.com/miniprogram/template/retail/home/v2/banner4.png',
   'https://tdesign.gtimg.com/miniprogram/template/retail/home/v2/banner5.png',
   'https://tdesign.gtimg.com/miniprogram/template/retail/home/v2/banner6.png',
 ];
 
-export function genSwiperImageList() {
+export function genSwiperImageList(persona = '') {
+  const system = getPersonaContent(persona);
+  if (system) {
+    return system.getHome().swiper;
+  }
   return images;
 }

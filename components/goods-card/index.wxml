@@ -1,6 +1,6 @@
 <view
   id="{{independentID}}"
-  class="goods-card"
+  class="goods-card theme-{{theme}}"
   bind:tap="clickHandle"
   data-goods="{{ goods }}"
 >
@@ -48,13 +48,12 @@
 				/>
 				<t-icon
 				  class="goods-card__add-cart"
-				  prefix="wr"
-				  name="cartAdd"
+				  name="chat-heart-filled"
 				  id="{{independentID}}-cart"
 				  data-id="{{independentID}}"
 				  catchtap="addCartHandle"
 				  size="48rpx"
-				  color="#FA550F"
+				  color="{{theme === 'teacher' ? '#7D3048' : (theme === 'baby' ? '#DF6F89' : (theme === 'princess' ? '#8E3049' : '#E86F86'))}}"
 				/>
 			</view>
 		</view>

@@ -1,61 +1,57 @@
-<view class="search-page">
-  <t-search
-    t-class-input-container="t-class__input-container"
-    t-class-input="t-search__input"
-    value="{{searchValue}}"
-    leftIcon=""
-    placeholder="iPhone12pro"
-    bind:submit="handleSubmit"
-    focus
-  >
-    <t-icon slot="left-icon" prefix="wr" name="search" size="40rpx" color="#bbb" />
-  </t-search>
-  <view class="search-wrap">
-    <view class="history-wrap">
-      <view class="search-header">
-        <text class="search-title">历史搜索</text>
-        <text class="search-clear" bind:tap="handleClearHistory">清除</text>
-      </view>
-      <view class="search-content">
-        <view
-          class="search-item"
-          hover-class="hover-history-item"
-          wx:for="{{historyWords}}"
-          bind:tap="handleHistoryTap"
-          bindlongpress="deleteCurr"
-          data-index="{{index}}"
-          wx:key="*this"
-        >
-          {{item}}
-        </view>
-      </view>
+<view class="persona-surface theme-{{currentPersona}} search-page">
+  <view class="persona-page-intro">
+    <view class="persona-page-eyebrow">{{pageCopy.eyebrow}}</view>
+    <view class="persona-page-title">{{pageCopy.title}}</view>
+    <view class="persona-page-description">{{pageCopy.description}}</view>
+  </view>
+
+  <form class="search-form" bindsubmit="handleSubmit">
+    <t-icon name="search" size="34rpx" color="var(--persona-muted)" />
+    <input
+      class="search-input"
+      name="keyword"
+      value="{{searchValue}}"
+      placeholder="{{pageCopy.placeholder}}"
+      placeholder-class="search-placeholder"
+      confirm-type="search"
+      bindinput="onInput"
+      focus
+    />
+    <view class="search-clear-button" wx:if="{{searchValue}}" bindtap="clearInput">
+      <t-icon name="close-circle-filled" size="30rpx" />
     </view>
-    <view class="popular-wrap">
-      <view class="search-header">
-        <text class="search-title">热门搜索</text>
-      </view>
-      <view class="search-content">
-        <view
-          class="search-item"
-          hover-class="hover-history-item"
-          wx:for="{{popularWords}}"
-          bind:tap="handleHistoryTap"
-          data-index="{{index}}"
-          wx:key="*this"
-        >
-          {{item}}
-        </view>
+  </form>
+
+  <view class="persona-section" wx:if="{{historyWords.length}}">
+    <view class="persona-section-heading">
+      <text>{{pageCopy.recentTitle}}</text>
+      <text class="search-clear-history" bindtap="clearHistory">{{pageCopy.clear}}</text>
+    </view>
+    <view class="search-chips">
+      <view
+        class="persona-chip"
+        wx:for="{{historyWords}}"
+        wx:key="*this"
+        data-value="{{item}}"
+        bindtap="chooseWord"
+      >
+        {{item}}
       </view>
     </view>
   </view>
-  <t-dialog
-    visible="{{dialogShow}}"
-    content="{{dialog.message}}"
-    bindconfirm="confirm"
-    bind:close="close"
-    confirm-btn="确定"
-    cancel-btn="{{dialog.showCancelButton ? '取消' : null}}"
-    t-class-confirm="dialog__button-confirm"
-    t-class-cancel="dialog__button-cancel"
-  />
+
+  <view class="persona-section">
+    <view class="persona-section-heading">{{pageCopy.suggestionTitle}}</view>
+    <view class="search-chips">
+      <view
+        class="persona-chip"
+        wx:for="{{pageCopy.suggestions}}"
+        wx:key="*this"
+        data-value="{{item}}"
+        bindtap="chooseWord"
+      >
+        {{item}}
+      </view>
+    </view>
+  </view>
 </view>

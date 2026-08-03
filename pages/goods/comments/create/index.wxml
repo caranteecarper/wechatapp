@@ -1,90 +1,71 @@
-<view class="page-container">
-  <view class="comment-card">
-    <view class="goods-info-container">
-      <view class="goods-image-container">
-        <t-image t-class="goods-image" src="{{imgUrl}}" />
-      </view>
-      <view class="goods-title-container">
-        <view class="goods-title">{{title}}</view>
-        <view class="goods-detail">{{goodsDetail}}</view>
-      </view>
+<view class="persona-surface theme-{{currentPersona}} feedback-create">
+  <view class="persona-page-intro">
+    <view class="persona-page-eyebrow">{{pageCopy.eyebrow}}</view>
+    <view class="persona-page-title">{{pageCopy.createNavTitle}}</view>
+    <view class="persona-page-description">{{pageCopy.description}}</view>
+  </view>
+
+  <view class="persona-section persona-card feedback-target">
+    <image class="feedback-target__image" src="{{imgUrl}}" mode="aspectFill" />
+    <view class="feedback-target__content">
+      <view class="feedback-target__label">{{pageCopy.interactionLabel}}</view>
+      <view class="feedback-target__title">{{title}}</view>
     </view>
-    <view class="rate-container">
-      <text class="rate-title">商品评价</text>
-      <view class="rate">
-        <t-rate
-          value="{{goodRateValue}}"
-          bind:change="onRateChange"
-          size="26"
-          gap="6"
-          color="{{['#ffc51c', '#ddd']}}"
-          data-item="goodRateValue"
-        />
-      </view>
+  </view>
+
+  <view class="persona-section persona-card feedback-form">
+    <view class="feedback-rate-row">
+      <text>{{pageCopy.caredLabel}}</text>
+      <t-rate
+        value="{{score}}"
+        size="24"
+        gap="7"
+        color="{{['#c59b58', '#ddd4d6']}}"
+        data-field="score"
+        bind:change="onRateChange"
+      />
     </view>
-    <view class="textarea-container">
+    <view class="feedback-rate-row">
+      <text>{{pageCopy.understoodLabel}}</text>
+      <t-rate
+        value="{{understoodScore}}"
+        size="24"
+        gap="7"
+        color="{{['#c59b58', '#ddd4d6']}}"
+        data-field="understoodScore"
+        bind:change="onRateChange"
+      />
+    </view>
+
+    <view class="feedback-textarea-wrap">
       <t-textarea
-        t-class="textarea"
+        t-class="feedback-textarea"
+        value="{{content}}"
         maxlength="{{500}}"
         indicator
-        placeholder="对商品满意吗？评论一下"
+        placeholder="{{pageCopy.placeholder}}"
         bind:change="onTextAreaChange"
       />
     </view>
-    <view class="upload-container">
+
+    <view class="feedback-upload">
       <t-upload
-        media-type="{{['image','video']}}"
+        media-type="{{['image']}}"
         files="{{uploadFiles}}"
-        bind:remove="handleRemove"
-        bind:success="handleSuccess"
+        max="6"
+        bind:remove="handleUploadRemove"
+        bind:success="handleUploadSuccess"
         gridConfig="{{gridConfig}}"
         imageProps="{{imageProps}}"
       />
     </view>
 
-    <view class="anonymous-box">
-      <t-checkbox bind:change="onAnonymousChange" checked="{{isAnonymous}}" color="#FA4126" />
-      <view class="name">匿名评价</view>
+    <view class="feedback-private-note">
+      <t-icon name="lock-on" size="26rpx" />
+      <text>{{pageCopy.privateLabel}}</text>
     </view>
   </view>
-</view>
-<view class="comment-card convey-card">
-  <view class="convey-comment-title">物流服务评价</view>
-  <view class="rate-container">
-    <text class="rate-title">物流评价</text>
-    <view class="rate">
-      <t-rate
-        value="{{conveyRateValue}}"
-        bind:change="onRateChange"
-        variant="filled"
-        size="26"
-        gap="6"
-        color="{{['#ffc51c', '#ddd']}}"
-        data-item="conveyRateValue"
-      />
-    </view>
-  </view>
-  <view class="rate-container">
-    <text class="rate-title">服务评价</text>
-    <view class="rate">
-      <t-rate
-        value="{{serviceRateValue}}"
-        bind:change="onRateChange"
-        size="26"
-        gap="6"
-        color="{{['#ffc51c', '#ddd']}}"
-        data-item="serviceRateValue"
-      />
-    </view>
-  </view>
-</view>
-<view class="submit-button-container">
-  <t-button
-    content="提交"
-    block
-    shape="round"
-    t-class="submit-button{{isAllowedSubmit ? '' : '-disabled'}}"
-    bind:tap="onSubmitBtnClick"
-  />
+
+  <view class="persona-primary-button feedback-submit" bindtap="submitFeedback">{{pageCopy.submit}}</view>
 </view>
 <t-toast id="t-toast" />

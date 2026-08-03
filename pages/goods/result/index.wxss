@@ -1,114 +1,76 @@
-page {
-  background-color: #fff;
+.result-page {
+  padding-right: 0;
+  padding-left: 0;
 }
 
-page view {
+.result-search {
   box-sizing: border-box;
-}
-
-.result-container {
-  display: block;
-}
-
-.result-container .t-search {
-  padding: 0 30rpx;
-  background-color: #fff;
-}
-
-.result-container .t-class__input-container {
-  height: 64rpx !important;
-  border-radius: 32rpx !important;
-}
-
-.result-container .t-search__left-icon {
   display: flex;
+  height: 80rpx;
+  margin: 0 28rpx;
+  padding: 0 22rpx;
   align-items: center;
+  gap: 14rpx;
+  border: 1rpx solid var(--persona-border);
+  border-radius: var(--persona-radius);
+  background: var(--persona-panel);
 }
 
-.result-container .t-search__input {
-  font-size: 28rpx !important;
-  color: #333 !important;
+.theme-baby .result-search {
+  border-radius: 40rpx;
 }
 
-.result-container .category-goods-list {
-  background-color: #f2f2f2;
-  overflow-y: scroll;
-  padding: 20rpx 24rpx;
-  -webkit-overflow-scrolling: touch;
+.result-search__input {
+  min-width: 0;
+  height: 80rpx;
+  flex: 1;
+  color: var(--persona-ink);
+  font-size: 27rpx;
 }
 
-.result-container .wr-goods-list {
-  background: #f2f2f2 !important;
+.result-search__placeholder {
+  color: var(--persona-muted);
 }
 
-.result-container .t-image__mask {
-  display: flex !important;
-}
-
-.result-container .empty-wrap {
-  margin-top: 184rpx;
-  margin-bottom: 120rpx;
-  height: 300rpx;
-}
-
-.result-container .empty-wrap .empty-tips .empty-content .content-text {
-  margin-top: 40rpx;
-}
-
-.result-container .price-container {
-  padding: 32rpx;
-  height: 100vh;
-  max-width: 632rpx;
-  background-color: #fff;
-  border-radius: 30rpx 0 0 30rpx;
-}
-
-.result-container .price-between {
-  font-size: 26rpx;
-  font-weight: 500;
-  color: rgba(51, 51, 51, 1);
-}
-
-.result-container .price-ipts-wrap {
-  width: 100%;
+.result-heading {
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin-top: 24rpx;
+  margin: 32rpx 28rpx 20rpx;
+  align-items: flex-end;
+  justify-content: space-between;
 }
 
-.result-container .price-ipts-wrap .price-divided {
-  position: relative;
-  width: 22rpx;
-  margin: 0 20rpx;
-  color: #222427;
+.result-title {
+  margin-top: 8rpx;
+  color: var(--persona-ink);
+  font-size: 34rpx;
+  font-weight: 700;
 }
 
-.result-container .price-ipts-wrap .price-ipt {
-  box-sizing: border-box;
-  width: 246rpx;
-  font-size: 24rpx;
-  height: 56rpx;
-  padding: 0 24rpx;
-  text-align: center;
-  border-radius: 8rpx;
-  color: #333;
-  background: rgba(245, 245, 245, 1);
+.theme-princess .result-title {
+  font-family: Georgia, "Songti SC", serif;
 }
 
-.t-class-input {
-  font-size: 24rpx !important;
+.result-count {
+  color: var(--persona-muted);
+  font-size: 23rpx;
 }
 
-.t-search__clear {
-  font-size: 40rpx !important;
+.result-list {
+  padding: 20rpx 24rpx 40rpx;
+  background: var(--persona-bg);
 }
 
-.result-container .price-ipts-wrap .price-ipt::after {
-  border: none !important;
+.result-goods-list {
+  background: transparent !important;
 }
 
-.result-container .t-input__control {
-  font-size: 24rpx !important;
+.result-page .persona-empty {
+  margin: 40rpx 28rpx 0;
+}
+
+.result-loading {
+  padding: 180rpx 28rpx;
+  color: var(--persona-muted);
+  font-size: 25rpx;
   text-align: center;
 }

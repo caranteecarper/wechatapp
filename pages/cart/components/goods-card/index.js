@@ -90,6 +90,10 @@ Component({
       type: String,
       value: '¥',
     },
+    theme: {
+      type: String,
+      value: '',
+    },
     lazyLoad: {
       type: Boolean,
       value: false,
@@ -163,7 +167,7 @@ Component({
       const { index } = evt.currentTarget.dataset;
       this.triggerEvent('tag', { goods: this.data.goods, index });
     },
-    // 加入购物车
+    // 加入心愿篮
     addCartHandle(e) {
       const { id } = e.currentTarget;
       const { id: cardID } = e.currentTarget.dataset;

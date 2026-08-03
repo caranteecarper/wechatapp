@@ -1,92 +1,100 @@
-page {
-  background-color: #f5f5f5;
-}
-
-.coupon-card-wrap {
-  background-color: #fff;
-  padding: 32rpx 32rpx 1rpx;
-}
-.desc-wrap {
+.voucher-detail-card {
+  display: flex;
   margin-top: 24rpx;
-}
-.desc-wrap .button-wrap {
-  margin: 50rpx 32rpx 0;
-}
-
-.desc-group-wrap .t-class-cell {
-  align-items: flex-start;
-}
-
-.desc-group-wrap .t-class-title {
-  font-size: 26rpx;
-  width: 140rpx;
-  flex: none;
-  color: #888;
-}
-
-.desc-group-wrap .t-class-note {
-  font-size: 26rpx;
-  word-break: break-all;
-  white-space: pre-line;
-  justify-content: flex-start;
-  color: #333;
-  width: 440rpx;
-}
-
-.desc-group-wrap {
-  border-radius: 8rpx;
-  overflow: hidden;
-
-  --cell-label-font-size: 26rpx;
-  --cell-label-line-height: 36rpx;
-  --cell-label-color: #999;
-}
-
-.desc-group-wrap.in-popup {
-  border-radius: 0;
-  overflow: auto;
-  max-height: 828rpx;
-}
-
-.desc-group-wrap .wr-cell__title {
-  color: #333;
-  font-size: 28rpx;
-}
-
-/* .desc-group-wrap .max-width-cell {
-  overflow: hidden;
-} */
-
-/* .desc-group-wrap .signal-line-label {
-  word-break: keep-all;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.desc-group-wrap .multi-line-label {
-  word-break: break-all;
-  white-space: pre-line;
-} */
-
-.popup-content-wrap {
-  background-color: #fff;
-  border-top-left-radius: 20rpx;
-  border-top-right-radius: 20rpx;
-}
-
-.popup-content-title {
-  font-size: 32rpx;
-  color: #333;
-
+  padding: 44rpx 34rpx;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  height: 104rpx;
-  line-height: 104rpx;
-
-  position: relative;
 }
 
-.popup-content-title .close-icon {
-  position: absolute;
-  top: 24rpx;
-  right: 24rpx;
+.voucher-detail-card__symbol {
+  display: flex;
+  width: 116rpx;
+  height: 116rpx;
+  align-items: center;
+  justify-content: center;
+  color: var(--persona-accent);
+  border: 1rpx solid var(--persona-border);
+  border-radius: 50%;
+  background: var(--persona-soft);
+}
+
+.theme-princess .voucher-detail-card__symbol,
+.theme-teacher .voucher-detail-card__symbol {
+  border-radius: var(--persona-radius);
+}
+
+.voucher-detail-card__label {
+  margin-top: 26rpx;
+  color: var(--persona-gold);
+  font-size: 18rpx;
+  font-weight: 700;
+}
+
+.voucher-detail-card__title {
+  margin-top: 10rpx;
+  color: var(--persona-ink);
+  font-size: 38rpx;
+  font-weight: 700;
+}
+
+.theme-princess .voucher-detail-card__title {
+  font-family: Georgia, "Songti SC", serif;
+}
+
+.voucher-detail-card__subtitle {
+  max-width: 520rpx;
+  margin-top: 14rpx;
+  color: var(--persona-muted);
+  font-size: 25rpx;
+  line-height: 1.7;
+}
+
+.voucher-detail-card__meta {
+  margin-top: 22rpx;
+  padding: 8rpx 18rpx;
+  color: var(--persona-accent);
+  border: 1rpx solid var(--persona-border);
+  border-radius: var(--persona-radius);
+  background: var(--persona-bg);
+  font-size: 21rpx;
+}
+
+.voucher-rules {
+  padding: 8rpx 28rpx;
+}
+
+.voucher-rule {
+  display: flex;
+  padding: 26rpx 0;
+  gap: 22rpx;
+  border-bottom: 1rpx solid var(--persona-border);
+}
+
+.voucher-rule:last-child {
+  border-bottom: 0;
+}
+
+.voucher-rule__index {
+  color: var(--persona-gold);
+  font-family: Georgia, serif;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.voucher-rule__title {
+  color: var(--persona-ink);
+  font-size: 26rpx;
+  font-weight: 650;
+}
+
+.voucher-rule__description {
+  margin-top: 8rpx;
+  color: var(--persona-muted);
+  font-size: 23rpx;
+  line-height: 1.65;
+}
+
+.voucher-detail-action {
+  margin-top: 26rpx;
 }

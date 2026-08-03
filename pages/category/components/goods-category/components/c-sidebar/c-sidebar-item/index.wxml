@@ -1,6 +1,6 @@
-<view class="c-sidebar-item-container">
+<view class="c-sidebar-item-container theme-{{theme}}">
   <view
-    class="c-sidebar-item {{ selected ? 'active' : '' }} {{ disabled ? 'disabled' : '' }} {{topRightRadius ? 'top-right-radius' : ''}} {{bottomRightRadius ? 'bottom-right-radius' : ''}} custom-class"
+    class="c-sidebar-item theme-{{theme}} {{ selected ? 'active' : '' }} {{ disabled ? 'disabled' : '' }} {{topRightRadius ? 'top-right-radius' : ''}} {{bottomRightRadius ? 'bottom-right-radius' : ''}} custom-class"
     hover-class="c-sidebar-item--hover"
     hover-stay-time="70"
     bind:tap="onClick"

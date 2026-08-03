@@ -45,6 +45,10 @@ Component({
       type: Array,
       value: [],
     },
+    theme: {
+      type: String,
+      value: '',
+    },
   },
 
   data: {

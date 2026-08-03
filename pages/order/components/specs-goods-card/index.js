@@ -57,6 +57,10 @@ Component({
       type: String,
       value: '¥',
     },
+    theme: {
+      type: String,
+      value: '',
+    },
     lazyLoad: Boolean,
     centered: Boolean,
     showCart: Boolean,

@@ -1,8 +1,10 @@
-<!-- 分层购物车 -->
+<view class="cart-page theme-{{currentPersona}}">
+<!-- 分层心愿篮 -->
 <block wx:if="{{cartGroupData.isNotEmpty}}">
   <cart-group
     store-goods="{{ cartGroupData.storeGoods }}"
     invalid-good-items="{{ cartGroupData.invalidGoodItems }}"
+    theme="{{currentPersona}}"
     bindselectgoods="onGoodsSelect"
     bindselectstore="onStoreSelect"
     bindchangequantity="onQuantityChange"
@@ -13,7 +15,7 @@
   />
 
   <view class="gap" />
-  <!-- 商品小计以及结算按钮 -->
+  <!-- 心愿小计以及发送按钮 -->
   <cart-bar
     is-all-selected="{{cartGroupData.isAllSelected}}"
     total-amount="{{cartGroupData.totalAmount}}"
@@ -21,11 +23,21 @@
     total-discount-amount="{{cartGroupData.totalDiscountAmount}}"
     fixed="{{true}}"
     bottomHeight="{{110}}"
+    theme="{{currentPersona}}"
+    send-text="{{personaUi.sendText}}"
     bindhandleSelectAll="onSelectAll"
     bindhandleToSettle="onToSettle"
   />
 </block>
-<!-- 购物车空态 -->
-<cart-empty wx:else bind:handleClick="onGotoHome" />
+<!-- 心愿篮空态 -->
+<cart-empty
+  wx:else
+  theme="{{currentPersona}}"
+  img-url="{{currentPersona === 'teacher' ? '/assets/teacher/night-talk-card.jpg' : (currentPersona === 'baby' ? '/assets/baby/cuddle.jpg' : (currentPersona === 'princess' ? '/assets/princess/wish.jpg' : 'https://tdesign.gtimg.com/miniprogram/template/retail/template/empty-cart.png'))}}"
+  tip="{{personaUi.basketName}}还是空的"
+  btn-text="{{currentPersona === 'teacher' ? '去看看姐姐指令' : (currentPersona === 'baby' ? '去选一个抱抱' : (currentPersona === 'princess' ? '去收录愿望' : '去写心愿'))}}"
+  bind:handleClick="onGotoHome"
+/>
+</view>
 <t-toast id="t-toast" />
 <t-dialog id="t-dialog" />

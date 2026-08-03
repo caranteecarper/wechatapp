@@ -1,7 +1,16 @@
 {
   "description": "项目配置文件，详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
   "packOptions": {
-    "ignore": [],
+    "ignore": [
+      {
+        "type": "folder",
+        "value": ".npm-cache"
+      },
+      {
+        "type": "folder",
+        "value": "node_modules"
+      }
+    ],
     "include": []
   },
   "setting": {
@@ -26,7 +35,7 @@
     "useMultiFrameRuntime": true,
     "useApiHook": true,
     "useApiHostProcess": true,
-    "ignoreDevUnusedFiles": false,
+    "ignoreDevUnusedFiles": true,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -51,8 +60,8 @@
     "disableSWC": true
   },
   "compileType": "miniprogram",
-  "libVersion": "3.13.0",
-  "appid": "wx0ee80a2f23dbd157",
+  "libVersion": "3.17.0",
+  "appid": "wx4cde019b1bf1711e",
   "projectname": "tdesign-miniprogram-starter-retail",
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},

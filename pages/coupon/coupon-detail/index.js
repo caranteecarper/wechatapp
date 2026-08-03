@@ -1,32 +1,38 @@
-import { fetchCouponDetail } from '../../../services/coupon/index';
+import Toast from 'tdesign-miniprogram/toast/index';
+import { syncPersonaPage } from '../../../utils/personas';
+import { getPersonaPageCopy } from '../../../utils/persona-pages';
 
 Page({
   data: {
-    detail: null,
-    storeInfoList: [],
-    storeInfoStr: '',
-    showStoreInfoList: false,
+    currentPersona: '',
+    pageCopy: {},
+    voucher: {},
   },
 
-  id: '',
-
-  onLoad(query) {
-    const id = parseInt(query.id);
-    this.id = id;
-    this.getGoodsList(id);
-  },
-
-  getGoodsList(id) {
-    fetchCouponDetail(id).then(({ detail }) => {
-      this.setData({
-        detail,
-      });
+  onLoad(query = {}) {
+    const persona = syncPersonaPage(this);
+    const pageCopy = getPersonaPageCopy(persona.key, 'vouchers');
+    const voucher = (pageCopy.items || []).find((item) => item.key === query.id) || pageCopy.items?.[0] || {};
+    this.setData({
+      currentPersona: persona.key,
+      pageCopy,
+      voucher,
     });
+    wx.setNavigationBarTitle({ title: pageCopy.detailNavTitle });
   },
 
-  navGoodListHandle() {
-    wx.navigateTo({
-      url: `/pages/coupon/coupon-activity-goods/index?id=${this.id}`,
+  collectVoucher() {
+    const key = `love.vouchers.${this.data.currentPersona}`;
+    const saved = wx.getStorageSync(key) || [];
+    if (!saved.includes(this.data.voucher.key)) {
+      saved.unshift(this.data.voucher.key);
+      wx.setStorageSync(key, saved);
+    }
+    Toast({
+      context: this,
+      selector: '#t-toast',
+      message: this.data.pageCopy.actionToast,
+      icon: 'check-circle',
     });
   },
 });

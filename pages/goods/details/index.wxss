@@ -265,6 +265,119 @@ page {
   --td-swiper-radius: 0;
 }
 
+.goods-detail-page.theme-baby {
+  min-height: 100vh;
+  background-color: #fff7f9;
+  font-family: "Yuanti SC", "STYuanti-SC-Regular", "YouYuan", "PingFang SC", sans-serif;
+}
+
+.goods-detail-page.theme-baby .goods-info,
+.goods-detail-page.theme-baby .spu-select,
+.goods-detail-page.theme-baby .desc-content {
+  background-color: #fffdfd;
+}
+
+.goods-detail-page.theme-baby .goods-info .goods-price .class-goods-price,
+.goods-detail-page.theme-baby .goods-info .goods-price .class-goods-symbol,
+.goods-detail-page.theme-baby .goods-info .goods-price-up,
+.goods-detail-page.theme-baby .popup-sku__price,
+.goods-detail-page.theme-baby .popup-sku__price-num,
+.goods-detail-page.theme-baby .popup-sku__price-symbol {
+  color: #df6f89;
+}
+
+.goods-detail-page.theme-baby .goods-info .goods-title .goods-name,
+.goods-detail-page.theme-baby .desc-content__title--text {
+  color: #603d49;
+  font-weight: 700;
+}
+
+.goods-detail-page.theme-baby .spu-select {
+  border-top: 1rpx solid #f1dce1;
+  border-bottom: 1rpx solid #f1dce1;
+}
+
+.goods-detail-page.theme-princess {
+  min-height: 100vh;
+  background-color: #f8f3f1;
+}
+
+.goods-detail-page.theme-princess .goods-info,
+.goods-detail-page.theme-princess .spu-select,
+.goods-detail-page.theme-princess .desc-content {
+  background-color: #fffdfb;
+}
+
+.goods-detail-page.theme-princess .goods-info {
+  border-bottom: 1rpx solid #e2d2c5;
+}
+
+.goods-detail-page.theme-princess .goods-info .goods-price .class-goods-price,
+.goods-detail-page.theme-princess .goods-info .goods-price .class-goods-symbol,
+.goods-detail-page.theme-princess .goods-info .goods-price-up,
+.goods-detail-page.theme-princess .popup-sku__price,
+.goods-detail-page.theme-princess .popup-sku__price-num,
+.goods-detail-page.theme-princess .popup-sku__price-symbol {
+  color: #8e3049;
+}
+
+.goods-detail-page.theme-princess .goods-info .goods-title .goods-name,
+.goods-detail-page.theme-princess .desc-content__title--text {
+  color: #4f2832;
+  font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+  font-weight: 600;
+}
+
+.goods-detail-page.theme-princess .spu-select {
+  border-top: 1rpx solid #e2d2c5;
+  border-bottom: 1rpx solid #e2d2c5;
+}
+
+.interaction-feedback-entry {
+  display: flex;
+  min-height: 112rpx;
+  margin-top: 2rpx;
+  padding: 22rpx 30rpx;
+  align-items: center;
+  justify-content: space-between;
+  color: #7d3048;
+  border-top: 1rpx solid #e4d6d9;
+  background: #fffdfb;
+}
+
+.interaction-feedback-entry__title {
+  color: #2d1a20;
+  font-size: 27rpx;
+  font-weight: 650;
+}
+
+.interaction-feedback-entry__desc {
+  margin-top: 8rpx;
+  color: #806a70;
+  font-size: 22rpx;
+}
+
+.goods-detail-page.theme-baby .interaction-feedback-entry {
+  color: #df6f89;
+  border-color: #f1dce1;
+  background: #fffdfd;
+}
+
+.goods-detail-page.theme-baby .interaction-feedback-entry__title {
+  color: #603d49;
+}
+
+.goods-detail-page.theme-princess .interaction-feedback-entry {
+  color: #8e3049;
+  border-color: #e2d2c5;
+  background: #fffdfb;
+}
+
+.goods-detail-page.theme-princess .interaction-feedback-entry__title {
+  color: #4f2832;
+  font-family: "Songti SC", "STSong", serif;
+}
+
 .t-toast__content {
   z-index: 12000 !important;
 }

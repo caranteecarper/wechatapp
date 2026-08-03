@@ -1,4 +1,4 @@
-<view class="user-center-card">
+<view class="user-center-card theme-{{theme}}">
   <!-- 未登录的情况 -->
   <block wx:if="{{currAuthStep === AuthStepType.ONE}}">
     <view class="user-center-card__header" bind:tap="gotoUserEditPage">

@@ -1,5 +1,5 @@
 <t-popup visible="{{show}}" placement="bottom" bind:visible-change="handlePopupHide">
-  <view class="popup-container">
+  <view class="popup-container theme-{{theme}}">
     <view class="popup-close" bindtap="handlePopupHide">
       <t-icon name="close" size="36rpx" />
     </view>
@@ -12,7 +12,7 @@
         </view>
         <!-- 已选规格 -->
         <view class="popup-sku__selected-spec">
-          <view>选择：</view>
+          <view>{{theme === 'teacher' ? '选择指令：' : (theme === 'baby' ? '选择抱抱：' : (theme === 'princess' ? '选择礼单：' : '选择：'))}}</view>
           <view wx:for="{{specList}}" wx:key="specId">
             <view
               class="popup-sku__selected-item"
@@ -53,7 +53,7 @@
       <view class="popup-sku-stepper-stock">
         <view class="popup-sku-stepper-container">
           <view class="popup-sku__stepper-title">
-            购买数量
+            {{theme === 'teacher' ? '指令数量' : (theme === 'baby' ? '心愿数量' : (theme === 'princess' ? '礼单数量' : '购买数量'))}}
             <view class="limit-text" wx:if="{{limitBuyInfo}}"> ({{limitBuyInfo}}) </view>
           </view>
           <t-stepper value="{{buyNum}}" min="{{1}}" max="{{2}}" theme="filled" bind:change="handleBuyNumChange" />
@@ -69,12 +69,12 @@
     >
       <view class="sku-operate">
         <view class="selected-sku-btn sku-operate-addCart {{!isStock ? 'disabled' : ''}}" bindtap="addCart">
-          加入购物车
+          {{theme === 'teacher' ? '放进指令册' : (theme === 'baby' ? '放进宝宝篮' : (theme === 'princess' ? '收进愿望礼册' : '加入购物车'))}}
         </view>
       </view>
       <view class="sku-operate">
         <view class="selected-sku-btn sku-operate-buyNow  {{!isStock ? 'disabled' : ''}}" bindtap="buyNow">
-          立即购买
+          {{sendText || '发送需求'}}
         </view>
       </view>
     </view>

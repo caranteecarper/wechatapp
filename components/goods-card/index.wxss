@@ -1,22 +1,21 @@
 .goods-card {
   box-sizing: border-box;
   font-size: 24rpx;
-  border-radius: 0 0 16rpx 16rpx;
+  border-radius: 0;
   border-bottom: none;
 }
 
 .goods-card__main {
   position: relative;
   display: flex;
-  line-height: 1;
-  padding: 0;
-  background: transparent;
   width: 342rpx;
-  border-radius: 0 0 16rpx 16rpx;
+  margin-bottom: 16rpx;
+  overflow: hidden;
   align-items: center;
   justify-content: center;
-  margin-bottom: 16rpx;
   flex-direction: column;
+  background: #fff;
+  border-radius: 20rpx;
 }
 
 .goods-card__thumb {
@@ -35,15 +34,13 @@
   display: block;
   width: 100%;
   height: 100%;
-  border-radius: 16rpx 16rpx 0 0;
+  border-radius: 0;
   overflow: hidden;
 }
 
 .goods-card__body {
   display: flex;
   flex: 1 1 auto;
-  background: #fff;
-  border-radius: 0 0 16rpx 16rpx;
   padding: 16rpx 24rpx 18rpx;
   flex-direction: column;
 }
@@ -57,77 +54,160 @@
 
 .goods-card__title {
   flex-shrink: 0;
-  font-size: 28rpx;
-  color: #333;
-  font-weight: 400;
   display: -webkit-box;
   height: 72rpx;
+  overflow: hidden;
+  color: #3f2f35;
+  font-size: 28rpx;
+  font-weight: 600;
+  line-height: 36rpx;
+  word-break: break-word;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  overflow: hidden;
-  word-break: break-word;
-  line-height: 36rpx;
 }
 
 .goods-card__tags {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin: 8rpx 0 0 0;
+  margin: 8rpx 0 0;
 }
 
 .goods-card__tag {
-  color: #fa4126;
-  background: transparent;
-  font-size: 20rpx;
-  border: 1rpx solid #fa4126;
-  padding: 0 8rpx;
-  border-radius: 16rpx;
-  line-height: 30rpx;
-  margin: 0 8rpx 8rpx 0;
   display: block;
   overflow: hidden;
+  margin: 0 8rpx 8rpx 0;
+  padding: 0 8rpx;
+  color: #d96f82;
+  background: #fff3f5;
+  border: 1rpx solid rgba(232, 111, 134, 0.2);
+  border-radius: 16rpx;
+  font-size: 20rpx;
+  line-height: 30rpx;
   white-space: nowrap;
   word-break: keep-all;
   text-overflow: ellipsis;
 }
 
 .goods-card__down {
-  display: flex;
   position: relative;
+  display: flex;
   flex-direction: row;
-  justify-content: flex-start;
   align-items: baseline;
+  justify-content: flex-start;
+  margin: 8rpx 0 0;
   line-height: 32rpx;
-  margin: 8rpx 0 0 0;
 }
 
 .goods-card__origin-price {
-  white-space: nowrap;
-  font-weight: 700;
   order: 2;
+  margin: 0 0 0 8rpx;
   color: #bbbbbb;
   font-size: 24rpx;
-  margin: 0 0 0 8rpx;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 .goods-card__add-cart {
+  position: absolute;
+  right: 0;
+  bottom: 0;
   order: 3;
   margin: auto 0 0 auto;
-  position: absolute;
-  bottom: 0;
-  right: 0;
 }
 
 .spec-for-price {
-  font-size: 36rpx;
-  white-space: nowrap;
-  font-weight: 700;
   order: 1;
-  color: #fa4126;
   margin: 0;
+  color: #e86f86;
+  font-size: 36rpx;
+  font-weight: 700;
+  white-space: nowrap;
 }
 
 .spec-for-symbol {
   font-size: 24rpx;
+}
+
+.goods-card.theme-teacher .goods-card__main {
+  background: #fffdfb;
+  border: 1rpx solid #e4d6d9;
+  border-radius: 10rpx;
+  box-shadow: 0 10rpx 24rpx rgba(54, 26, 34, 0.07);
+}
+
+.goods-card.theme-teacher .goods-card__body {
+  padding: 18rpx 22rpx 20rpx;
+}
+
+.goods-card.theme-teacher .goods-card__title {
+  color: #2d1a20;
+}
+
+.goods-card.theme-teacher .goods-card__tag {
+  color: #7d3048;
+  background: #f4e9ea;
+  border-color: #e3cdd2;
+  border-radius: 4rpx;
+}
+
+.goods-card.theme-teacher .spec-for-price {
+  color: #7d3048;
+}
+
+.goods-card.theme-baby {
+  font-family: "Yuanti SC", "STYuanti-SC-Regular", "YouYuan", "PingFang SC", sans-serif;
+}
+
+.goods-card.theme-baby .goods-card__main {
+  border: 1rpx solid #f0d9df;
+  border-radius: 16rpx;
+  background: #fffdfd;
+  box-shadow: 0 10rpx 26rpx rgba(177, 104, 121, 0.08);
+}
+
+.goods-card.theme-baby .goods-card__img {
+  border-radius: 16rpx 16rpx 0 0;
+}
+
+.goods-card.theme-baby .goods-card__title {
+  color: #603d49;
+}
+
+.goods-card.theme-baby .goods-card__tag {
+  border-color: #f0d2da;
+  color: #c35f77;
+  background: #fff0f3;
+}
+
+.goods-card.theme-baby .spec-for-price {
+  color: #df6f89;
+}
+
+.goods-card.theme-princess .goods-card__main {
+  border: 1rpx solid #dfcdbc;
+  border-radius: 8rpx;
+  background: #fffdfb;
+  box-shadow: 0 10rpx 24rpx rgba(94, 51, 42, 0.07);
+}
+
+.goods-card.theme-princess .goods-card__body {
+  padding: 18rpx 22rpx 20rpx;
+}
+
+.goods-card.theme-princess .goods-card__title {
+  color: #4d2732;
+  font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+  font-weight: 600;
+}
+
+.goods-card.theme-princess .goods-card__tag {
+  border-color: #e2d2c4;
+  border-radius: 4rpx;
+  color: #8e3049;
+  background: #f7ebeb;
+}
+
+.goods-card.theme-princess .spec-for-price {
+  color: #8e3049;
 }

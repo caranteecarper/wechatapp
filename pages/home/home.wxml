@@ -1,12 +1,28 @@
 <view style="text-align: center; color: #b9b9b9" wx:if="{{pageLoading}}">
   <t-loading theme="circular" size="40rpx" text="加载中..." inherit-color />
 </view>
-<view class="home-page-header">
+<view class="home-page-header theme-{{currentPersona}}">
+  <view class="love-hero">
+    <view class="love-hero__eyebrow">{{homeCopy.eyebrow}}</view>
+    <view class="love-hero__title">{{homeCopy.title}}</view>
+    <view class="love-hero__subtitle">{{homeCopy.subtitle}}</view>
+    <view class="nickname-row">
+      <view
+        wx:for="{{personas}}"
+        wx:key="key"
+        class="nickname-chip {{item.key === currentPersona ? 'nickname-chip--active' : ''}}"
+        data-key="{{item.key}}"
+        bindtap="switchPersona"
+      >
+        {{item.label}}
+      </view>
+    </view>
+  </view>
   <view class="search" bind:tap="navToSearchPage">
     <t-search
       t-class-input="t-search__input"
       t-class-input-container="t-search__input-container"
-      placeholder="iphone 13 火热发售中"
+      placeholder="{{homeCopy.searchPlaceholder || ''}}"
       leftIcon=""
       disabled
     >
@@ -27,7 +43,7 @@
     />
   </view>
 </view>
-<view class="home-page-container">
+<view class="home-page-container theme-{{currentPersona}}">
   <view class="home-page-tabs">
     <t-tabs
       t-class="t-tabs"
@@ -50,6 +66,7 @@
   <goods-list
     wr-class="goods-list-container"
     goodsList="{{goodsList}}"
+    theme="{{currentPersona}}"
     bind:click="goodListClickHandle"
     bind:addcart="goodListAddCartHandle"
   />

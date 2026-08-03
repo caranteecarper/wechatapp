@@ -1,4 +1,4 @@
-<view class="order-card wr-class" bind:tap="onOrderCardTap">
+<view class="order-card theme-{{theme}} wr-class" bind:tap="onOrderCardTap">
   <view class="header header-class">
     <view class="store-name title-class">
       <block wx:if="{{!useLogoSlot}}">

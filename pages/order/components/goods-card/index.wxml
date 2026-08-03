@@ -1,6 +1,6 @@
 <view
  id="{{independentID}}"
- class="wr-goods-card card-class {{ layout }} {{ centered ? 'center' : ''}}"
+ class="wr-goods-card theme-{{theme}} card-class {{ layout }} {{ centered ? 'center' : ''}}"
  bind:tap="clickHandle"
  data-goods="{{ goods }}"
  hidden="{{hiddenInData}}"

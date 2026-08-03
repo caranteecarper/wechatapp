@@ -21,6 +21,10 @@ Component({
       type: Boolean,
       value: false,
     },
+    theme: {
+      type: String,
+      value: '',
+    },
   },
   data: {
     defaultAvatarUrl: 'https://tdesign.gtimg.com/miniprogram/template/retail/usercenter/icon-user-center-avatar@2x.png',

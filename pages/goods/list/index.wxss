@@ -97,3 +97,34 @@ page {
 .goods-list-container .price-ipts-wrap .price-ipt {
   border-radius: 8rpx;
 }
+
+.goods-list-container.theme-teacher {
+  min-height: 100vh;
+  background-color: #f7f0ed;
+}
+
+.goods-list-container.theme-teacher .category-goods-list,
+.goods-list-container.theme-teacher .wr-goods-list {
+  background-color: #f7f0ed !important;
+}
+
+.goods-list-container.theme-baby {
+  min-height: 100vh;
+  background-color: #fff7f9;
+  font-family: "Yuanti SC", "STYuanti-SC-Regular", "YouYuan", "PingFang SC", sans-serif;
+}
+
+.goods-list-container.theme-baby .category-goods-list,
+.goods-list-container.theme-baby .wr-goods-list {
+  background-color: #fff7f9 !important;
+}
+
+.goods-list-container.theme-princess {
+  min-height: 100vh;
+  background-color: #f8f3f1;
+}
+
+.goods-list-container.theme-princess .category-goods-list,
+.goods-list-container.theme-princess .wr-goods-list {
+  background-color: #f8f3f1 !important;
+}

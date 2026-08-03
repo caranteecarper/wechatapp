@@ -36,6 +36,14 @@ Component({
       type: String,
       value: '',
     },
+    theme: {
+      type: String,
+      value: '',
+    },
+    sendText: {
+      type: String,
+      value: '',
+    },
   },
 
   data: {

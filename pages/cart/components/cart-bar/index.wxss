@@ -78,3 +78,59 @@
 .text-padding-right {
   padding-right: 4rpx;
 }
+
+.cart-bar.theme-teacher {
+  background-color: #fffaf7;
+  border-top-color: #e6d6d9;
+  color: #4a2431;
+}
+
+.cart-bar.theme-teacher .account-btn {
+  background-color: #7d3048;
+}
+
+.cart-bar.theme-teacher .cart-bar__total--bold {
+  color: #4a2431;
+}
+
+.cart-bar.theme-teacher .cart-bar__total--price {
+  color: #7d3048;
+}
+
+.cart-bar.theme-baby {
+  border-top-color: #f0d8de;
+  color: #603d49;
+  background-color: #fffdfd;
+  font-family: "Yuanti SC", "STYuanti-SC-Regular", "YouYuan", "PingFang SC", sans-serif;
+}
+
+.cart-bar.theme-baby .account-btn {
+  background-color: #df6f89;
+}
+
+.cart-bar.theme-baby .cart-bar__total--bold {
+  color: #603d49;
+}
+
+.cart-bar.theme-baby .cart-bar__total--price {
+  color: #df6f89;
+}
+
+.cart-bar.theme-princess {
+  border-top-color: #dfcdbf;
+  color: #4f2832;
+  background-color: #fffdfb;
+}
+
+.cart-bar.theme-princess .account-btn {
+  border-radius: 8rpx;
+  background-color: #8e3049;
+}
+
+.cart-bar.theme-princess .cart-bar__total--bold {
+  color: #4f2832;
+}
+
+.cart-bar.theme-princess .cart-bar__total--price {
+  color: #8e3049;
+}

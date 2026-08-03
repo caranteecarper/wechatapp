@@ -1,5 +1,7 @@
 import { fetchGoodsList } from '../../../services/good/fetchGoodsList';
 import Toast from 'tdesign-miniprogram/toast/index';
+import { isInteractionPersona, syncPersonaPage } from '../../../utils/personas';
+import { addPersonaCartItem } from '../../../utils/persona-cart';
 
 const initFilters = {
   overall: 1,
@@ -20,6 +22,10 @@ Page({
     hasLoaded: false,
     loadMoreStatus: 0,
     loading: true,
+    currentPersona: '',
+    isTeacher: false,
+    isInteractionPersona: false,
+    personaUi: {},
   },
 
   pageNum: 1,
@@ -39,7 +45,7 @@ Page({
   },
 
   generalQueryData(reset = false) {
-    const { filter, keywords, minVal, maxVal } = this.data;
+    const { filter, keywords, minVal, maxVal, currentPersona } = this.data;
     const { pageNum, pageSize } = this;
     const { sorts, overall } = filter;
     const params = {
@@ -47,6 +53,8 @@ Page({
       pageNum: 1,
       pageSize: 30,
       keyword: keywords,
+      persona: currentPersona,
+      groupId: this.groupId || '',
     };
 
     if (sorts) {
@@ -124,7 +132,16 @@ Page({
     });
   },
 
-  onLoad() {
+  onLoad(options = {}) {
+    const persona = syncPersonaPage(this);
+    wx.setNavigationBarTitle({ title: persona.ui.listTitle });
+    this.groupId = options.groupId || '';
+    this.setData({
+      currentPersona: persona.key,
+      isTeacher: persona.key === 'teacher',
+      isInteractionPersona: isInteractionPersona(persona.key),
+      personaUi: persona.ui,
+    });
     this.init(true);
   },
 
@@ -140,11 +157,16 @@ Page({
     this.init(false);
   },
 
-  handleAddCart() {
+  handleAddCart(e) {
+    const { index } = e.detail;
+    const good = this.data.goodsList[index];
+    if (this.data.isInteractionPersona && good) {
+      addPersonaCartItem(this.data.currentPersona, good.spuId);
+    }
     Toast({
       context: this,
       selector: '#t-toast',
-      message: '点击加购',
+      message: this.data.isInteractionPersona ? this.data.personaUi.addCartToast : '点击加购',
     });
   },
 

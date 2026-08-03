@@ -1,4 +1,4 @@
-<view class="page-container">
+<view class="page-container theme-{{currentPersona}}">
   <view class="tab-bar">
     <view class="tab-bar__placeholder" />
     <t-tabs
@@ -24,7 +24,7 @@
     normal-bar-height="{{200}}"
     max-bar-height="{{272}}"
     refreshTimeout="{{3000}}"
-    background="#f5f5f5"
+    background="{{currentPersona === 'teacher' ? '#f7f0ed' : (currentPersona === 'baby' ? '#fff6f8' : (currentPersona === 'princess' ? '#f8f3f1' : '#f5f5f5'))}}"
     use-loading-slot
     loading-size="60rpx"
     value="{{pullDownRefreshing}}"
@@ -40,10 +40,11 @@
       defaultShowNum="{{3}}"
       data-order="{{order}}"
       bindcardtap="onOrderCardTap"
+      theme="{{currentPersona}}"
       useLogoSlot
     >
       <view slot="top-left" class="order-number">
-        <text decode>订单号&nbsp;</text>
+        <text decode>{{currentPersona === 'teacher' ? '指令号' : (currentPersona === 'baby' ? '抱抱号' : (currentPersona === 'princess' ? '礼单号' : '心愿号'))}}&nbsp;</text>
         {{order.orderNo}}
       </view>
       <specs-goods-card
@@ -52,16 +53,17 @@
         wx:for-item="goods"
         wx:for-index="gIndex"
         data="{{goods}}"
+        theme="{{currentPersona}}"
         no-top-line="{{gIndex === 0}}"
       />
       <view slot="more">
         <view class="price-total">
-          <text>总价</text>
+          <text>{{personaUi.valueName}}</text>
           <price fill price="{{order.totalAmount + ''}}" />
-          <text>，运费</text>
+          <text>{{currentPersona === 'teacher' ? '，私密加成' : (currentPersona === 'baby' ? '，软软加成' : (currentPersona === 'princess' ? '，仪式印章' : '，距离补贴'))}}</text>
           <price fill price="{{order.freightFee + ''}}" />
           <text decode>&nbsp;</text>
-          <text class="bold-price" decode="{{true}}">实付&nbsp;</text>
+          <text class="bold-price" decode="{{true}}">合计&nbsp;</text>
           <price fill class="real-pay" price="{{order.amount + ''}}" decimalSmaller />
         </view>
         <!-- 订单按钮栏 -->
@@ -77,7 +79,7 @@
     >
       <!-- 空态 -->
       <view slot="empty" class="empty-wrapper">
-        <t-empty t-class="t-empty-text" src="{{emptyImg}}">暂无相关订单</t-empty>
+        <t-empty t-class="t-empty-text" src="{{emptyImg}}">{{personaUi.emptyText}}</t-empty>
       </view>
     </load-more>
   </t-pull-down-refresh>

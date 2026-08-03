@@ -49,9 +49,7 @@ Component({
 
     // 跳转到商品列表
     gotoGoodsList() {
-      wx.navigateTo({
-        url: `/pages/coupon/coupon-activity-goods/index?id=${this.data.couponDTO.key}`,
-      });
+      wx.showToast({ title: '这张专属券已经收好', icon: 'none' });
     },
   },
 });

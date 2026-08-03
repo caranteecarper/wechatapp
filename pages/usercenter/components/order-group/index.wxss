@@ -54,3 +54,51 @@
 .order-group .order-group__left {
   margin-right: 0;
 }
+
+.order-group.theme-teacher,
+.order-group.theme-teacher .order-group__content {
+  background-color: #fffaf7;
+}
+
+.order-group.theme-teacher {
+  box-shadow: 0 12rpx 30rpx rgba(65, 29, 39, 0.07);
+}
+
+.order-group.theme-teacher .order-group__item__title {
+  color: #805462;
+}
+
+.order-group.theme-baby,
+.order-group.theme-baby .order-group__content {
+  background-color: #fffdfd;
+}
+
+.order-group.theme-baby {
+  border: 1rpx solid #f0d9df;
+  border-radius: 16rpx 16rpx 0 0;
+  box-shadow: 0 10rpx 26rpx rgba(177, 104, 121, 0.07);
+}
+
+.order-group.theme-baby .order-group__item__title {
+  color: #9b6d79;
+}
+
+.order-group.theme-princess,
+.order-group.theme-princess .order-group__content {
+  background-color: #fffdfb;
+}
+
+.order-group.theme-princess {
+  border: 1rpx solid #dfcdbf;
+  border-radius: 8rpx 8rpx 0 0;
+  box-shadow: 0 10rpx 24rpx rgba(94, 51, 42, 0.06);
+}
+
+.order-group.theme-princess .order-group__top,
+.order-group.theme-princess .order-group__content {
+  border-radius: 0;
+}
+
+.order-group.theme-princess .order-group__item__title {
+  color: #806b69;
+}

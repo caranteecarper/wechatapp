@@ -43,3 +43,42 @@
   color: #fa4126;
   font-size: 24rpx;
 }
+
+.order-card.theme-teacher {
+  border: 1rpx solid #e4d6d9;
+  background-color: #fffaf7;
+  box-shadow: 0 10rpx 24rpx rgba(65, 29, 39, 0.06);
+}
+
+.order-card.theme-teacher .header .order-status,
+.order-card.theme-teacher .more-mask {
+  color: #7d3048;
+  background-color: #fffaf7;
+}
+
+.order-card.theme-baby {
+  border: 1rpx solid #f0d9df;
+  border-radius: 16rpx;
+  background-color: #fffdfd;
+  box-shadow: 0 10rpx 26rpx rgba(177, 104, 121, 0.07);
+  font-family: "Yuanti SC", "STYuanti-SC-Regular", "YouYuan", "PingFang SC", sans-serif;
+}
+
+.order-card.theme-baby .header .order-status,
+.order-card.theme-baby .more-mask {
+  color: #df6f89;
+  background-color: #fffdfd;
+}
+
+.order-card.theme-princess {
+  border: 1rpx solid #dfcdbf;
+  border-radius: 8rpx;
+  background-color: #fffdfb;
+  box-shadow: 0 10rpx 24rpx rgba(94, 51, 42, 0.06);
+}
+
+.order-card.theme-princess .header .order-status,
+.order-card.theme-princess .more-mask {
+  color: #8e3049;
+  background-color: #fffdfb;
+}

@@ -1,6 +1,19 @@
 import { mockIp, mockReqId } from '../../utils/mock';
+import { getPersonaContent } from '../persona-content';
 
-export function genOrders(params) {
+export function genOrders(params, persona = '') {
+  const system = getPersonaContent(persona);
+  if (system) {
+    return {
+      data: system.getOrders(params),
+      code: 'Success',
+      msg: null,
+      requestId: mockReqId(),
+      clientIp: mockIp(),
+      rt: 113,
+      success: true,
+    };
+  }
   const resp = {
     data: {
       pageNum: 1,
@@ -1014,7 +1027,19 @@ export function genOrders(params) {
   return resp;
 }
 
-export function genOrdersCount() {
+export function genOrdersCount(persona = '') {
+  const system = getPersonaContent(persona);
+  if (system) {
+    return {
+      data: system.getOrdersCount(),
+      code: 'Success',
+      msg: null,
+      requestId: mockReqId(),
+      clientIp: mockIp(),
+      rt: 41,
+      success: true,
+    };
+  }
   const resp = {
     data: [
       { tabType: 5, orderNum: 1 },

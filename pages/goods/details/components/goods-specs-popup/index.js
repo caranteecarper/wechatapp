@@ -70,6 +70,14 @@ Component({
         });
       },
     },
+    theme: {
+      type: String,
+      value: '',
+    },
+    sendText: {
+      type: String,
+      value: '',
+    },
   },
 
   initStatus: false,
@@ -248,7 +256,12 @@ Component({
         Toast({
           context: this,
           selector: '#t-toast',
-          message: '该规格已售罄',
+          message:
+            {
+              teacher: '这条指令今天先缓一缓',
+              baby: '这个抱抱今天先等等',
+              princess: '这份心意今天先等等',
+            }[this.properties.theme] || '该规格已售罄',
           icon: '',
           duration: 1000,
         });

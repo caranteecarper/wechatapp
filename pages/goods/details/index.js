@@ -1,12 +1,9 @@
 import Toast from 'tdesign-miniprogram/toast/index';
 import { fetchGood } from '../../../services/good/fetchGood';
-import { fetchActivityList } from '../../../services/activity/fetchActivityList';
-import {
-  getGoodsDetailsCommentList,
-  getGoodsDetailsCommentsCount,
-} from '../../../services/good/fetchGoodsDetailsComments';
 
 import { cdnBase } from '../../../config/index';
+import { isInteractionPersona, syncPersonaPage } from '../../../utils/personas';
+import { addPersonaCartItem } from '../../../utils/persona-cart';
 
 const imgPrefix = `${cdnBase}/`;
 
@@ -86,6 +83,10 @@ Page({
     duration: 500,
     interval: 5000,
     soldNum: 0, // 已售数量
+    currentPersona: '',
+    isTeacher: false,
+    isInteractionPersona: false,
+    personaUi: {},
   },
 
   handlePopupHide() {
@@ -217,10 +218,18 @@ Page({
 
   addCart() {
     const { isAllSelectedSku } = this.data;
+    if (isAllSelectedSku && this.data.isInteractionPersona) {
+      addPersonaCartItem(this.data.currentPersona, this.data.spuId, this.data.buyNum);
+      this.handlePopupHide();
+    }
     Toast({
       context: this,
       selector: '#t-toast',
-      message: isAllSelectedSku ? '点击加入购物车' : '请选择规格',
+      message: isAllSelectedSku
+        ? this.data.isInteractionPersona
+          ? this.data.personaUi.addCartToast
+          : '点击加入购物车'
+        : '请选择规格',
       icon: '',
       duration: 1000,
     });
@@ -236,6 +245,12 @@ Page({
         icon: '',
         duration: 1000,
       });
+      return;
+    }
+    if (this.data.isInteractionPersona) {
+      addPersonaCartItem(this.data.currentPersona, this.data.spuId, buyNum);
+      this.handlePopupHide();
+      wx.switchTab({ url: '/pages/cart/index' });
       return;
     }
     this.handlePopupHide();
@@ -302,8 +317,7 @@ Page({
   },
 
   getDetail(spuId) {
-    Promise.all([fetchGood(spuId), fetchActivityList()]).then((res) => {
-      const [details, activityList] = res;
+    fetchGood(spuId, this.data.currentPersona).then((details) => {
       const skuArray = [];
       const { skuList, primaryImage, isPutOnSale, minSalePrice, maxSalePrice, maxLinePrice, soldNum } = details;
       skuList.forEach((item) => {
@@ -313,51 +327,20 @@ Page({
           specInfo: item.specInfo,
         });
       });
-      const promotionArray = [];
-      activityList.forEach((item) => {
-        promotionArray.push({
-          tag: item.promotionSubCode === 'MYJ' ? '满减' : '满折',
-          label: '满100元减99.9元',
-        });
-      });
       this.setData({
         details,
-        activityList,
+        activityList: [],
         isStock: details.spuStockQuantity > 0,
         maxSalePrice: maxSalePrice ? parseInt(maxSalePrice) : 0,
         maxLinePrice: maxLinePrice ? parseInt(maxLinePrice) : 0,
         minSalePrice: minSalePrice ? parseInt(minSalePrice) : 0,
-        list: promotionArray,
+        list: [],
         skuArray: skuArray,
         primaryImage,
         soldout: isPutOnSale === 0,
         soldNum,
       });
     });
-  },
-
-  async getCommentsList() {
-    try {
-      const code = 'Success';
-      const data = await getGoodsDetailsCommentList();
-      const { homePageComments } = data;
-      if (code.toUpperCase() === 'SUCCESS') {
-        const nextState = {
-          commentsList: homePageComments.map((item) => {
-            return {
-              goodsSpu: item.spuId,
-              userName: item.userName || '',
-              commentScore: item.commentScore,
-              commentContent: item.commentContent || '用户未填写评价',
-              userHeadUrl: item.isAnonymity ? this.anonymityAvatar : item.userHeadUrl || this.anonymityAvatar,
-            };
-          }),
-        };
-        this.setData(nextState);
-      }
-    } catch (error) {
-      console.error('comments error:', error);
-    }
   },
 
   onShareAppMessage() {
@@ -376,45 +359,34 @@ Page({
     return customInfo;
   },
 
-  /** 获取评价统计 */
-  async getCommentsStatistics() {
-    try {
-      const code = 'Success';
-      const data = await getGoodsDetailsCommentsCount();
-      if (code.toUpperCase() === 'SUCCESS') {
-        const { badCount, commentCount, goodCount, goodRate, hasImageCount, middleCount } = data;
-        const nextState = {
-          commentsStatistics: {
-            badCount: parseInt(`${badCount}`),
-            commentCount: parseInt(`${commentCount}`),
-            goodCount: parseInt(`${goodCount}`),
-            /** 后端返回百分比后数据但没有限制位数 */
-            goodRate: Math.floor(goodRate * 10) / 10,
-            hasImageCount: parseInt(`${hasImageCount}`),
-            middleCount: parseInt(`${middleCount}`),
-          },
-        };
-        this.setData(nextState);
-      }
-    } catch (error) {
-      console.error('comments statiistics error:', error);
-    }
-  },
-
   /** 跳转到评价列表 */
   navToCommentsListPage() {
     wx.navigateTo({
-      url: `/pages/goods/comments/index?spuId=${this.data.spuId}`,
+      url: `/pages/goods/comments/index?spuId=${this.data.spuId}&title=${encodeURIComponent(
+        this.data.details.title || '',
+      )}&imgUrl=${encodeURIComponent(this.data.primaryImage || '')}`,
     });
   },
 
   onLoad(query) {
     const { spuId } = query;
+    const persona = syncPersonaPage(this);
+    wx.setNavigationBarTitle({ title: persona.ui.detailTitle });
+    const interactionMode = isInteractionPersona(persona.key);
     this.setData({
       spuId: spuId,
+      currentPersona: persona.key,
+      isTeacher: persona.key === 'teacher',
+      isInteractionPersona: interactionMode,
+      personaUi: persona.ui,
+      jumpArray:
+        interactionMode
+          ? [
+              { title: '小屋', url: '/pages/home/home', iconName: 'home' },
+              { title: persona.ui.basketName, url: '/pages/cart/index', iconName: 'cart', showCartNum: true },
+            ]
+          : this.data.jumpArray,
     });
     this.getDetail(spuId);
-    this.getCommentsList(spuId);
-    this.getCommentsStatistics(spuId);
   },
 });

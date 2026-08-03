@@ -1,6 +1,18 @@
 @import 'style/iconfont.wxss';
 
 @import 'style/theme.wxss';
+@import 'style/persona-pages.wxss';
+
+page {
+  --td-bg-color-page: #f6f1ef;
+  --td-bg-color-container: #fffdfb;
+  --td-text-color-primary: #2d1a20;
+  --td-text-color-secondary: #806a70;
+  --td-border-level-1-color: #e4d6d9;
+  color: #2d1a20;
+  background: #f6f1ef;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
 
 .cell--noborder .t-cell::after {
   border-bottom: none !important;

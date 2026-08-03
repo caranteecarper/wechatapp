@@ -4,7 +4,7 @@
     {
       "root": "pages/user",
       "name": "user",
-      "pages": ["person-info/index", "address/list/index", "address/edit/index", "name-edit/index"]
+      "pages": ["person-info/index", "name-edit/index"]
     },
     {
       "root": "pages/goods",
@@ -23,22 +23,17 @@
       "name": "order",
       "pages": [
         "order-confirm/index",
-        "receipt/index",
         "pay-result/index",
         "order-list/index",
         "order-detail/index",
         "apply-service/index",
-        "after-service-list/index",
-        "after-service-detail/index",
-        "fill-tracking-no/index",
-        "delivery-detail/index",
-        "invoice/index"
+        "delivery-detail/index"
       ]
     },
     {
       "root": "pages/coupon",
       "name": "coupon",
-      "pages": ["coupon-list/index", "coupon-detail/index", "coupon-activity-goods/index"]
+      "pages": ["coupon-list/index", "coupon-detail/index"]
     },
     {
       "root": "pages/promotion",
@@ -49,41 +44,35 @@
   "tabBar": {
     "custom": true,
     "color": "#666666",
-    "selectedColor": "#FF5F15",
+    "selectedColor": "#E86F86",
     "backgroundColor": "#ffffff",
     "borderStyle": "black",
     "list": [
       {
         "pagePath": "pages/home/home",
-        "text": "首页"
+        "text": "小屋"
       },
       {
         "pagePath": "pages/category/index",
-        "text": "分类"
+        "text": "心愿"
       },
       {
         "pagePath": "pages/cart/index",
-        "text": "购物车"
+        "text": "愿望篮"
       },
       {
         "pagePath": "pages/usercenter/index",
-        "text": "我的"
+        "text": "我们"
       }
     ]
   },
-  "requiredPrivateInfos": ["chooseAddress"],
   "lazyCodeLoading": "requiredComponents",
   "usingComponents": {},
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "Weixin",
+    "navigationBarBackgroundColor": "#fff7f8",
+    "navigationBarTitleText": "宝宝的心情小屋~",
     "navigationBarTextStyle": "black"
   },
-  "sitemapLocation": "sitemap.json",
-  "permission": {
-    "scope.userLocation": {
-      "desc": "你的位置信息将用于小程序位置接口的效果展示"
-    }
-  }
+  "sitemapLocation": "sitemap.json"
 }

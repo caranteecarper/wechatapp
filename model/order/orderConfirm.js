@@ -1,4 +1,5 @@
 import { mockIp, mockReqId } from '../../utils/mock';
+import { getPersonaContent } from '../persona-content';
 
 export const transformGoodsDataToConfirmData = (goodsDataList) => {
   const list = [];
@@ -36,8 +37,9 @@ export const transformGoodsDataToConfirmData = (goodsDataList) => {
 };
 
 /** 生成结算数据 */
-export function genSettleDetail(params) {
+export function genSettleDetail(params, persona = '') {
   const { userAddressReq, couponList, goodsRequestList } = params;
+  const personaSystem = getPersonaContent(persona);
 
   const resp = {
     data: {
@@ -138,6 +140,33 @@ export function genSettleDetail(params) {
 
   resp.data.totalPayAmount =
     totalPrice - totalDiscountPrice - Number(resp.data.totalPromotionAmount);
+
+  if (personaSystem) {
+    const store = resp.data.storeGoodsList[0];
+    const storeName =
+      params.storeInfoList?.[0]?.storeName || personaSystem.getCartData().storeGoods[0].storeName;
+    const totalGoodsCount = list.reduce((total, item) => total + Number(item.quantity || 0), 0);
+    resp.data.settleType = 1;
+    resp.data.userAddress = null;
+    resp.data.totalGoodsCount = totalGoodsCount;
+    resp.data.totalAmount = totalPrice.toString();
+    resp.data.totalSalePrice = totalPrice.toString();
+    resp.data.totalGoodsAmount = totalPrice.toString();
+    resp.data.totalPayAmount = totalPrice.toString();
+    resp.data.totalDiscountAmount = '0';
+    resp.data.totalPromotionAmount = '0';
+    resp.data.totalCouponAmount = '0';
+    resp.data.totalDeliveryFee = '0';
+    resp.data.invoiceSupport = 0;
+    store.storeName = storeName;
+    store.goodsCount = totalGoodsCount;
+    store.storeTotalAmount = totalPrice.toString();
+    store.storeTotalPayAmount = totalPrice.toString();
+    store.storeTotalDiscountAmount = '0';
+    store.storeTotalCouponAmount = '0';
+    store.couponList = [];
+    return resp;
+  }
 
   if (userAddressReq) {
     resp.data.settleType = 1;

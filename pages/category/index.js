@@ -1,11 +1,16 @@
 import { getCategoryList } from '../../services/good/fetchCategoryList';
+import { syncPersonaPage } from '../../utils/personas';
+
 Page({
   data: {
     list: [],
+    currentPersona: '',
+    loadedPersona: '',
   },
-  async init() {
+  async init(persona = this.data.currentPersona) {
+    this.setData({ loadedPersona: persona });
     try {
-      const result = await getCategoryList();
+      const result = await getCategoryList(persona);
       this.setData({
         list: result,
       });
@@ -15,14 +20,24 @@ Page({
   },
 
   onShow() {
-    this.getTabBar().init();
+    const persona = syncPersonaPage(this);
+    wx.setNavigationBarTitle({ title: persona.ui.categoryTitle });
+    const tabBar = this.getTabBar();
+    if (tabBar) tabBar.init();
+    if (this.data.loadedPersona !== persona.key) {
+      this.init(persona.key);
+    }
   },
-  onChange() {
+  onChange(e) {
+    const { item } = e.detail || {};
+    if (!item) return;
     wx.navigateTo({
-      url: '/pages/goods/list/index',
+      url: `/pages/goods/list/index?groupId=${item.groupId || ''}`,
     });
   },
   onLoad() {
-    this.init(true);
+    const persona = syncPersonaPage(this);
+    wx.setNavigationBarTitle({ title: persona.ui.categoryTitle });
+    this.init(persona.key);
   },
 });

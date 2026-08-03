@@ -1,86 +1,106 @@
-// import { getCommentDetail } from '../../../../services/good/comments/fetchCommentDetail';
 import Toast from 'tdesign-miniprogram/toast/index';
+import { getPersonaContent } from '../../../../model/persona-content';
+import { completePersonaOrder } from '../../../../utils/persona-orders';
+import { syncPersonaPage } from '../../../../utils/personas';
+import { getPersonaPageCopy } from '../../../../utils/persona-pages';
+
+const getFeedbackKey = (persona) => `love.feedback.${persona}`;
+
+const formatDate = (date) => {
+  const pad = (value) => `${value}`.padStart(2, '0');
+  return `${date.getFullYear()}.${pad(date.getMonth() + 1)}.${pad(date.getDate())} ${pad(date.getHours())}:${pad(
+    date.getMinutes(),
+  )}`;
+};
+
 Page({
   data: {
-    serviceRateValue: 1,
-    goodRateValue: 1,
-    conveyRateValue: 1,
-    isAnonymous: false,
+    currentPersona: '',
+    pageCopy: {},
+    score: 5,
+    understoodScore: 5,
+    content: '',
     uploadFiles: [],
-    gridConfig: {
-      width: 218,
-      height: 218,
-      column: 3,
-    },
-    isAllowedSubmit: false,
-    imgUrl: '',
+    imageProps: { mode: 'aspectFill' },
+    gridConfig: { width: 210, height: 210, column: 3 },
+    orderNo: '',
+    spuId: '',
     title: '',
-    goodsDetail: '',
-    imageProps: {
-      mode: 'aspectFit',
-    },
+    imgUrl: '',
   },
 
-  onLoad(options) {
+  onLoad(options = {}) {
+    const persona = syncPersonaPage(this);
+    const pageCopy = getPersonaPageCopy(persona.key, 'feedback');
+    const system = getPersonaContent(persona.key);
+    const fallbackImage = system?.getHome()?.swiper?.[0] || '';
     this.setData({
-      imgUrl: options.imgUrl,
-      title: options.title,
-      goodsDetail: options.specs,
+      currentPersona: persona.key,
+      pageCopy,
+      orderNo: options.orderNo || '',
+      spuId: options.spuId || '',
+      title: decodeURIComponent(options.title || '') || pageCopy.interactionLabel,
+      imgUrl: decodeURIComponent(options.imgUrl || '') || fallbackImage,
     });
+    wx.setNavigationBarTitle({ title: pageCopy.createNavTitle });
   },
 
   onRateChange(e) {
-    const { value } = e?.detail;
-    const item = e?.currentTarget?.dataset?.item;
-    this.setData({ [item]: value }, () => {
-      this.updateButtonStatus();
-    });
-  },
-
-  onAnonymousChange(e) {
-    const status = !!e?.detail?.checked;
-    this.setData({ isAnonymous: status });
-  },
-
-  handleSuccess(e) {
-    const { files } = e.detail;
-
-    this.setData({
-      uploadFiles: files,
-    });
-  },
-
-  handleRemove(e) {
-    const { index } = e.detail;
-    const { uploadFiles } = this.data;
-    uploadFiles.splice(index, 1);
-    this.setData({
-      uploadFiles,
-    });
+    this.setData({ [e.currentTarget.dataset.field]: e.detail.value });
   },
 
   onTextAreaChange(e) {
-    const value = e?.detail?.value;
-    this.textAreaValue = value;
-    this.updateButtonStatus();
+    this.setData({ content: e.detail.value });
   },
 
-  updateButtonStatus() {
-    const { serviceRateValue, goodRateValue, conveyRateValue, isAllowedSubmit } = this.data;
-    const { textAreaValue } = this;
-    const temp = serviceRateValue && goodRateValue && conveyRateValue && textAreaValue;
-    if (temp !== isAllowedSubmit) this.setData({ isAllowedSubmit: temp });
+  handleUploadSuccess(e) {
+    this.setData({ uploadFiles: e.detail.files || [] });
   },
 
-  onSubmitBtnClick() {
-    const { isAllowedSubmit } = this.data;
-    if (!isAllowedSubmit) return;
+  handleUploadRemove(e) {
+    const uploadFiles = [...this.data.uploadFiles];
+    uploadFiles.splice(e.detail.index, 1);
+    this.setData({ uploadFiles });
+  },
+
+  submitFeedback() {
+    const content = this.data.content.trim();
+    if (!content) {
+      Toast({
+        context: this,
+        selector: '#t-toast',
+        message: '先写下一点真实感受',
+      });
+      return;
+    }
+
+    const key = getFeedbackKey(this.data.currentPersona);
+    const feedbackList = wx.getStorageSync(key) || [];
+    const images = this.data.uploadFiles
+      .map((item) => item.url || item.tempFilePath || item.path || '')
+      .filter(Boolean);
+    feedbackList.unshift({
+      id: `${Date.now()}`,
+      orderNo: this.data.orderNo,
+      spuId: this.data.spuId,
+      title: this.data.title,
+      image: this.data.imgUrl,
+      score: this.data.score,
+      understoodScore: this.data.understoodScore,
+      content,
+      images,
+      createdAt: formatDate(new Date()),
+    });
+    wx.setStorageSync(key, feedbackList);
+    if (this.data.orderNo) {
+      completePersonaOrder(this.data.currentPersona, this.data.orderNo);
+    }
     Toast({
       context: this,
       selector: '#t-toast',
-      message: '评价提交成功',
+      message: this.data.pageCopy.success,
       icon: 'check-circle',
     });
-    wx.navigateBack();
+    setTimeout(() => wx.navigateBack(), 600);
   },
 });

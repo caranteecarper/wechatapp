@@ -1,18 +1,51 @@
-page {
-  background-color: #f5f5f5;
+.name-form {
+  padding: 30rpx;
 }
-page view {
-  box-sizing: border-box;
-}
-.name-edit {
-  padding-top: 20rpx;
-}
-.name-edit .name-edit__input--desc {
+
+.name-label {
+  color: var(--persona-ink);
   font-size: 26rpx;
-  padding: 16rpx 32rpx;
-  color: #999;
-  margin-bottom: 200rpx;
+  font-weight: 650;
 }
-.name-edit .name-edit__wrapper {
-  margin: 0 32rpx;
+
+.name-input-row {
+  display: flex;
+  height: 92rpx;
+  margin-top: 18rpx;
+  padding: 0 22rpx;
+  align-items: center;
+  border: 1rpx solid var(--persona-border);
+  border-radius: var(--persona-radius);
+  background: var(--persona-bg);
+}
+
+.name-input {
+  min-width: 0;
+  height: 92rpx;
+  flex: 1;
+  color: var(--persona-ink);
+  font-size: 29rpx;
+}
+
+.name-placeholder {
+  color: var(--persona-muted);
+}
+
+.name-clear {
+  padding-left: 20rpx;
+  color: var(--persona-accent);
+  font-size: 23rpx;
+}
+
+.name-help {
+  margin-top: 14rpx;
+  text-align: right;
+}
+
+.name-submit {
+  margin-top: 28rpx;
+}
+
+.name-submit--disabled {
+  opacity: 0.42;
 }

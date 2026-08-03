@@ -22,6 +22,10 @@ Component({
       type: Number,
       value: 3,
     },
+    theme: {
+      type: String,
+      value: '',
+    },
   },
   data: {
     activeKey: 0,

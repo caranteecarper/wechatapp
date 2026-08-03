@@ -1,151 +1,69 @@
-<wxs module="order" src="./order.wxs" />
+<view class="persona-surface theme-{{currentPersona}} confirm-page">
+  <view class="persona-page-intro">
+    <view class="persona-page-eyebrow">
+      {{currentPersona === 'baby' ? 'SEND A HUG' : currentPersona === 'princess' ? 'ROYAL WISH' : 'PRIVATE ARRANGEMENT'}}
+    </view>
+    <view class="persona-page-title">
+      {{currentPersona === 'baby' ? '把这份心愿告诉宝宝' : currentPersona === 'princess' ? '确认公主的愿望' : '确认姐姐的指令'}}
+    </view>
+    <view class="persona-page-description">
+      {{currentPersona === 'baby' ? '确认后，宝宝会看到这份软软的期待。' : currentPersona === 'princess' ? '确认后，仆人会按照礼册里的要求认真准备。' : '确认后，小狗会收到姐姐清楚明确的要求。'}}
+    </view>
+  </view>
 
-<wxs module="handleInvoice" src="./handleInvoice.wxs" />
-<wxs module="getNotes" src="./getNotes.wxs" />
-<view class="order-sure" wx:if="{{!loading}}">
-  <address-card addressData="{{userAddress}}" bind:addclick="onGotoAddress" bind:addressclick="onGotoAddress" />
-  <view
-    class="order-wrapper"
-    wx:for="{{settleDetailData.storeGoodsList}}"
-    wx:for-item="stores"
-    wx:for-index="storeIndex"
-    wx:key="storeIndex"
-  >
-    <view class="store-wrapper">
-      <t-icon prefix="wr" size="40rpx" color="#333333" name="store" class="store-logo" />
-      {{stores.storeName}}
-    </view>
-    <view
-      wx:if="{{orderCardList[storeIndex].goodsList.length > 0}}"
-      wx:for="{{orderCardList[storeIndex].goodsList}}"
-      wx:for-item="goods"
-      wx:for-index="gIndex"
-      wx:key="id"
-      class="goods-wrapper"
-    >
-      <t-image src="{{goods.thumb}}" t-class="goods-image" mode="aspectFill" />
-      <view class="goods-content">
-        <view class="goods-title">{{goods.title}}</view>
-        <view>{{goods.specs}}</view>
-      </view>
-      <view class="goods-right">
-        <price wr-class="goods-price" price="{{goods.price}}" fill="{{true}}" decimalSmaller />
-        <view class="goods-num">x{{goods.num}}</view>
+  <view class="confirm-loading persona-card" wx:if="{{loading}}">正在整理这份心意...</view>
+
+  <view class="persona-section" wx:for="{{orderCardList}}" wx:key="id" wx:for-item="group">
+    <view class="persona-section-heading">{{group.title || personaUi.basketName}}</view>
+    <view class="persona-card confirm-list">
+      <view class="confirm-good" wx:for="{{group.goodsList}}" wx:key="id">
+        <image class="confirm-good__image" src="{{item.image}}" mode="aspectFill" />
+        <view class="confirm-good__content">
+          <view class="confirm-good__title">{{item.title}}</view>
+          <view class="confirm-good__specs">{{item.specs}}</view>
+        </view>
+        <view class="confirm-good__quantity">×{{item.quantity}}</view>
       </view>
     </view>
   </view>
-  <view class="pay-detail">
-    <view class="pay-item">
-      <text>商品总额</text>
-      <price
-        fill
-        decimalSmaller
-        wr-class="pay-item__right font-bold"
-        price="{{settleDetailData.totalSalePrice || '0'}}"
-      />
-    </view>
-    <view class="pay-item">
-      <text>运费</text>
-      <view class="pay-item__right font-bold">
-        <block wx:if="{{settleDetailData.totalDeliveryFee && settleDetailData.totalDeliveryFee != 0}}">
-          +
-          <price fill decimalSmaller price="{{settleDetailData.totalDeliveryFee}}" />
-        </block>
-        <text wx:else>免运费</text>
-      </view>
-    </view>
-    <view class="pay-item">
-      <text>活动优惠</text>
-      <view class="pay-item__right primary font-bold">
-        -
-        <price fill price="{{settleDetailData.totalPromotionAmount || 0}}" />
-      </view>
-    </view>
-    <view class="pay-item">
-      <text>优惠券</text>
-      <view
-        class="pay-item__right"
-        data-storeid="{{settleDetailData.storeGoodsList[0].storeId}}"
-        catchtap="onOpenCoupons"
-      >
-        <block wx:if="{{submitCouponList.length}}">
-          <block wx:if="{{settleDetailData.totalCouponAmount && settleDetailData.totalCouponAmount !== '0'}}">
-            -<price fill decimalSmaller price="{{settleDetailData.totalCouponAmount}}" />
-          </block>
-          <block wx:else>选择优惠券</block>
-        </block>
-        <text wx:else>无可用</text>
-        <t-icon name="chevron-right" size="32rpx" color="#BBBBBB" />
-      </view>
-    </view>
-    <view class="pay-item" wx:if="{{settleDetailData.invoiceSupport}}">
-      <text>发票</text>
-      <view class="pay-item__right" catchtap="onReceipt">
-        <text>{{handleInvoice(invoiceData)}}</text>
-        <t-icon name="chevron-right" size="32rpx" color="#BBBBBB" />
-      </view>
-    </view>
-    <view class="pay-item">
-      <text>订单备注</text>
-      <view class="pay-item__right" data-storenoteindex="{{0}}" catchtap="onNotes">
-        <text class="pay-remark"
-          >{{getNotes(storeInfoList, 0) ? getNotes(storeInfoList, 0) :'选填，建议先和商家沟通确认'}}</text
-        >
-        <t-icon name="chevron-right" size="32rpx" color="#BBBBBB" />
-      </view>
-    </view>
-  </view>
-  <view class="amount-wrapper">
-    <view class="pay-amount">
-      <text class="order-num">共{{settleDetailData.totalGoodsCount}}件</text>
-      <text>小计</text>
-      <price class="total-price" price="{{settleDetailData.totalPayAmount}}" fill="{{false}}" decimalSmaller />
-    </view>
-  </view>
-  <view class="wx-pay-cover">
-    <view class="wx-pay">
-      <price decimalSmaller fill class="price" price="{{settleDetailData.totalPayAmount || '0'}}" />
-      <view class="submit-btn {{ settleDetailData.settleType === 1 ? '':'btn-gray'}}" bindtap="submitOrder">
-        提交订单
-      </view>
-    </view>
-  </view>
-  <t-dialog
-    t-class="add-notes"
-    title="填写备注信息"
-    visible="{{dialogShow}}"
-    confirm-btn="确认"
-    cancel-btn="取消"
-    t-class-content="add-notes__content"
-    t-class-confirm="dialog__button-confirm"
-    t-class-cancel="dialog__button-cancel"
-    bindconfirm="onNoteConfirm"
-    bindcancel="onNoteCancel"
-  >
-    <t-textarea
-      slot="content"
-      focus="{{dialogShow}}"
-      class="notes"
-      t-class="add-notes__textarea"
-      value="{{storeInfoList[storeNoteIndex] && storeInfoList[storeNoteIndex].remark}}"
-      placeholder="备注信息"
-      t-class-textarea="add-notes__textarea__font"
-      bindfocus="onFocus"
-      bindblur="onBlur"
-      bindchange="onInput"
-      maxlength="{{50}}"
+
+  <view class="persona-section persona-card confirm-note">
+    <view class="confirm-note__title">{{personaUi.noteTitle}}</view>
+    <textarea
+      class="confirm-note__input"
+      value="{{note}}"
+      maxlength="100"
+      placeholder="{{personaUi.notePlaceholder}}"
+      placeholder-class="confirm-note__placeholder"
+      bindinput="onNoteInput"
     />
-  </t-dialog>
-  <t-popup visible="{{popupShow}}" placement="bottom" bind:visible-change="onPopupChange">
-    <no-goods slot="content" bind:change="onSureCommit" settleDetailData="{{settleDetailData}}" />
-  </t-popup>
-  <select-coupons
-    bind:sure="onCoupons"
-    storeId="{{currentStoreId}}"
-    orderSureCouponList="{{couponList}}"
-    promotionGoodsList="{{promotionGoodsList}}"
-    couponsShow="{{couponsShow}}"
-  />
+    <view class="persona-meta confirm-note__count">{{note.length}} / 100</view>
+  </view>
+
+  <view class="persona-section persona-card confirm-summary">
+    <view class="confirm-summary__row">
+      <text>一共选择</text>
+      <text>{{totalCount}} 个{{currentPersona === 'teacher' ? '指令' : currentPersona === 'princess' ? '愿望' : '抱抱'}}</text>
+    </view>
+    <view class="confirm-summary__row">
+      <text>{{personaUi.valueName}}</text>
+      <text>{{totalValue}}</text>
+    </view>
+    <view class="confirm-summary__row">
+      <text>私密状态</text>
+      <text>{{currentPersona === 'teacher' ? '仅姐姐和小狗可见' : currentPersona === 'baby' ? '只留在软软小屋' : '只收入偏爱礼册'}}</text>
+    </view>
+  </view>
+
+  <view class="persona-safe-bottom"></view>
+</view>
+
+<view class="persona-fixed-actions theme-{{currentPersona}}">
+  <view
+    class="persona-primary-button {{submitting ? 'persona-primary-button--disabled' : ''}}"
+    bindtap="submitOrder"
+  >
+    {{submitting ? '正在保存...' : personaUi.sendText}}
+  </view>
 </view>
 <t-toast id="t-toast" />
-<t-dialog id="t-dialog" />

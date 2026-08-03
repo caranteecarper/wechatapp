@@ -1,55 +1,56 @@
 import Toast from 'tdesign-miniprogram/toast/index';
-import { fetchPromotion } from '../../../services/promotion/detail';
+import { syncPersonaPage } from '../../../utils/personas';
+import { getSpecialDatePage } from './data';
 
 Page({
   data: {
-    list: [],
-    banner: '',
-    time: 0,
-    showBannerDesc: false,
-    statusTag: '',
+    currentPersona: 'teacher',
+    pageCopy: {},
+    hero: {},
+    eventCards: [],
+    preparations: [],
   },
 
-  onLoad(query) {
-    const promotionID = parseInt(query.promotion_id);
-    this.getGoodsList(promotionID);
+  onLoad() {
+    this.applyPersona();
   },
 
-  getGoodsList(promotionID) {
-    fetchPromotion(promotionID).then(({ list, banner, time, showBannerDesc, statusTag }) => {
-      const goods = list.map((item) => ({
-        ...item,
-        tags: item.tags.map((v) => v.title),
-      }));
-      this.setData({
-        list: goods,
-        banner,
-        time,
-        showBannerDesc,
-        statusTag,
-      });
+  onShow() {
+    if (this.data.pageCopy.navTitle) {
+      this.applyPersona();
+    }
+  },
+
+  applyPersona() {
+    const persona = syncPersonaPage(this);
+    const page = getSpecialDatePage(persona.key);
+    wx.setNavigationBarTitle({ title: page.copy.navTitle });
+    this.setData({
+      currentPersona: persona.key,
+      pageCopy: page.copy,
+      hero: page.hero,
+      eventCards: page.eventCards,
+      preparations: page.copy.preparations,
     });
   },
 
-  goodClickHandle(e) {
-    const { index } = e.detail;
-    const { spuId } = this.data.list[index];
-    wx.navigateTo({ url: `/pages/goods/details/index?spuId=${spuId}` });
-  },
-
-  cardClickHandle() {
+  onDateTap(e) {
+    const { index } = e.currentTarget.dataset;
+    const event = this.data.eventCards[Number(index)];
     Toast({
       context: this,
       selector: '#t-toast',
-      message: '点击加购',
+      message: event ? event.stateText : this.data.pageCopy.pendingDateLabel,
+      icon: '',
     });
   },
 
-  bannerClickHandle() {
+  onCollectDate() {
     Toast({
       context: this,
       selector: '#t-toast',
-      message: '点击规则详情',
+      message: this.data.pageCopy.actionToast,
+      icon: '',
     });
   },
 });

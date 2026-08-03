@@ -1,37 +1,55 @@
-<t-tabs
-  defaultValue="{{status}}"
-  bind:change="tabChange"
-  tabList="{{list}}"
-  t-class="tabs-external__inner"
-  t-class-item="tabs-external__item"
-  t-class-active="tabs-external__active"
-  t-class-track="tabs-external__track"
->
-  <t-tab-panel
-    wx:for="{{list}}"
-    wx:for-index="index"
-    wx:for-item="tab"
-    wx:key="key"
-    label="{{tab.text}}"
-    value="{{tab.key}}"
-  />
-</t-tabs>
-<view class="coupon-list-wrap">
-  <t-pull-down-refresh
-    t-class-indicator="t-class-indicator"
-    id="t-pull-down-refresh"
-    value="{{pullDownRefreshing}}"
-    bind:refresh="onPullDownRefresh_"
-    background="#fff"
-  >
-    <view class="coupon-list-item" wx:for="{{couponList}}" wx:key="key">
-      <coupon-card couponDTO="{{item}}" />
-    </view>
-  </t-pull-down-refresh>
-  <view class="center-entry">
-    <view class="center-entry-btn" bind:tap="goCouponCenterHandle">
-      <view>领券中心</view>
-      <t-icon name="chevron-right" color="#fa4126" size="40rpx" style="line-height: 28rpx" />
+<view class="persona-surface theme-{{currentPersona}} voucher-page">
+  <view class="persona-page-intro">
+    <view class="persona-page-eyebrow">{{pageCopy.eyebrow}}</view>
+    <view class="persona-page-title">{{pageCopy.title}}</view>
+    <view class="persona-page-description">{{pageCopy.description}}</view>
+  </view>
+
+  <view class="voucher-tabs">
+    <view
+      class="voucher-tab {{activeTab === index ? 'voucher-tab--active' : ''}}"
+      wx:for="{{pageCopy.tabs}}"
+      wx:key="*this"
+      data-index="{{index}}"
+      bindtap="changeTab"
+    >
+      {{item}}
     </view>
   </view>
+
+  <view class="voucher-list" wx:if="{{visibleItems.length}}">
+    <view
+      class="voucher-card persona-card"
+      wx:for="{{visibleItems}}"
+      wx:key="key"
+      data-id="{{item.key}}"
+      bindtap="openDetail"
+    >
+      <view class="voucher-card__symbol">
+        <t-icon name="{{item.icon}}" size="42rpx" />
+      </view>
+      <view class="voucher-card__content">
+        <view class="voucher-card__title">{{item.title}}</view>
+        <view class="voucher-card__subtitle">{{item.subtitle}}</view>
+        <view class="voucher-card__meta">{{item.meta}}</view>
+      </view>
+      <view class="voucher-card__arrow">
+        <t-icon name="chevron-right" size="38rpx" />
+      </view>
+    </view>
+  </view>
+
+  <view class="persona-card persona-empty" wx:else>
+    <view class="persona-empty__mark">
+      <t-icon name="ticket" size="42rpx" />
+    </view>
+    <view class="persona-empty__title">这里暂时是空的</view>
+    <view class="persona-empty__description">以后使用过或收藏起来的专属券，会按照当前人设放在这里。</view>
+  </view>
+
+  <view class="voucher-add persona-secondary-button" bindtap="addVoucher">
+    <t-icon name="add" size="28rpx" />
+    <text>{{pageCopy.centerText}}</text>
+  </view>
 </view>
+<t-toast id="t-toast" />

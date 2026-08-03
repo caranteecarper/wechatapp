@@ -12,6 +12,10 @@ Component({
   properties: {
     title: String,
     disabled: Boolean,
+    theme: {
+      type: String,
+      value: '',
+    },
   },
 
   data: {

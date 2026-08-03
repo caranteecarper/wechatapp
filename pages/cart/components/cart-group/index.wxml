@@ -2,12 +2,12 @@
 
 <wxs src="./utils.wxs" module="utils" />
 
-<view class="cart-group">
+<view class="cart-group theme-{{theme}}">
   <view class="goods-wrap" wx:for="{{_storeGoods}}" wx:for-item="store" wx:for-index="si" wx:key="storeId">
     <view class="cart-store">
       <t-icon
         size="40rpx"
-        color="{{store.isSelected ? '#FA4126' : '#BBBBBB'}}"
+        color="{{store.isSelected ? (theme === 'teacher' ? '#7D3048' : (theme === 'baby' ? '#DF6F89' : (theme === 'princess' ? '#8E3049' : '#E86F86'))) : '#C9B5BA'}}"
         name="{{store.isSelected ? 'check-circle-filled' : 'circle'}}"
         class="cart-store__check"
         bindtap="selectStore"
@@ -18,7 +18,7 @@
           <t-icon prefix="wr" size="40rpx" color="#333333" name="store" />
           <view class="store-name">{{store.storeName}}</view>
         </view>
-        <view class="get-coupon" catch:tap="gotoCoupons">优惠券</view>
+        <view class="get-coupon" catch:tap="gotoCoupons">{{theme === 'teacher' ? '私密' : (theme === 'baby' ? '抱抱' : (theme === 'princess' ? '印章' : '暗号'))}}</view>
       </view>
     </view>
     <block wx:for="{{store.promotionGoodsList}}" wx:for-item="promotion" wx:for-index="promoindex" wx:key="promoindex">
@@ -34,7 +34,7 @@
           <view class="promotion-text">{{promotion.description}}</view>
         </view>
         <view class="promotion-action action-btn" hover-class="action-btn--active">
-          <view class="promotion-action-label"> {{promotion.isNeedAddOnShop == 1 ? '去凑单' : '再逛逛'}} </view>
+          <view class="promotion-action-label"> {{theme === 'teacher' || theme === 'baby' || theme === 'princess' ? '继续看看' : (promotion.isNeedAddOnShop == 1 ? '去凑单' : '再逛逛')}} </view>
           <t-icon name="chevron-right" size="32rpx" color="#BBBBBB" />
         </view>
       </view>
@@ -50,7 +50,7 @@
             <view class="check-wrap" catchtap="selectGoods" data-goods="{{goods}}">
               <t-icon
                 size="40rpx"
-                color="{{goods.isSelected ? '#FA4126' : '#BBBBBB'}}"
+                color="{{goods.isSelected ? (theme === 'teacher' ? '#7D3048' : (theme === 'baby' ? '#DF6F89' : (theme === 'princess' ? '#8E3049' : '#E86F86'))) : '#C9B5BA'}}"
                 name="{{goods.isSelected ? 'check-circle-filled' : 'circle'}}"
                 class="check"
               />
@@ -61,13 +61,14 @@
                 thumb-width="{{thumbWidth}}"
                 thumb-height="{{thumbHeight}}"
                 centered="{{true}}"
+                theme="{{theme}}"
                 data="{{goods}}"
                 data-goods="{{goods}}"
                 catchspecs="specsTap"
                 catchclick="goGoodsDetail"
               >
                 <view slot="thumb-cover" class="stock-mask" wx:if="{{goods.shortageStock || goods.stockQuantity <= 3}}">
-                  仅剩{{goods.stockQuantity}}件
+                  今日想要
                 </view>
                 <view slot="append-body" class="goods-stepper">
                   <view class="stepper-tip" wx:if="{{goods.shortageStock}}">库存不足</view>
@@ -117,13 +118,14 @@
                 thumb-width="{{thumbWidth}}"
                 thumb-height="{{thumbHeight}}"
                 centered="{{true}}"
+                theme="{{theme}}"
                 data="{{goods}}"
                 data-goods="{{goods}}"
                 catchspecs="specsTap"
                 catchclick="goGoodsDetail"
               >
                 <view slot="thumb-cover" class="no-storage-mask" wx:if="{{goods.stockQuantity <=0}}">
-                  <view class="no-storage-content">无货</view>
+                  <view class="no-storage-content">暂缓</view>
                 </view>
               </goods-card>
             </view>
@@ -146,6 +148,7 @@
   price="{{currentGoods.price || ''}}"
   thumb="{{utils.imgCut(currentGoods.thumb, 180, 180)}}"
   specs="{{currentGoods.specs || []}}"
+  theme="{{theme}}"
   zIndex="{{11001}}"
   bindclose="hideSpecsPopup"
 />

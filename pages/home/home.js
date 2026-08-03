@@ -1,6 +1,8 @@
 import { fetchHome } from '../../services/home/home';
 import { fetchGoodsList } from '../../services/good/fetchGoods';
 import Toast from 'tdesign-miniprogram/toast/index';
+import { DEFAULT_PERSONA, PERSONAS, getPersona, isInteractionPersona } from '../../utils/personas';
+import { addPersonaCartItem } from '../../utils/persona-cart';
 
 Page({
   data: {
@@ -15,6 +17,11 @@ Page({
     interval: 5000,
     navigation: { type: 'dots' },
     swiperImageProps: { mode: 'scaleToFill' },
+    personas: PERSONAS,
+    currentPersona: DEFAULT_PERSONA,
+    currentNickname: getPersona(DEFAULT_PERSONA).label,
+    personaUi: getPersona(DEFAULT_PERSONA).ui,
+    homeCopy: {},
   },
 
   goodListPagination: {
@@ -31,6 +38,13 @@ Page({
   },
 
   onLoad() {
+    const persona = getPersona(wx.getStorageSync('love.currentPersona'));
+    this.setData({
+      currentPersona: persona.key,
+      currentNickname: persona.label,
+      personaUi: persona.ui,
+    });
+    this.applyPersona(persona);
     this.init();
   },
 
@@ -54,10 +68,11 @@ Page({
     this.setData({
       pageLoading: true,
     });
-    fetchHome().then(({ swiper, tabList }) => {
+    fetchHome(this.data.currentPersona).then(({ swiper, tabList, homeCopy }) => {
       this.setData({
         tabList,
         imgSrcs: swiper,
+        homeCopy,
         pageLoading: false,
       });
       this.loadGoodsList(true);
@@ -89,10 +104,10 @@ Page({
     }
 
     try {
-      const nextList = await fetchGoodsList(pageIndex, pageSize);
+      const nextList = await fetchGoodsList(pageIndex, pageSize, this.data.currentPersona, this.privateData.tabIndex);
       this.setData({
         goodsList: fresh ? nextList : this.data.goodsList.concat(nextList),
-        goodsListLoadStatus: 0,
+        goodsListLoadStatus: nextList.length < pageSize ? 2 : 0,
       });
 
       this.goodListPagination.index = pageIndex;
@@ -110,22 +125,68 @@ Page({
     });
   },
 
-  goodListAddCartHandle() {
+  goodListAddCartHandle(e) {
+    const { index } = e.detail;
+    const good = this.data.goodsList[index];
+    if (isInteractionPersona(this.data.currentPersona) && good) {
+      addPersonaCartItem(this.data.currentPersona, good.spuId);
+    }
     Toast({
       context: this,
       selector: '#t-toast',
-      message: '点击加入购物车',
+      message: this.data.personaUi.addCartToast,
     });
+  },
+
+  switchPersona(e) {
+    const { key } = e.currentTarget.dataset;
+    const persona = getPersona(key);
+    wx.setStorageSync('love.currentPersona', persona.key);
+    this.setData({
+      currentPersona: persona.key,
+      currentNickname: persona.label,
+      personaUi: persona.ui,
+    });
+    this.applyPersona(persona);
+    this.privateData.tabIndex = 0;
+    this.goodListPagination.index = 0;
+    this.init();
+    Toast({
+      context: this,
+      selector: '#t-toast',
+      message: persona.ui.switchToast,
+      icon: '',
+    });
+  },
+
+  applyPersona(persona) {
+    wx.setNavigationBarColor({
+      backgroundColor: persona.navigationBar.backgroundColor,
+      frontColor: persona.navigationBar.frontColor,
+    });
+    wx.setNavigationBarTitle({
+      title: persona.homeTitle,
+    });
+
+    const tabBar = this.getTabBar();
+    if (tabBar && typeof tabBar.applyTheme === 'function') {
+      tabBar.applyTheme(persona.key);
+    }
   },
 
   navToSearchPage() {
     wx.navigateTo({ url: '/pages/goods/search/index' });
   },
 
-  navToActivityDetail({ detail }) {
-    const { index: promotionID = 0 } = detail || {};
+  navToActivityDetail() {
+    if (isInteractionPersona(this.data.currentPersona)) {
+      wx.navigateTo({
+        url: `/pages/promotion/promotion-detail/index?persona=${this.data.currentPersona}`,
+      });
+      return;
+    }
     wx.navigateTo({
-      url: `/pages/promotion/promotion-detail/index?promotion_id=${promotionID}`,
+      url: '/pages/promotion/promotion-detail/index',
     });
   },
 });

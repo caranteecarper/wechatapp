@@ -2,8 +2,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: 80rpx;
+  justify-content: center;
 }
 
 .custom-tab-bar-wrapper .text {
   font-size: 20rpx;
+  margin-top: 4rpx;
+  color: inherit;
 }

@@ -6,6 +6,68 @@
   padding-bottom: calc(env(safe-area-inset-bottom) + 20rpx);
 }
 
+.popup-container.theme-teacher {
+  background-color: #fffaf7;
+}
+
+.popup-container.theme-teacher .popup-sku-row__item.popup-sku-row__item--active {
+  border-color: #7d3048;
+  color: #7d3048;
+  background: rgba(125, 48, 72, 0.06);
+}
+
+.popup-container.theme-baby {
+  background-color: #fffdfd;
+  font-family: "Yuanti SC", "STYuanti-SC-Regular", "YouYuan", "PingFang SC", sans-serif;
+}
+
+.popup-container.theme-baby .popup-sku-row__item.popup-sku-row__item--active {
+  border-color: #df6f89;
+  color: #c65d76;
+  background: #fff0f3;
+}
+
+.popup-container.theme-baby .sku-operate-addCart {
+  color: #c65d76;
+  background-color: #ffe9ee;
+}
+
+.popup-container.theme-baby .sku-operate-buyNow,
+.popup-container.theme-baby .single-confirm-btn {
+  background-color: #df6f89;
+}
+
+.popup-container.theme-princess {
+  border-radius: 8rpx 8rpx 0 0;
+  background-color: #fffdfb;
+}
+
+.popup-container.theme-princess .popup-sku-row__item {
+  border-radius: 4rpx;
+}
+
+.popup-container.theme-princess .popup-sku-row__item.popup-sku-row__item--active {
+  border-color: #8e3049;
+  color: #8e3049;
+  background: #f7ebeb;
+}
+
+.popup-container.theme-princess .sku-operate-addCart {
+  border-radius: 8rpx 0 0 8rpx;
+  color: #8e3049;
+  background-color: #f2e2e4;
+}
+
+.popup-container.theme-princess .sku-operate-buyNow {
+  border-radius: 0 8rpx 8rpx 0;
+  background-color: #8e3049;
+}
+
+.popup-container.theme-princess .single-confirm-btn {
+  border-radius: 8rpx;
+  background-color: #8e3049;
+}
+
 .popup-container .popup-close {
   position: absolute;
   right: 30rpx;

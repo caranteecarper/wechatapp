@@ -1,8 +1,19 @@
 import TabMenu from './data';
+import { DEFAULT_PERSONA, getPersona } from '../utils/personas';
+
+const getThemedMenu = (key) => {
+  const persona = getPersona(key);
+  return TabMenu.map((item, index) => ({
+    ...item,
+    text: persona.ui.tabLabels[index] || item.text,
+  }));
+};
+
 Component({
   data: {
     active: 0,
-    list: TabMenu,
+    list: getThemedMenu(DEFAULT_PERSONA),
+    theme: getPersona(DEFAULT_PERSONA).tabBar,
   },
 
   methods: {
@@ -24,6 +35,15 @@ Component({
           `${route}`,
       );
       this.setData({ active });
+      this.applyTheme(wx.getStorageSync('love.currentPersona'));
+    },
+
+    applyTheme(key) {
+      const persona = getPersona(key);
+      this.setData({
+        theme: persona.tabBar,
+        list: getThemedMenu(persona.key),
+      });
     },
   },
 });

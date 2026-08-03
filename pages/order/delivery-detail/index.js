@@ -1,43 +1,30 @@
+import { syncPersonaPage } from '../../../utils/personas';
+import { getPersonaPageCopy } from '../../../utils/persona-pages';
+import { readPersonaOrders } from '../../../utils/persona-orders';
+
+const getProgressIndex = (status) => {
+  const statusMap = { 5: 0, 10: 1, 40: 2, 50: 3, 60: 3 };
+  return statusMap[Number(status)] ?? 0;
+};
+
 Page({
   data: {
-    logisticsData: {
-      logisticsNo: '',
-      nodes: [],
-      company: '',
-      phoneNumber: '',
-    },
-    active: 0,
+    currentPersona: '',
+    pageCopy: {},
+    orderNo: '',
+    progressIndex: 0,
   },
 
-  onLoad(query) {
-    let data;
-    try {
-      data = JSON.parse(decodeURIComponent(query.data || '{}'));
-    } catch (e) {
-      console.warn('物流节点数据解析失败', e);
-    }
-    if (Number(query.source) === 2) {
-      const service = {
-        company: data.logisticsCompanyName,
-        logisticsNo: data.logisticsNo,
-        nodes: data.nodes,
-      };
-      this.setData({
-        logisticsData: service,
-      });
-    } else if (data) {
-      this.setData({ logisticsData: data });
-    }
-  },
-
-  onLogisticsNoCopy() {
-    wx.setClipboardData({ data: this.data.logisticsData.logisticsNo });
-  },
-
-  onCall() {
-    const { phoneNumber } = this.data.logisticsData;
-    wx.makePhoneCall({
-      phoneNumber,
+  onLoad(options = {}) {
+    const persona = syncPersonaPage(this);
+    const pageCopy = getPersonaPageCopy(persona.key, 'progress');
+    const localOrder = readPersonaOrders(persona.key).find((item) => item.orderNo === options.orderNo);
+    this.setData({
+      currentPersona: persona.key,
+      pageCopy,
+      orderNo: options.orderNo || '',
+      progressIndex: getProgressIndex(localOrder?.orderStatus ?? options.status),
     });
+    wx.setNavigationBarTitle({ title: pageCopy.navTitle });
   },
 });

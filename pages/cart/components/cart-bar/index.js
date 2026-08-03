@@ -35,6 +35,14 @@ Component({
       value: 100,
     },
     fixed: Boolean,
+    theme: {
+      type: String,
+      value: '',
+    },
+    sendText: {
+      type: String,
+      value: '',
+    },
   },
   data: {
     isDisabled: false,

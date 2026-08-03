@@ -1,23 +1,43 @@
 import Dialog from 'tdesign-miniprogram/dialog/index';
 import Toast from 'tdesign-miniprogram/toast/index';
 import { fetchCartGroupData } from '../../services/cart/cart';
+import { syncPersonaPage } from '../../utils/personas';
+import { readPersonaCartCache, writePersonaCartCache } from '../../utils/persona-cart';
 
 Page({
   data: {
     cartGroupData: null,
+    currentPersona: '',
+    personaUi: {},
   },
 
   // 调用自定义tabbar的init函数，使页面与tabbar激活状态保持一致
   onShow() {
-    this.getTabBar().init();
+    const previousPersona = this.data.currentPersona;
+    const persona = syncPersonaPage(this);
+    wx.setNavigationBarTitle({ title: persona.ui.cartTitle });
+    const tabBar = this.getTabBar();
+    if (tabBar) tabBar.init();
+    if (previousPersona && previousPersona !== persona.key) {
+      this.setData({ cartGroupData: null });
+      this.refreshData();
+      return;
+    }
+    if (this.data.cartGroupData) {
+      this.setData({ cartGroupData: null });
+      this.refreshData();
+    }
   },
 
   onLoad() {
+    const persona = syncPersonaPage(this);
+    wx.setNavigationBarTitle({ title: persona.ui.cartTitle });
+    this.setData({ currentPersona: persona.key, personaUi: persona.ui });
     this.refreshData();
   },
 
-  refreshData() {
-    this.getCartGroupData().then((res) => {
+  refreshData(force = false) {
+    this.getCartGroupData(force).then((res) => {
       let isEmpty = true;
       const cartGroupData = res.data;
       // 一些组件中需要的字段可能接口并没有返回，或者返回的数据结构与预期不一致，需要在此先对数据做一些处理
@@ -60,8 +80,25 @@ Page({
         goods.originPrice = undefined;
         return goods;
       });
+      const selectedGoods = [];
+      cartGroupData.storeGoods.forEach((store) => {
+        store.promotionGoodsList.forEach((activity) => {
+          activity.goodsPromotionList.forEach((goods) => {
+            if (goods.isSelected) selectedGoods.push(goods);
+          });
+        });
+      });
       cartGroupData.isNotEmpty = !isEmpty;
-      this.setData({ cartGroupData });
+      cartGroupData.selectedGoodsCount = selectedGoods.reduce((total, goods) => total + Number(goods.quantity || 0), 0);
+      cartGroupData.totalAmount = selectedGoods
+        .reduce((total, goods) => total + Number(goods.price || 0) * Number(goods.quantity || 0), 0)
+        .toString();
+      cartGroupData.isAllSelected = selectedGoods.length > 0 && selectedGoods.length ===
+        cartGroupData.storeGoods.reduce(
+          (total, store) => total + store.promotionGoodsList.reduce((count, activity) => count + activity.goodsPromotionList.length, 0),
+          0,
+        );
+      this.setData({ cartGroupData }, () => this.persistCartData());
     });
   },
 
@@ -75,7 +112,7 @@ Page({
         for (const goods of activity.goodsPromotionList) {
           if (goods.spuId === spuId && goods.skuId === skuId) {
             currentStore = store;
-            currentActivity = currentActivity;
+            currentActivity = activity;
             currentGoods = goods;
             return {
               currentStore,
@@ -93,13 +130,25 @@ Page({
     };
   },
 
-  // 注：实际场景时应该调用接口获取购物车数据
-  getCartGroupData() {
+  // 注：实际场景时应该调用接口获取心愿篮数据
+  getCartGroupData(force = false) {
     const { cartGroupData } = this.data;
-    if (!cartGroupData) {
-      return fetchCartGroupData();
+    if (!force && cartGroupData) {
+      return Promise.resolve({ data: cartGroupData });
     }
-    return Promise.resolve({ data: cartGroupData });
+    const cachedData = !force ? readPersonaCartCache(this.data.currentPersona) : null;
+    if (cachedData) {
+      return Promise.resolve({ data: cachedData });
+    }
+    return fetchCartGroupData(null, this.data.currentPersona).then((res) => {
+      writePersonaCartCache(this.data.currentPersona, res.data);
+      return res;
+    });
+  },
+
+  persistCartData() {
+    if (!this.data.cartGroupData) return;
+    writePersonaCartCache(this.data.currentPersona, this.data.cartGroupData);
   },
 
   // 选择单个商品
@@ -205,14 +254,14 @@ Page({
         Toast({
           context: this,
           selector: '#t-toast',
-          message: '当前商品库存不足',
+          message: '这个心愿今天先缓一缓',
         });
         return;
       }
       Dialog.confirm({
-        title: '商品库存不足',
-        content: `当前商品库存不足，最大可购买数量为${stockQuantity}件`,
-        confirmBtn: '修改为最大可购买数量',
+        title: '心愿太满啦',
+        content: `今天最多先放${stockQuantity}个同样的心愿`,
+        confirmBtn: '改成今天能兑现的数量',
         cancelBtn: '取消',
       })
         .then(() => {
@@ -253,12 +302,16 @@ Page({
       goods: { spuId, skuId },
     } = e.detail;
     Dialog.confirm({
-      content: '确认删除该商品吗?',
+      content: `确认从${this.data.personaUi.basketName}移除吗?`,
       confirmBtn: '确定',
       cancelBtn: '取消',
     }).then(() => {
       this.deleteGoodsService({ spuId, skuId }).then(() => {
-        Toast({ context: this, selector: '#t-toast', message: '商品删除成功' });
+        Toast({
+          context: this,
+          selector: '#t-toast',
+          message: `已从${this.data.personaUi.basketName}移除`,
+        });
         this.refreshData();
       });
     });
@@ -266,12 +319,22 @@ Page({
 
   onSelectAll(event) {
     const { isAllSelected } = event?.detail ?? {};
+    const nextSelected = !isAllSelected;
+    this.data.cartGroupData.storeGoods.forEach((store) => {
+      store.promotionGoodsList.forEach((promotion) => {
+        promotion.goodsPromotionList.forEach((goods) => {
+          goods.isSelected = nextSelected ? 1 : 0;
+        });
+      });
+    });
     Toast({
       context: this,
       selector: '#t-toast',
-      message: `${isAllSelected ? '取消' : '点击'}了全选按钮`,
+      message: nextSelected
+        ? `已选中全部${this.data.personaUi.basketName}`
+        : `已取消全部${this.data.personaUi.basketName}`,
     });
-    // 调用接口改变全选
+    this.refreshData();
   },
 
   onToSettle() {
@@ -285,7 +348,8 @@ Page({
         });
       });
     });
-    wx.setStorageSync('order.goodsRequestList', JSON.stringify(goodsRequestList));
+    wx.setStorageSync(`order.goodsRequestList.${this.data.currentPersona}`, JSON.stringify(goodsRequestList));
+    wx.setStorageSync('order.activePersona', this.data.currentPersona);
     wx.navigateTo({ url: '/pages/order/order-confirm/index?type=cart' });
   },
   onGotoHome() {

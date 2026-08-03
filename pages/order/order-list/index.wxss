@@ -107,3 +107,75 @@ wr-order-goods-card:not(:first-child) .wr-goods-card {
   --td-button-default-color: #000;
   --td-button-primary-text-color: #fa4126;
 }
+
+.page-container.theme-teacher,
+.page-container.theme-teacher .tab-bar__placeholder,
+.page-container.theme-teacher .tab-bar__inner {
+  background-color: #f7f0ed;
+}
+
+.page-container.theme-teacher .tab-bar__inner {
+  color: #805462;
+}
+
+.page-container.theme-teacher .tab-bar__active,
+.page-container.theme-teacher .t-tabs-is-active {
+  color: #7d3048 !important;
+}
+
+.page-container.theme-teacher .t-tabs-track {
+  background: #7d3048 !important;
+}
+
+.page-container.theme-teacher .real-pay {
+  color: #7d3048;
+}
+
+.page-container.theme-baby,
+.page-container.theme-baby .tab-bar__placeholder,
+.page-container.theme-baby .tab-bar__inner {
+  background-color: #fff7f9;
+  font-family: "Yuanti SC", "STYuanti-SC-Regular", "YouYuan", "PingFang SC", sans-serif;
+}
+
+.page-container.theme-baby .tab-bar__inner {
+  color: #9b6d79;
+}
+
+.page-container.theme-baby .tab-bar__active,
+.page-container.theme-baby .t-tabs-is-active {
+  color: #df6f89 !important;
+}
+
+.page-container.theme-baby .t-tabs-track {
+  background: #df6f89 !important;
+}
+
+.page-container.theme-baby .real-pay {
+  color: #df6f89;
+}
+
+.page-container.theme-princess,
+.page-container.theme-princess .tab-bar__placeholder,
+.page-container.theme-princess .tab-bar__inner {
+  background-color: #f8f3f1;
+}
+
+.page-container.theme-princess .tab-bar__inner {
+  color: #806b69;
+}
+
+.page-container.theme-princess .tab-bar__active,
+.page-container.theme-princess .t-tabs-is-active {
+  color: #8e3049 !important;
+}
+
+.page-container.theme-princess .t-tabs-track {
+  height: 4rpx !important;
+  border-radius: 0 !important;
+  background: #8e3049 !important;
+}
+
+.page-container.theme-princess .real-pay {
+  color: #8e3049;
+}

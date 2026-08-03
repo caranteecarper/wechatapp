@@ -1,283 +1,139 @@
-import { formatTime } from '../../../utils/util';
-import { OrderStatus, LogisticsIconMap } from '../config';
-import { fetchBusinessTime, fetchOrderDetail } from '../../../services/order/orderDetail';
-import Toast from 'tdesign-miniprogram/toast/index';
-import { getAddressPromise } from '../../../services/address/list';
+import { fetchOrders } from '../../../services/order/orderList';
+import { syncPersonaPage } from '../../../utils/personas';
+import { getPersonaPageCopy } from '../../../utils/persona-pages';
+
+const formatDate = (value) => {
+  const date = new Date(Number(value) || Date.now());
+  const pad = (part) => `${part}`.padStart(2, '0');
+  return `${date.getFullYear()}.${pad(date.getMonth() + 1)}.${pad(date.getDate())} ${pad(date.getHours())}:${pad(
+    date.getMinutes(),
+  )}`;
+};
+
+const getProgressIndex = (status) => {
+  const statusMap = { 5: 0, 10: 1, 40: 2, 50: 3, 60: 3 };
+  return statusMap[Number(status)] ?? 0;
+};
 
 Page({
   data: {
-    pullDownRefreshing: false,
-    pageLoading: true,
-    order: {}, // 后台返回的原始数据
-    _order: {}, // 内部使用和提供给 order-card 的数据
-    storeDetail: {},
-    countDownTime: null,
-    addressEditable: false,
-    backRefresh: false, // 用于接收其他页面back时的状态
-    formatCreateTime: '', //格式化订单创建时间
-    logisticsNodes: [],
-    /** 订单评论状态 */
-    orderHasCommented: true,
+    currentPersona: '',
+    pageCopy: {},
+    orderNo: '',
+    order: null,
+    goodsList: [],
+    createdAt: '',
+    progressIndex: 0,
+    orderNote: '',
+    changeNote: null,
+    feedbackSummary: null,
+    loading: true,
   },
 
-  onLoad(query) {
-    this.orderNo = query.orderNo;
-    this.init();
-    this.navbar = this.selectComponent('#navbar');
-    this.pullDownRefresh = this.selectComponent('#wr-pull-down-refresh');
+  onLoad(query = {}) {
+    this.orderNo = query.orderNo || '';
+    this.syncPage();
+    this.loadOrder();
   },
 
   onShow() {
-    // 当从其他页面返回，并且 backRefresh 被置为 true 时，刷新数据
-    if (!this.data.backRefresh) return;
-    this.onRefresh();
-    this.setData({ backRefresh: false });
-  },
-
-  onPageScroll(e) {
-    this.pullDownRefresh && this.pullDownRefresh.onPageScroll(e);
-  },
-
-  onImgError(e) {
-    if (e.detail) {
-      console.error('img 加载失败');
+    if (!this.data.currentPersona) return;
+    if (this.hasShown) {
+      this.loadOrder();
+      return;
     }
+    this.hasShown = true;
   },
 
-  // 页面初始化，会展示pageLoading
-  init() {
-    this.setData({ pageLoading: true });
-    this.getStoreDetail();
-    this.getDetail()
-      .then(() => {
-        this.setData({ pageLoading: false });
-      })
-      .catch((e) => {
-        console.error(e);
-      });
-  },
-
-  // 页面刷新，展示下拉刷新
-  onRefresh() {
-    this.init();
-    // 如果上一页为订单列表，通知其刷新数据
-    const pages = getCurrentPages();
-    const lastPage = pages[pages.length - 2];
-    if (lastPage) {
-      lastPage.data.backRefresh = true;
-    }
-  },
-
-  // 页面刷新，展示下拉刷新
-  onPullDownRefresh_() {
-    this.setData({ pullDownRefreshing: true }, () => {
-      this.getDetail()
-        .then(() => {
-          this.setData({ pullDownRefreshing: false });
-        })
-        .catch(() => {
-          this.setData({
-            pullDownRefreshing: false,
-          });
-        });
+  syncPage() {
+    const persona = syncPersonaPage(this);
+    const pageCopy = getPersonaPageCopy(persona.key, 'detail');
+    this.setData({
+      currentPersona: persona.key,
+      pageCopy,
+      orderNo: this.orderNo,
     });
+    wx.setNavigationBarTitle({ title: pageCopy.navTitle });
   },
 
-  getDetail() {
-    const params = {
-      parameter: this.orderNo,
-    };
-    return fetchOrderDetail(params).then((res) => {
-      const order = res.data;
-      const _order = {
-        id: order.orderId,
-        orderNo: order.orderNo,
-        parentOrderNo: order.parentOrderNo,
-        storeId: order.storeId,
-        storeName: order.storeName,
-        status: order.orderStatus,
-        statusDesc: order.orderStatusName,
-        amount: order.paymentAmount,
-        totalAmount: order.goodsAmountApp,
-        logisticsNo: order.logisticsVO.logisticsNo,
-        goodsList: (order.orderItemVOs || []).map((goods) =>
-          Object.assign({}, goods, {
-            id: goods.id,
-            thumb: goods.goodsPictureUrl,
-            title: goods.goodsName,
-            skuId: goods.skuId,
-            spuId: goods.spuId,
-            specs: (goods.specifications || []).map((s) => s.specValue),
-            price: goods.tagPrice ? goods.tagPrice : goods.actualPrice, // 商品销售单价, 优先取限时活动价
-            num: goods.buyQuantity,
-            titlePrefixTags: goods.tagText ? [{ text: goods.tagText }] : [],
-            buttons: goods.buttonVOs || [],
-          }),
-        ),
-        buttons: order.buttonVOs || [],
-        createTime: order.createTime,
-        receiverAddress: this.composeAddress(order),
-        groupInfoVo: order.groupInfoVo,
-      };
+  async loadOrder() {
+    this.setData({ loading: true });
+    try {
+      const result = await fetchOrders(
+        {
+          parameter: {
+            pageNum: 1,
+            pageSize: 100,
+          },
+        },
+        this.data.currentPersona,
+      );
+      const orders = result?.data?.orders || [];
+      const order = this.orderNo
+        ? orders.find((item) => item.orderNo === this.orderNo) || null
+        : orders[0] || null;
+      const goodsList = (order?.orderItemVOs || []).map((item) => ({
+        spuId: item.spuId,
+        title: item.goodsName,
+        image: item.goodsPictureUrl,
+        specs: (item.specifications || []).map((spec) => spec.specValue).join(' · '),
+      }));
+      this.orderNo = order?.orderNo || this.orderNo;
       this.setData({
         order,
-        _order,
-        formatCreateTime: formatTime(parseFloat(`${order.createTime}`), 'YYYY-MM-DD HH:mm'), // 格式化订单创建时间
-        countDownTime: this.computeCountDownTime(order),
-        addressEditable:
-          [OrderStatus.PENDING_PAYMENT, OrderStatus.PENDING_DELIVERY].includes(order.orderStatus) &&
-          order.orderSubStatus !== -1, // 订单正在取消审核时不允许修改地址（但是返回的状态码与待发货一致）
-        isPaid: !!order.paymentVO.paySuccessTime,
-        invoiceStatus: this.datermineInvoiceStatus(order),
-        invoiceDesc: order.invoiceDesc,
-        invoiceType: order.invoiceVO?.invoiceType === 5 ? '电子普通发票' : '不开发票', //是否开票 0-不开 5-电子发票
-        logisticsNodes: this.flattenNodes(order.trajectoryVos || []),
+        orderNo: this.orderNo,
+        goodsList,
+        createdAt: formatDate(order?.createTime),
+        progressIndex: getProgressIndex(order?.orderStatus),
+        orderNote: order?.remark || '',
+        loading: false,
       });
-    });
-  },
-
-  // 展开物流节点
-  flattenNodes(nodes) {
-    return (nodes || []).reduce((res, node) => {
-      return (node.nodes || []).reduce((res1, subNode, index) => {
-        res1.push({
-          title: index === 0 ? node.title : '', // 子节点中仅第一个显示title
-          desc: subNode.status,
-          date: formatTime(+subNode.timestamp, 'YYYY-MM-DD HH:mm:ss'),
-          icon: index === 0 ? LogisticsIconMap[node.code] || '' : '', // 子节点中仅第一个显示icon
-        });
-        return res1;
-      }, res);
-    }, []);
-  },
-
-  datermineInvoiceStatus(order) {
-    // 1-已开票
-    // 2-未开票（可补开）
-    // 3-未开票
-    // 4-门店不支持开票
-    return order.invoiceStatus;
-  },
-
-  // 拼接省市区
-  composeAddress(order) {
-    return [
-      //order.logisticsVO.receiverProvince,
-      order.logisticsVO.receiverCity,
-      order.logisticsVO.receiverCountry,
-      order.logisticsVO.receiverArea,
-      order.logisticsVO.receiverAddress,
-    ]
-      .filter((s) => !!s)
-      .join(' ');
-  },
-
-  getStoreDetail() {
-    fetchBusinessTime().then((res) => {
-      const storeDetail = {
-        storeTel: res.data.telphone,
-        storeBusiness: res.data.businessTime.join('\n'),
-      };
-      this.setData({ storeDetail });
-    });
-  },
-
-  // 仅对待支付状态计算付款倒计时
-  // 返回时间若是大于2020.01.01，说明返回的是关闭时间，否则说明返回的直接就是剩余时间
-  computeCountDownTime(order) {
-    if (order.orderStatus !== OrderStatus.PENDING_PAYMENT) return null;
-    return order.autoCancelTime > 1577808000000 ? order.autoCancelTime - Date.now() : order.autoCancelTime;
-  },
-
-  onCountDownFinish() {
-    //this.setData({ countDownTime: -1 });
-    const { countDownTime, order } = this.data;
-    if (countDownTime > 0 || (order && order.groupInfoVo && order.groupInfoVo.residueTime > 0)) {
-      this.onRefresh();
+      this.loadChangeNote();
+      this.loadFeedbackSummary();
+    } catch (error) {
+      this.setData({ loading: false });
     }
   },
 
-  onGoodsCardTap(e) {
-    const { index } = e.currentTarget.dataset;
-    const goods = this.data.order.orderItemVOs[index];
-    wx.navigateTo({ url: `/pages/goods/details/index?spuId=${goods.spuId}` });
+  loadChangeNote() {
+    if (!this.data.orderNo) return;
+    const key = `love.orderChange.${this.data.currentPersona}.${this.data.orderNo}`;
+    this.setData({ changeNote: wx.getStorageSync(key) || this.data.order?.changeNote || null });
   },
 
-  onEditAddressTap() {
-    getAddressPromise()
-      .then((address) => {
-        this.setData({
-          'order.logisticsVO.receiverName': address.name,
-          'order.logisticsVO.receiverPhone': address.phone,
-          '_order.receiverAddress': address.address,
-        });
-      })
-      .catch(() => {});
+  loadFeedbackSummary() {
+    const feedbackList = wx.getStorageSync(`love.feedback.${this.data.currentPersona}`) || [];
+    this.setData({
+      feedbackSummary: feedbackList.find((item) => item.orderNo === this.data.orderNo) || null,
+    });
+  },
 
+  openGoods(e) {
     wx.navigateTo({
-      url: `/pages/user/address/list/index?selectMode=1`,
+      url: `/pages/goods/details/index?spuId=${e.currentTarget.dataset.id}`,
     });
   },
 
-  onOrderNumCopy() {
-    wx.setClipboardData({
-      data: this.data.order.orderNo,
-    });
-  },
-
-  onDeliveryNumCopy() {
-    wx.setClipboardData({
-      data: this.data.order.logisticsVO.logisticsNo,
-    });
-  },
-
-  onToInvoice() {
+  openProgress() {
     wx.navigateTo({
-      url: `/pages/order/invoice/index?orderNo=${this.data._order.orderNo}`,
+      url: `/pages/order/delivery-detail/index?orderNo=${this.data.orderNo}&status=${this.data.order?.orderStatus || 5}`,
     });
   },
 
-  onSuppleMentInvoice() {
+  openChange() {
     wx.navigateTo({
-      url: `/pages/order/receipt/index?orderNo=${this.data._order.orderNo}`,
+      url: `/pages/order/apply-service/index?orderNo=${this.data.orderNo}`,
     });
   },
 
-  onDeliveryClick() {
-    const logisticsData = {
-      nodes: this.data.logisticsNodes,
-      company: this.data.order.logisticsVO.logisticsCompanyName,
-      logisticsNo: this.data.order.logisticsVO.logisticsNo,
-      phoneNumber: this.data.order.logisticsVO.logisticsCompanyTel,
-    };
+  openFeedback() {
+    const goods = this.data.goodsList[0] || {};
     wx.navigateTo({
-      url: `/pages/order/delivery-detail/index?data=${encodeURIComponent(JSON.stringify(logisticsData))}`,
-    });
-  },
-
-  /** 跳转订单评价 */
-  navToCommentCreate() {
-    wx.navigateTo({
-      url: `/pages/order/createComment/index?orderNo=${this.orderNo}`,
-    });
-  },
-
-  /** 跳转拼团详情/分享页*/
-  toGrouponDetail() {
-    wx.showToast({ title: '点击了拼团' });
-  },
-
-  clickService() {
-    Toast({
-      context: this,
-      selector: '#t-toast',
-      message: '您点击了联系客服',
-    });
-  },
-
-  onOrderInvoiceView() {
-    wx.navigateTo({
-      url: `/pages/order/invoice/index?orderNo=${this.orderNo}`,
+      url: `/pages/goods/comments/create/index?orderNo=${encodeURIComponent(
+        this.data.orderNo,
+      )}&spuId=${goods.spuId || ''}&title=${encodeURIComponent(
+        goods.title || this.data.pageCopy.contentTitle,
+      )}&imgUrl=${encodeURIComponent(goods.image || '')}`,
     });
   },
 });

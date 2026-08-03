@@ -1,0 +1,85 @@
+import {
+  getTeacherCartData,
+  getTeacherCartLine,
+  getTeacherCategoryList,
+  getTeacherGood,
+  getTeacherGoodsList,
+  getTeacherHome,
+  getTeacherMenuData,
+  getTeacherOrders,
+  getTeacherOrdersCount,
+  getTeacherOrderTags,
+  getTeacherUsercenter,
+} from './teacher';
+import {
+  getBabyCartData,
+  getBabyCartLine,
+  getBabyCategoryList,
+  getBabyGood,
+  getBabyGoodsList,
+  getBabyHome,
+  getBabyMenuData,
+  getBabyOrders,
+  getBabyOrdersCount,
+  getBabyOrderTags,
+  getBabyUsercenter,
+} from './baby';
+import {
+  getPrincessCartData,
+  getPrincessCartLine,
+  getPrincessCategoryList,
+  getPrincessGood,
+  getPrincessGoodsList,
+  getPrincessHome,
+  getPrincessMenuData,
+  getPrincessOrders,
+  getPrincessOrdersCount,
+  getPrincessOrderTags,
+  getPrincessUsercenter,
+} from './princess';
+
+const systems = {
+  teacher: {
+    getCartData: getTeacherCartData,
+    getCartLine: getTeacherCartLine,
+    getCategoryList: getTeacherCategoryList,
+    getGood: getTeacherGood,
+    getGoodsList: getTeacherGoodsList,
+    getHome: getTeacherHome,
+    getMenuData: getTeacherMenuData,
+    getOrders: getTeacherOrders,
+    getOrdersCount: getTeacherOrdersCount,
+    getOrderTags: getTeacherOrderTags,
+    getUsercenter: getTeacherUsercenter,
+  },
+  baby: {
+    getCartData: getBabyCartData,
+    getCartLine: getBabyCartLine,
+    getCategoryList: getBabyCategoryList,
+    getGood: getBabyGood,
+    getGoodsList: getBabyGoodsList,
+    getHome: getBabyHome,
+    getMenuData: getBabyMenuData,
+    getOrders: getBabyOrders,
+    getOrdersCount: getBabyOrdersCount,
+    getOrderTags: getBabyOrderTags,
+    getUsercenter: getBabyUsercenter,
+  },
+  princess: {
+    getCartData: getPrincessCartData,
+    getCartLine: getPrincessCartLine,
+    getCategoryList: getPrincessCategoryList,
+    getGood: getPrincessGood,
+    getGoodsList: getPrincessGoodsList,
+    getHome: getPrincessHome,
+    getMenuData: getPrincessMenuData,
+    getOrders: getPrincessOrders,
+    getOrdersCount: getPrincessOrdersCount,
+    getOrderTags: getPrincessOrderTags,
+    getUsercenter: getPrincessUsercenter,
+  },
+};
+
+export const hasPersonaContent = (persona) => Boolean(systems[persona]);
+
+export const getPersonaContent = (persona) => systems[persona] || null;

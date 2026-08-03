@@ -1,49 +1,95 @@
-/* 层级定义
-@z-index-0: 1;
-@z-index-1: 100;
-@z-index-2: 200;
-@z-index-5: 500;
-@z-index-component: 1000; // 通用组件级别
-@z-index-dropdown: @z-index-component;
-@z-index-sticky: @z-index-component + 20;
-@z-index-fixed: @z-index-component + 30;
-@z-index-modal-backdrop:@z-index-component + 40;
-@z-index-modal:@z-index-component + 50;
-@z-index-popover:@z-index-component + 60;
-@z-index-tooltip:@z-index-component + 70;
-*/
-/* var() css变量适配*/
-page {
-  background-color: #FFFFFF;
+.feedback-page {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 132rpx);
 }
 
-.comments-header {
+.feedback-tabs {
+  box-sizing: border-box;
+  width: 100%;
+  margin-top: 22rpx;
+  white-space: nowrap;
+}
+
+.feedback-tab {
+  display: inline-flex;
+  height: 60rpx;
+  margin-right: 12rpx;
+  padding: 0 24rpx;
+  align-items: center;
+  color: var(--persona-muted);
+  border: 1rpx solid var(--persona-border);
+  border-radius: 30rpx;
+  background: var(--persona-panel);
+  font-size: 24rpx;
+}
+
+.theme-princess .feedback-tab,
+.theme-teacher .feedback-tab {
+  border-radius: var(--persona-radius);
+}
+
+.feedback-tab--active {
+  color: #fff;
+  border-color: var(--persona-deep);
+  background: var(--persona-deep);
+}
+
+.feedback-list,
+.feedback-page .persona-empty {
+  margin-top: 20rpx;
+}
+
+.feedback-card {
+  padding: 28rpx;
+}
+
+.feedback-card__top {
   display: flex;
-  flex-wrap: wrap;
-  padding: 32rpx 32rpx 0rpx;
-  background-color: #fff;
-  margin-top: -24rpx;
-  margin-left: -24rpx;
+  align-items: flex-start;
+  justify-content: space-between;
 }
 
-.comments-header-tag {
-  margin-top: 24rpx;
-  margin-left: 24rpx;
-  height: 56rpx !important;
-  font-size: 24rpx !important;
-  justify-content: center;
-  background-color: #F5F5F5 !important;
-  border-radius: 8rpx !important;
-  border: 1px solid #F5F5F5 !important;
+.feedback-card__title {
+  margin-bottom: 6rpx;
+  color: var(--persona-ink);
+  font-size: 28rpx;
+  font-weight: 650;
 }
 
-.comments-header-active {
-  background-color: #FFECE9 !important;
-  color: #FA4126 !important;
-  border: 1px solid #FA4126 !important;
+.feedback-score {
+  color: var(--persona-accent);
+  font-family: Georgia, serif;
+  font-size: 27rpx;
+  font-weight: 700;
 }
 
-.no-more {
-  padding-left: 20rpx;
-  padding-right: 20rpx;
+.feedback-content {
+  margin-top: 22rpx;
+  color: var(--persona-ink);
+  font-size: 26rpx;
+  line-height: 1.75;
+}
+
+.feedback-images {
+  display: grid;
+  margin-top: 20rpx;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10rpx;
+}
+
+.feedback-image {
+  width: 100%;
+  height: 188rpx;
+  border-radius: var(--persona-radius);
+  background: var(--persona-soft);
+}
+
+.feedback-private {
+  display: flex;
+  margin-top: 22rpx;
+  padding-top: 18rpx;
+  align-items: center;
+  gap: 8rpx;
+  color: var(--persona-muted);
+  border-top: 1rpx solid var(--persona-border);
+  font-size: 21rpx;
 }

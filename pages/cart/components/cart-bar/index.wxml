@@ -1,31 +1,31 @@
 <view class="cart-bar__placeholder" wx:if="{{fixed}}" />
-<view class="cart-bar {{fixed ? 'cart-bar--fixed' : ''}} flex flex-v-center" style="bottom: {{fixed ? 'calc(' + bottomHeight + 'rpx + env(safe-area-inset-bottom))' : ''}};">
+<view class="cart-bar theme-{{theme}} {{fixed ? 'cart-bar--fixed' : ''}} flex flex-v-center" style="bottom: {{fixed ? 'calc(' + bottomHeight + 'rpx + env(safe-area-inset-bottom))' : ''}};">
 	<t-icon
 	 size="40rpx"
-	 color="{{isAllSelected ? '#FA4126' : '#BBBBBB'}}"
+	 color="{{isAllSelected ? (theme === 'teacher' ? '#7D3048' : (theme === 'baby' ? '#DF6F89' : (theme === 'princess' ? '#8E3049' : '#E86F86'))) : '#C9B5BA'}}"
 	 name="{{isAllSelected ? 'check-circle-filled' : 'circle'}}"
 	 class="cart-bar__check"
 	 catchtap="handleSelectAll"
 	/>
-	<text>全选</text>
+	<text>{{theme === 'teacher' ? '全选指令' : (theme === 'baby' ? '全选抱抱' : (theme === 'princess' ? '全选礼单' : '全选心愿'))}}</text>
 	<view class="cart-bar__total flex1">
 		<view>
-			<text class="cart-bar__total--bold text-padding-right">总计</text>
+			<text class="cart-bar__total--bold text-padding-right">{{theme === 'teacher' ? '听话值' : (theme === 'baby' ? '软糖值' : (theme === 'princess' ? '偏爱值' : '心愿值'))}}</text>
 			<price
 			 price="{{totalAmount || '0'}}"
 			 fill="{{false}}"
 			 decimalSmaller
 			 class="cart-bar__total--bold cart-bar__total--price"
 			/>
-			<text class="cart-bar__total--normal">（不含运费）</text>
+			<text class="cart-bar__total--normal">{{theme === 'teacher' ? '（只给我们看的约定）' : (theme === 'baby' ? '（抱抱不嫌多）' : (theme === 'princess' ? '（仪式感要认真）' : '（部分为仪式感）'))}}</text>
 		</view>
 		<view wx:if="{{totalDiscountAmount}}">
-			<text class="cart-bar__total--normal text-padding-right">已优惠</text>
+			<text class="cart-bar__total--normal text-padding-right">{{theme === 'teacher' ? '专属偏爱' : (theme === 'baby' ? '软软加成' : (theme === 'princess' ? '偏爱加冕' : '甜度加成'))}}</text>
 			<price class="cart-bar__total--normal" price="{{totalDiscountAmount || '0'}}" fill="{{false}}" />
 		</view>
 	</view>
 	<view catchtap="handleToSettle" class="{{!isDisabled ? '' : 'disabled-btn'}} account-btn" hover-class="{{!isDisabled ? '' : 'hover-btn'}}">
-		去结算({{totalGoodsNum}})
+		{{sendText || '发送需求'}}({{totalGoodsNum}})
 	</view>
 </view>
 

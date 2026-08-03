@@ -4,7 +4,9 @@
   text-align: center;
   background-color: #f5f5f5;
   color: #222427;
-  padding: 20rpx 0;
+  min-height: 96rpx;
+  padding: 18rpx 0;
+  box-sizing: border-box;
   font-size: 26rpx;
 }
 
@@ -27,7 +29,7 @@
 
 .c-sidebar-item__text {
   width: 136rpx;
-  height: 36rpx;
+  min-height: 36rpx;
   padding: 8rpx 0;
   line-height: 36rpx;
   text-align: center;
@@ -57,4 +59,85 @@
 
 .c-sidebar-item-container {
   background-color: white;
+}
+
+.c-sidebar-item-container.theme-teacher {
+  background-color: #351820;
+}
+
+.c-sidebar-item.theme-teacher {
+  background-color: #351820;
+  color: #d6bbc1;
+}
+
+.c-sidebar-item.theme-teacher.active {
+  background-color: #f4eeec;
+}
+
+.c-sidebar-item.theme-teacher.active::before {
+  width: 5rpx;
+  border-radius: 0;
+  background-color: #b85f75;
+}
+
+.c-sidebar-item.theme-teacher .c-sidebar-item__text {
+  color: #d6bbc1;
+}
+
+.c-sidebar-item.theme-teacher.active .c-sidebar-item__text {
+  border-radius: 2rpx;
+  background-color: #f4eeec;
+  color: #5e2737;
+  font-weight: 600;
+}
+
+.c-sidebar-item-container.theme-baby,
+.c-sidebar-item.theme-baby {
+  background-color: #ffe9ee;
+}
+
+.c-sidebar-item.theme-baby .c-sidebar-item__text {
+  color: #9c6775;
+  font-family: 'Yuanti SC', 'STYuanti-SC-Regular', 'YouYuan', 'PingFang SC', sans-serif;
+}
+
+.c-sidebar-item.theme-baby.active {
+  background-color: #fffdfd;
+}
+
+.c-sidebar-item.theme-baby.active::before {
+  background-color: #df6f89;
+}
+
+.c-sidebar-item.theme-baby.active .c-sidebar-item__text {
+  color: #c65d76;
+  background-color: #fffdfd;
+  font-weight: 600;
+}
+
+.c-sidebar-item-container.theme-princess,
+.c-sidebar-item.theme-princess {
+  background-color: #512431;
+}
+
+.c-sidebar-item.theme-princess .c-sidebar-item__text {
+  color: #ead8d5;
+  font-family: 'Songti SC', 'STSong', 'Noto Serif SC', serif;
+}
+
+.c-sidebar-item.theme-princess.active {
+  background-color: #f8f3f1;
+}
+
+.c-sidebar-item.theme-princess.active::before {
+  border-radius: 0;
+  width: 5rpx;
+  background-color: #bd965e;
+}
+
+.c-sidebar-item.theme-princess.active .c-sidebar-item__text {
+  border-radius: 0;
+  color: #8e3049;
+  background-color: #f8f3f1;
+  font-weight: 600;
 }

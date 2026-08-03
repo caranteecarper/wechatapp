@@ -2,11 +2,11 @@ import { config } from '../../config/index';
 import { mockIp, mockReqId } from '../../utils/mock';
 
 /** 获取结算mock数据 */
-function mockFetchSettleDetail(params) {
+function mockFetchSettleDetail(params, persona = '') {
   const { delay } = require('../_utils/delay');
   const { genSettleDetail } = require('../../model/order/orderConfirm');
 
-  return delay().then(() => genSettleDetail(params));
+  return delay().then(() => genSettleDetail(params, persona));
 }
 
 /** 提交mock订单 */
@@ -35,9 +35,9 @@ function mockDispatchCommitPay() {
 }
 
 /** 获取结算数据 */
-export function fetchSettleDetail(params) {
+export function fetchSettleDetail(params, persona = '') {
   if (config.useMock) {
-    return mockFetchSettleDetail(params);
+    return mockFetchSettleDetail(params, persona);
   }
 
   return new Promise((resolve) => {

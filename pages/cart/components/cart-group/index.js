@@ -1,4 +1,5 @@
 import Toast from 'tdesign-miniprogram/toast/index';
+import { isInteractionPersona } from '../../../../utils/personas';
 
 const shortageImg = 'https://tdesign.gtimg.com/miniprogram/template/retail/cart/shortage.png';
 
@@ -34,6 +35,10 @@ Component({
     },
     thumbWidth: { type: null },
     thumbHeight: { type: null },
+    theme: {
+      type: String,
+      value: '',
+    },
   },
 
   data: {
@@ -100,6 +105,19 @@ Component({
 
     // 去凑单/再逛逛
     gotoBuyMore(e) {
+      if (isInteractionPersona(this.properties.theme)) {
+        const message = {
+          teacher: '这些指令已经收进姐姐的指令册了',
+          baby: '这些抱抱已经装进宝宝篮了',
+          princess: '这些心意已经收进愿望礼册了',
+        }[this.properties.theme];
+        Toast({
+          context: this,
+          selector: '#t-toast',
+          message,
+        });
+        return;
+      }
       const { promotion, storeId = '' } = e.currentTarget.dataset;
       this.triggerEvent('gocollect', { promotion, storeId });
     },
@@ -156,6 +174,19 @@ Component({
     },
 
     gotoCoupons() {
+      if (isInteractionPersona(this.properties.theme)) {
+        const message = {
+          teacher: '这句暗号，只留给我们知道',
+          baby: '这个抱抱暗号，只给我们知道',
+          princess: '这枚偏爱印章，只盖在我们的礼册里',
+        }[this.properties.theme];
+        Toast({
+          context: this,
+          selector: '#t-toast',
+          message,
+        });
+        return;
+      }
       wx.navigateTo({ url: '/pages/coupon/coupon-list/index' });
     },
   },

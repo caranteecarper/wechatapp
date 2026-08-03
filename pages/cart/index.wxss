@@ -9,5 +9,25 @@
 
 .t-button {
   --td-button-default-color: #000;
-  --td-button-primary-text-color: #fa4126;
+  --td-button-primary-text-color: #e86f86;
+}
+
+.cart-page {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding-bottom: 220rpx;
+  background: #fff6f7;
+}
+
+.cart-page.theme-teacher {
+  background: #f7f0ed;
+}
+
+.cart-page.theme-baby {
+  background: #fff7f9;
+  font-family: "Yuanti SC", "STYuanti-SC-Regular", "YouYuan", "PingFang SC", sans-serif;
+}
+
+.cart-page.theme-princess {
+  background: #f8f3f1;
 }

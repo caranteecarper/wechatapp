@@ -5,12 +5,15 @@
 }
 
 .t-tab-bar {
-  --td-tab-bar-color: #bbb;
-  --td-tab-bar-active-color: #333;
+  --td-tab-bar-bg-color: #fffdfb;
+  --td-tab-bar-border-color: #e4d6d9;
+  --td-tab-bar-color: #9b8389;
+  --td-tab-bar-active-color: #af5c70;
+  --td-tab-bar-active-bg: #f6e9ec;
 }
 
 .t-cascader {
-  --td-cascader-active-color: #fa4126;
+  --td-cascader-active-color: #af5c70;
 }
 
 .t-switch {
@@ -21,13 +24,13 @@
   --td-button-font-weight: 500;
   --td-button-medium-font-size: 32rpx;
   --td-button-default-color: #fff;
-  --td-button-default-bg-color: #fa4126;
-  --td-button-default-border-color: #fa4126;
+  --td-button-default-bg-color: #af5c70;
+  --td-button-default-border-color: #af5c70;
   --td-button-default-disabled-color: #fff;
   --td-button-default-disabled-bg: #cccccc;
   --td-button-default-disabled-border-color: #cccccc;
-  --td-button-default-active-bg-color: #fa4126;
-  --td-button-default-active-border-color: #fa4126;
+  --td-button-default-active-bg-color: #97495d;
+  --td-button-default-active-border-color: #97495d;
 }
 
 .t-textarea {
@@ -35,11 +38,11 @@
 }
 
 .t-checkbox {
-  --td-checkbox-icon-checked-color: #fa4126;
+  --td-checkbox-icon-checked-color: #af5c70;
 }
 
 .dialog__button-confirm {
-  color: #fa4126 !important;
+  color: #af5c70 !important;
 }
 
 .dialog__button-cancel {

@@ -1,4 +1,4 @@
-<view class="order-group">
+<view class="order-group theme-{{theme}}">
   <t-cell-group wx:if="{{isTop}}">
     <t-cell
       t-class="order-group__top"
@@ -27,7 +27,7 @@
             prefix="{{classPrefix}}"
             name="{{item.iconName}}"
             size="56rpx"
-            customStyle="background-image: -webkit-linear-gradient(90deg, #6a6a6a 0%,#929292 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;"
+            customStyle="{{theme === 'teacher' ? 'background-image: -webkit-linear-gradient(90deg, #7D3048 0%,#BA8E79 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;' : (theme === 'baby' ? 'background-image: -webkit-linear-gradient(90deg, #DF6F89 0%,#E9BF62 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;' : (theme === 'princess' ? 'background-image: -webkit-linear-gradient(90deg, #8E3049 0%,#B28A58 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;' : 'background-image: -webkit-linear-gradient(90deg, #E86F86 0%,#B98A92 100%);-webkit-background-clip: text;-webkit-text-fill-color: transparent;'))}}"
           />
         </t-badge>
       </view>

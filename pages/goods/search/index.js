@@ -1,119 +1,64 @@
-import {
-  getSearchHistory,
-  getSearchPopular,
-} from '../../../services/good/fetchSearchHistory';
+import { syncPersonaPage } from '../../../utils/personas';
+import { getPersonaPageCopy } from '../../../utils/persona-pages';
+
+const getHistoryKey = (persona) => `love.searchHistory.${persona}`;
 
 Page({
   data: {
-    historyWords: [],
-    popularWords: [],
+    currentPersona: '',
+    pageCopy: {},
     searchValue: '',
-    dialog: {
-      title: '确认删除当前历史记录',
-      showCancelButton: true,
-      message: '',
-    },
-    dialogShow: false,
+    historyWords: [],
   },
 
-  deleteType: 0,
-  deleteIndex: '',
+  onLoad() {
+    this.syncPage();
+  },
 
   onShow() {
-    this.queryHistory();
-    this.queryPopular();
+    this.syncPage();
   },
 
-  async queryHistory() {
-    try {
-      const data = await getSearchHistory();
-      const code = 'Success';
-      if (String(code).toUpperCase() === 'SUCCESS') {
-        const { historyWords = [] } = data;
-        this.setData({
-          historyWords,
-        });
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  },
-
-  async queryPopular() {
-    try {
-      const data = await getSearchPopular();
-      const code = 'Success';
-      if (String(code).toUpperCase() === 'SUCCESS') {
-        const { popularWords = [] } = data;
-        this.setData({
-          popularWords,
-        });
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  },
-
-  confirm() {
-    const { historyWords } = this.data;
-    const { deleteType, deleteIndex } = this;
-    historyWords.splice(deleteIndex, 1);
-    if (deleteType === 0) {
-      this.setData({
-        historyWords,
-        dialogShow: false,
-      });
-    } else {
-      this.setData({ historyWords: [], dialogShow: false });
-    }
-  },
-
-  close() {
-    this.setData({ dialogShow: false });
-  },
-
-  handleClearHistory() {
-    const { dialog } = this.data;
-    this.deleteType = 1;
+  syncPage() {
+    const persona = syncPersonaPage(this);
+    const pageCopy = getPersonaPageCopy(persona.key, 'search');
     this.setData({
-      dialog: {
-        ...dialog,
-        message: '确认删除所有历史记录',
-      },
-      dialogShow: true,
+      currentPersona: persona.key,
+      pageCopy,
+      historyWords: wx.getStorageSync(getHistoryKey(persona.key)) || [],
     });
+    wx.setNavigationBarTitle({ title: pageCopy.navTitle });
   },
 
-  deleteCurr(e) {
-    const { index } = e.currentTarget.dataset;
-    const { dialog } = this.data;
-    this.deleteIndex = index;
-    this.setData({
-      dialog: {
-        ...dialog,
-        message: '确认删除当前历史记录',
-        deleteType: 0,
-      },
-      dialogShow: true,
-    });
+  onInput(e) {
+    this.setData({ searchValue: e.detail.value });
   },
 
-  handleHistoryTap(e) {
-    const { historyWords } = this.data;
-    const { dataset } = e.currentTarget;
-    const _searchValue = historyWords[dataset.index || 0] || '';
-    if (_searchValue) {
-      wx.navigateTo({
-        url: `/pages/goods/result/index?searchValue=${_searchValue}`,
-      });
-    }
+  clearInput() {
+    this.setData({ searchValue: '' });
+  },
+
+  clearHistory() {
+    wx.removeStorageSync(getHistoryKey(this.data.currentPersona));
+    this.setData({ historyWords: [] });
+  },
+
+  chooseWord(e) {
+    this.search(e.currentTarget.dataset.value || '');
   },
 
   handleSubmit(e) {
-    const { value } = e.detail.value;
-    if (value.length === 0) return;
+    this.search(e.detail.value?.keyword || this.data.searchValue);
+  },
+
+  search(rawValue) {
+    const value = `${rawValue || ''}`.trim();
+    if (!value) return;
+    const historyWords = [value, ...this.data.historyWords.filter((item) => item !== value)].slice(0, 8);
+    wx.setStorageSync(getHistoryKey(this.data.currentPersona), historyWords);
+    this.setData({ historyWords, searchValue: value });
     wx.navigateTo({
-      url: `/pages/goods/result/index?searchValue=${value}`,
+      url: `/pages/goods/result/index?searchValue=${encodeURIComponent(value)}`,
     });
   },
 });

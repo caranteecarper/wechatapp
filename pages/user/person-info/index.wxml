@@ -1,54 +1,48 @@
-<view class="person-info">
-  <t-cell-group>
-    <t-cell
-      title="头像"
-      center="{{true}}"
-      data-type="avatarUrl"
-      bind:click="onClickCell"
-      arrow
-      t-class-left="order-group__left"
-    >
-      <t-image slot="note" src="{{personInfo.avatarUrl}}" t-class="avatarUrl" mode="aspectFill" />
-    </t-cell>
-    <t-cell
-      title="昵称"
-      arrow
-      note="{{personInfo.nickName}}"
-      data-type="name"
-      bind:click="onClickCell"
-      t-class="t-cell-class"
-      t-class-left="order-group__left"
-    />
-    <t-cell
-      title="性别"
-      arrow
-      note="{{genderMap[personInfo.gender]}}"
-      data-type="gender"
-      bind:click="onClickCell"
-      t-class="t-cell-class"
-      t-class-left="order-group__left"
-    />
-    <t-cell
-      bordered="{{false}}"
-      title="手机号"
-      arrow
-      note="{{personInfo.phoneNumber ? personInfo.phoneNumber : '去绑定手机号'}}"
-      data-type="phoneNumber"
-      bind:click="onClickCell"
-      t-class="t-cell-class"
-      t-class-left="order-group__left"
-    />
-  </t-cell-group>
+<view class="persona-surface theme-{{currentPersona}} profile-page">
+  <view class="persona-page-intro">
+    <view class="persona-page-eyebrow">{{pageCopy.eyebrow}}</view>
+    <view class="persona-page-title">{{pageCopy.title}}</view>
+    <view class="persona-page-description">{{pageCopy.description}}</view>
+  </view>
+
+  <view class="profile-identity persona-card">
+    <view class="profile-avatar-wrap" bindtap="editAvatar">
+      <t-image t-class="profile-avatar" src="{{profile.avatarUrl}}" mode="aspectFill" />
+      <view class="profile-avatar-edit">
+        <t-icon name="camera" size="28rpx" />
+      </view>
+    </view>
+    <view class="profile-name">{{profile.nickName}}</view>
+    <view class="profile-role">{{personaUi ? personaUi.detailTitle : ''}}</view>
+    <view class="profile-private">{{pageCopy.privacy}}</view>
+  </view>
+
+  <view class="persona-section profile-fields persona-card">
+    <view class="profile-field" bindtap="editAvatar">
+      <view>
+        <view class="profile-field__label">{{pageCopy.avatarLabel}}</view>
+        <view class="profile-field__hint">换一张她喜欢的照片</view>
+      </view>
+      <t-icon name="chevron-right" size="36rpx" />
+    </view>
+    <view class="profile-field" bindtap="editName">
+      <view>
+        <view class="profile-field__label">{{pageCopy.nameLabel}}</view>
+        <view class="profile-field__hint">{{pageCopy.nameHint}}</view>
+      </view>
+      <view class="profile-field__value">
+        <text>{{profile.nickName}}</text>
+        <t-icon name="chevron-right" size="36rpx" />
+      </view>
+    </view>
+    <view class="profile-field">
+      <view class="profile-field__label">{{pageCopy.roleLabel}}</view>
+      <view class="profile-field__value">{{personaUi.detailTitle}}</view>
+    </view>
+    <view class="profile-field">
+      <view class="profile-field__label">{{pageCopy.callLabel}}</view>
+      <view class="profile-field__value">{{receiverName}}</view>
+    </view>
+  </view>
 </view>
-<view class="person-info__wrapper">
-  <view class="person-info__btn" bind:tap="openUnbindConfirm"> 切换账号登录 </view>
-</view>
-<t-select-picker
-  show="{{typeVisible}}"
-  picker-options="{{pickerOptions}}"
-  title="选择性别"
-  value="{{personInfo.gender}}"
-  bind:confirm="onConfirm"
-  bind:close="onClose"
-/>
 <t-toast id="t-toast" />

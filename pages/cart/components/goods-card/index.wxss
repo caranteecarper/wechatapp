@@ -258,3 +258,56 @@
   text-align: center;
   color: #fa4126;
 }
+
+.wr-goods-card.theme-teacher .wr-goods-card__title {
+  color: #4a2431;
+}
+
+.wr-goods-card.theme-teacher .wr-goods-card__specs__desc {
+  color: #805462;
+  background: #f0e3e5;
+}
+
+.wr-goods-card.theme-teacher .wr-goods-card__price {
+  color: #7d3048;
+}
+
+.wr-goods-card.theme-baby {
+  font-family: "Yuanti SC", "STYuanti-SC-Regular", "YouYuan", "PingFang SC", sans-serif;
+}
+
+.wr-goods-card.theme-baby .wr-goods-card__title {
+  color: #603d49;
+}
+
+.wr-goods-card.theme-baby .wr-goods-card__thumb-com {
+  border-radius: 16rpx;
+}
+
+.wr-goods-card.theme-baby .wr-goods-card__specs__desc {
+  color: #9b6d79;
+  background: #fff0f3;
+}
+
+.wr-goods-card.theme-baby .wr-goods-card__price {
+  color: #df6f89;
+}
+
+.wr-goods-card.theme-princess .wr-goods-card__title {
+  color: #4f2832;
+  font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+}
+
+.wr-goods-card.theme-princess .wr-goods-card__thumb-com {
+  border-radius: 4rpx;
+}
+
+.wr-goods-card.theme-princess .wr-goods-card__specs__desc {
+  border-radius: 4rpx;
+  color: #806b69;
+  background: #f3e8e5;
+}
+
+.wr-goods-card.theme-princess .wr-goods-card__price {
+  color: #8e3049;
+}

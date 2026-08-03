@@ -1,87 +1,56 @@
-import { fetchCouponList } from '../../../services/coupon/index';
+import Toast from 'tdesign-miniprogram/toast/index';
+import { syncPersonaPage } from '../../../utils/personas';
+import { getPersonaPageCopy } from '../../../utils/persona-pages';
 
 Page({
   data: {
-    pullDownRefreshing: false,
-    status: 0,
-    list: [
-      {
-        text: '可使用',
-        key: 0,
-      },
-      {
-        text: '已使用',
-        key: 1,
-      },
-      {
-        text: '已失效',
-        key: 2,
-      },
-    ],
-
-    couponList: [],
+    currentPersona: '',
+    pageCopy: {},
+    activeTab: 0,
+    visibleItems: [],
   },
 
   onLoad() {
-    this.init();
+    this.syncPage();
   },
 
-  init() {
-    this.fetchList();
+  onShow() {
+    this.syncPage();
   },
 
-  fetchList(status = this.data.status) {
-    let statusInFetch = '';
-    switch (Number(status)) {
-      case 0: {
-        statusInFetch = 'default';
-        break;
-      }
-      case 1: {
-        statusInFetch = 'useless';
-        break;
-      }
-      case 2: {
-        statusInFetch = 'disabled';
-        break;
-      }
-      default: {
-        throw new Error(`unknown fetchStatus: ${statusInFetch}`);
-      }
-    }
-    return fetchCouponList(statusInFetch).then((couponList) => {
-      this.setData({ couponList });
+  syncPage() {
+    const persona = syncPersonaPage(this);
+    const pageCopy = getPersonaPageCopy(persona.key, 'vouchers');
+    this.setData(
+      {
+        currentPersona: persona.key,
+        pageCopy,
+      },
+      () => this.filterItems(),
+    );
+    wx.setNavigationBarTitle({ title: pageCopy.navTitle });
+  },
+
+  changeTab(e) {
+    this.setData({ activeTab: Number(e.currentTarget.dataset.index) }, () => this.filterItems());
+  },
+
+  filterItems() {
+    const visibleItems = (this.data.pageCopy.items || []).filter((item) => Number(item.status) === this.data.activeTab);
+    this.setData({ visibleItems });
+  },
+
+  openDetail(e) {
+    wx.navigateTo({
+      url: `/pages/coupon/coupon-detail/index?id=${e.currentTarget.dataset.id}`,
     });
   },
 
-  tabChange(e) {
-    const { value } = e.detail;
-
-    this.setData({ status: value });
-    this.fetchList(value);
-  },
-
-  goCouponCenterHandle() {
-    wx.showToast({ title: '去领券中心', icon: 'none' });
-  },
-
-  onPullDownRefresh_() {
-    this.setData(
-      {
-        couponList: [],
-        pullDownRefreshing: true,
-      },
-      () => {
-        this.fetchList()
-          .then(() => {
-            this.setData({ pullDownRefreshing: false });
-          })
-          .catch(() => {
-            this.setData({
-              pullDownRefreshing: false,
-            });
-          });
-      },
-    );
+  addVoucher() {
+    Toast({
+      context: this,
+      selector: '#t-toast',
+      message: '新的专属券入口已经留好，内容我们后面再定',
+    });
   },
 });

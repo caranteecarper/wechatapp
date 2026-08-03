@@ -1,39 +1,31 @@
+import { syncPersonaPage } from '../../../utils/personas';
+import { getPersonaPageCopy } from '../../../utils/persona-pages';
+
 Page({
   data: {
-    totalPaid: 0,
+    currentPersona: '',
+    pageCopy: {},
     orderNo: '',
-    groupId: '',
-    groupon: null,
-    spu: null,
-    adUrl: '',
   },
 
-  onLoad(options) {
-    const { totalPaid = 0, orderNo = '', groupId = '' } = options;
+  onLoad(options = {}) {
+    const persona = syncPersonaPage(this);
+    const pageCopy = getPersonaPageCopy(persona.key, 'success');
     this.setData({
-      totalPaid,
-      orderNo,
-      groupId,
+      currentPersona: persona.key,
+      pageCopy,
+      orderNo: options.orderNo || '',
+    });
+    wx.setNavigationBarTitle({ title: pageCopy.navTitle });
+  },
+
+  viewRecords() {
+    wx.redirectTo({
+      url: `/pages/order/order-list/index${this.data.orderNo ? `?orderNo=${this.data.orderNo}` : ''}`,
     });
   },
 
-  onTapReturn(e) {
-    const target = e.currentTarget.dataset.type;
-    const { orderNo } = this.data;
-    if (target === 'home') {
-      wx.switchTab({ url: '/pages/home/home' });
-    } else if (target === 'orderList') {
-      wx.navigateTo({
-        url: `/pages/order/order-list/index?orderNo=${orderNo}`,
-      });
-    } else if (target === 'order') {
-      wx.navigateTo({
-        url: `/pages/order/order-detail/index?orderNo=${orderNo}`,
-      });
-    }
-  },
-
-  navBackHandle() {
-    wx.navigateBack();
+  goHome() {
+    wx.switchTab({ url: '/pages/home/home' });
   },
 });

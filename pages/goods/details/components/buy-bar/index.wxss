@@ -89,6 +89,58 @@
   border-radius: 0rpx 40rpx 40rpx 0rpx;
 }
 
+.footer-cont.theme-teacher {
+  background-color: #fffaf7;
+}
+
+.footer-cont.theme-teacher .bar-separately {
+  background-color: #f0dfe2;
+  color: #7d3048;
+}
+
+.footer-cont.theme-teacher .bar-buy {
+  background-color: #7d3048;
+}
+
+.footer-cont.theme-teacher .tag-cart-num {
+  background-color: #7d3048 !important;
+}
+
+.footer-cont.theme-baby {
+  border-top: 1rpx solid #f0d8de;
+  background-color: #fffdfd;
+}
+
+.footer-cont.theme-baby .bar-separately {
+  color: #c65d76;
+  background-color: #ffe9ee;
+}
+
+.footer-cont.theme-baby .bar-buy,
+.footer-cont.theme-baby .tag-cart-num {
+  background-color: #df6f89 !important;
+}
+
+.footer-cont.theme-princess {
+  border-top: 1rpx solid #dfcdbf;
+  background-color: #fffdfb;
+}
+
+.footer-cont.theme-princess .bar-separately {
+  border-radius: 8rpx 0 0 8rpx;
+  color: #8e3049;
+  background-color: #f2e2e4;
+}
+
+.footer-cont.theme-princess .bar-buy {
+  border-radius: 0 8rpx 8rpx 0;
+  background-color: #8e3049;
+}
+
+.footer-cont.theme-princess .tag-cart-num {
+  background-color: #8e3049 !important;
+}
+
 .flex {
   display: flex;
   display: -webkit-flex;

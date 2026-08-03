@@ -4,9 +4,7 @@
   left: 0;
   width: 100%;
   height: 480rpx;
-  background-image: url('https://tdesign.gtimg.com/miniprogram/template/retail/template/user-center-bg-v1.png');
-  background-size: cover;
-  background-repeat: no-repeat;
+  background: linear-gradient(180deg, #ffecef 0%, #fff6f7 78%, rgba(255, 246, 247, 0) 100%);
   padding: 0 24rpx;
 }
 .user-center-card__header {
@@ -17,7 +15,7 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  color: #333;
+  color: #3f2f35;
   position: relative;
 }
 .user-center-card__header__avatar {
@@ -30,7 +28,7 @@
 .user-center-card__header__name {
   font-size: 36rpx;
   line-height: 48rpx;
-  color: #333;
+  color: #3f2f35;
   font-weight: bold;
   margin-left: 24rpx;
   margin-right: 16rpx;
@@ -45,4 +43,41 @@
 }
 .user-center-card__icon {
   line-height: 96rpx;
+}
+
+.user-center-card.theme-teacher {
+  background: linear-gradient(180deg, #321820 0%, #5a2939 58%, rgba(247, 240, 237, 0) 100%);
+}
+
+.user-center-card.theme-teacher .user-center-card__header__name {
+  color: #fff8f5;
+}
+
+.user-center-card.theme-baby {
+  background: linear-gradient(180deg, #ffdfe6 0%, #fff1f4 62%, rgba(255, 247, 249, 0) 100%);
+  font-family: "Yuanti SC", "STYuanti-SC-Regular", "YouYuan", "PingFang SC", sans-serif;
+}
+
+.user-center-card.theme-baby .user-center-card__header__avatar {
+  border: 4rpx solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8rpx 22rpx rgba(185, 95, 117, 0.15);
+}
+
+.user-center-card.theme-baby .user-center-card__header__name {
+  color: #603d49;
+}
+
+.user-center-card.theme-princess {
+  background: linear-gradient(180deg, #ead5d3 0%, #f5e8e5 60%, rgba(248, 243, 241, 0) 100%);
+}
+
+.user-center-card.theme-princess .user-center-card__header__avatar {
+  border: 3rpx solid #bd9361;
+  border-radius: 8rpx;
+}
+
+.user-center-card.theme-princess .user-center-card__header__name {
+  color: #4f2832;
+  font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+  font-weight: 600;
 }

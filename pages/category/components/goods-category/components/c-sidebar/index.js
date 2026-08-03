@@ -20,6 +20,10 @@ Component({
       type: Number,
       value: 0,
     },
+    theme: {
+      type: String,
+      value: '',
+    },
   },
   observers: {
     activeKey(newVal) {

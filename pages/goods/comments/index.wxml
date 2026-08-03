@@ -1,50 +1,60 @@
-<view class="comments-header">
-	<t-tag t-class="comments-header-tag {{commentType === '' ? 'comments-header-active' : ''}}" data-commentType="" bindtap="changeTag">
-		全部({{countObj.commentCount}})
-	</t-tag>
-	<t-tag
-	  t-class="comments-header-tag {{commentType === '5' ? 'comments-header-active' : ''}}"
-	  wx:if="{{countObj.uidCount !== '0'}}"
-	  data-commentType="5"
-	  bindtap="changeTag"
-	>
-		自己({{countObj.uidCount}})
-	</t-tag>
-	<t-tag t-class="comments-header-tag {{commentType === '4' ? 'comments-header-active' : ''}}" data-commentType="4" bindtap="changeTag">
-		带图({{countObj.hasImageCount}})
-	</t-tag>
-	<t-tag t-class="comments-header-tag {{commentType === '3' ? 'comments-header-active' : ''}}" data-commentType="3" bindtap="changeTag">
-		好评({{countObj.goodCount}})
-	</t-tag>
-	<t-tag t-class="comments-header-tag {{commentType === '2' ? 'comments-header-active' : ''}}" data-commentType="2" bindtap="changeTag">
-		中评({{countObj.middleCount}})
-	</t-tag>
-	<t-tag t-class="comments-header-tag {{commentType === '1' ? 'comments-header-active' : ''}}" data-commentType="1" bindtap="changeTag">
-		差评({{countObj.badCount}})
-	</t-tag>
-</view>
-<view class="comments-card-list">
-	<block wx:for="{{commentList}}" wx:key="index">
-		<comments-card
-		  commentScore="{{item.commentScore}}"
-		  userName="{{item.userName}}"
-		  commentResources="{{item.commentResources || []}}"
-		  commentContent="{{item.commentContent}}"
-		  isAnonymity="{{item.isAnonymity}}"
-		  commentTime="{{item.commentTime}}"
-		  isAutoComment="{{item.isAutoComment}}"
-		  userHeadUrl="{{item.userHeadUrl}}"
-		  specInfo="{{item.specInfo}}"
-		  sellerReply="{{item.sellerReply || ''}}"
-		  goodsDetailInfo="{{item.goodsDetailInfo || ''}}"
-		/>
-	</block>
-	<t-load-more
-	  t-class="no-more"
-	  status="{{loadMoreStatus}}"
-	  no-more-text="没有更多了"
-	  color="#BBBBBB"
-	  failedColor="#FA550F"
-	/>
+<view class="persona-surface theme-{{currentPersona}} feedback-page">
+  <view class="persona-page-intro">
+    <view class="persona-page-eyebrow">{{pageCopy.eyebrow}}</view>
+    <view class="persona-page-title">{{pageCopy.title}}</view>
+    <view class="persona-page-description">{{pageCopy.description}}</view>
+  </view>
+
+  <scroll-view class="feedback-tabs" scroll-x enhanced show-scrollbar="{{false}}">
+    <view
+      class="feedback-tab {{activeTab === index ? 'feedback-tab--active' : ''}}"
+      wx:for="{{pageCopy.tabs}}"
+      wx:key="*this"
+      data-index="{{index}}"
+      bindtap="changeTab"
+    >
+      {{item}}
+    </view>
+  </scroll-view>
+
+  <view class="feedback-list" wx:if="{{visibleList.length}}">
+    <view class="persona-card feedback-card" wx:for="{{visibleList}}" wx:key="id">
+      <view class="feedback-card__top">
+        <view>
+          <view class="feedback-card__title">{{item.title || pageCopy.interactionLabel}}</view>
+          <view class="persona-meta">{{item.createdAt}}</view>
+        </view>
+        <view class="feedback-score">{{item.score}} / 5</view>
+      </view>
+      <view class="feedback-content">{{item.content}}</view>
+      <view class="feedback-images" wx:if="{{item.images.length}}">
+        <image
+          class="feedback-image"
+          wx:for="{{item.images}}"
+          wx:for-item="imageItem"
+          wx:key="*this"
+          src="{{imageItem}}"
+          mode="aspectFill"
+        />
+      </view>
+      <view class="feedback-private">
+        <t-icon name="lock-on" size="24rpx" />
+        <text>{{pageCopy.privateLabel}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="persona-card persona-empty" wx:else>
+    <view class="persona-empty__mark">
+      <t-icon name="chat-heart" size="42rpx" />
+    </view>
+    <view class="persona-empty__title">{{pageCopy.emptyTitle}}</view>
+    <view class="persona-empty__description">{{pageCopy.emptyDescription}}</view>
+  </view>
+
+  <view class="persona-safe-bottom"></view>
 </view>
 
+<view class="persona-fixed-actions theme-{{currentPersona}}">
+  <view class="persona-primary-button" bindtap="createFeedback">{{pageCopy.createText}}</view>
+</view>

@@ -1,6 +1,26 @@
 import { OrderStatus } from '../config';
 import { fetchOrders, fetchOrdersCount } from '../../../services/order/orderList';
-import { cosThumb } from '../../../utils/util';
+import { getPersonaUi, isInteractionPersona, syncPersonaPage } from '../../../utils/personas';
+
+const getOrderTabs = (persona = '') => [
+  { key: -1, text: '全部' },
+  { key: OrderStatus.PENDING_PAYMENT, text: '待回应', info: '' },
+  {
+    key: OrderStatus.PENDING_DELIVERY,
+    text: getPersonaUi(persona).receivedText,
+    info: '',
+  },
+  {
+    key: OrderStatus.PENDING_RECEIPT,
+    text: { teacher: '执行中', baby: '哄哄中', princess: '准备中' }[persona] || '兑现中',
+    info: '',
+  },
+  {
+    key: OrderStatus.COMPLETE,
+    text: { teacher: '已完成', baby: '已抱好', princess: '已兑现' }[persona] || '已兑现',
+    info: '',
+  },
+];
 
 Page({
   page: {
@@ -9,13 +29,7 @@ Page({
   },
 
   data: {
-    tabs: [
-      { key: -1, text: '全部' },
-      { key: OrderStatus.PENDING_PAYMENT, text: '待付款', info: '' },
-      { key: OrderStatus.PENDING_DELIVERY, text: '待发货', info: '' },
-      { key: OrderStatus.PENDING_RECEIPT, text: '待收货', info: '' },
-      { key: OrderStatus.COMPLETE, text: '已完成', info: '' },
-    ],
+    tabs: getOrderTabs(),
     curTab: -1,
     orderList: [],
     listLoading: 0,
@@ -23,16 +37,48 @@ Page({
     emptyImg: 'https://tdesign.gtimg.com/miniprogram/template/retail/order/empty-order-list.png',
     backRefresh: false,
     status: -1,
+    currentPersona: '',
+    isTeacher: false,
+    isInteractionPersona: false,
+    personaUi: {},
   },
 
   onLoad(query) {
+    const persona = syncPersonaPage(this);
+    wx.setNavigationBarTitle({ title: persona.ui.orderPageTitle });
+    const tabs = getOrderTabs(persona.key);
     let status = parseInt(query.status);
-    status = this.data.tabs.map((t) => t.key).includes(status) ? status : -1;
-    this.init(status);
+    status = tabs.map((t) => t.key).includes(status) ? status : -1;
+    this.setData(
+      {
+        tabs,
+        currentPersona: persona.key,
+        isTeacher: persona.key === 'teacher',
+        isInteractionPersona: isInteractionPersona(persona.key),
+        personaUi: persona.ui,
+      },
+      () => this.init(status),
+    );
     this.pullDownRefresh = this.selectComponent('#wr-pull-down-refresh');
   },
 
   onShow() {
+    const previousPersona = this.data.currentPersona;
+    const persona = syncPersonaPage(this);
+    wx.setNavigationBarTitle({ title: persona.ui.orderPageTitle });
+    if (previousPersona && previousPersona !== persona.key) {
+      this.setData(
+        {
+          tabs: getOrderTabs(persona.key),
+          currentPersona: persona.key,
+          isTeacher: persona.key === 'teacher',
+          isInteractionPersona: isInteractionPersona(persona.key),
+          personaUi: persona.ui,
+        },
+        () => this.init(-1),
+      );
+      return;
+    }
     if (!this.data.backRefresh) return;
     this.onRefresh();
     this.setData({ backRefresh: false });
@@ -77,7 +123,7 @@ Page({
     };
     if (statusCode !== -1) params.parameter.orderStatus = statusCode;
     this.setData({ listLoading: 1 });
-    return fetchOrders(params)
+    return fetchOrders(params, this.data.currentPersona)
       .then((res) => {
         this.page.num++;
         let orderList = [];
@@ -93,11 +139,11 @@ Page({
               statusDesc: order.orderStatusName,
               amount: order.paymentAmount,
               totalAmount: order.totalAmount,
-              logisticsNo: order.logisticsVO.logisticsNo,
+              logisticsNo: order.logisticsVO?.logisticsNo || '',
               createTime: order.createTime,
               goodsList: (order.orderItemVOs || []).map((goods) => ({
                 id: goods.id,
-                thumb: cosThumb(goods.goodsPictureUrl, 70),
+                thumb: goods.goodsPictureUrl,
                 title: goods.goodsName,
                 skuId: goods.skuId,
                 spuId: goods.spuId,
@@ -142,7 +188,7 @@ Page({
   },
 
   getOrdersCount() {
-    return fetchOrdersCount().then((res) => {
+    return fetchOrdersCount(null, this.data.currentPersona).then((res) => {
       const tabsCount = res.data || [];
       const { tabs } = this.data;
       tabs.forEach((tab) => {
@@ -171,6 +217,7 @@ Page({
 
   onOrderCardTap(e) {
     const { order } = e.currentTarget.dataset;
+    this.setData({ backRefresh: true });
     wx.navigateTo({
       url: `/pages/order/order-detail/index?orderNo=${order.orderNo}`,
     });

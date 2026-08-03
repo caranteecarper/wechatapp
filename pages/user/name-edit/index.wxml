@@ -1,14 +1,28 @@
-<view class="name-edit">
-  <t-input
-    borderless
-    model:value="{{nameValue}}"
-    placeholder="请输入文字"
-    label="昵称"
-    clearable
-    bind:clear="clearContent"
-  />
-  <view class="name-edit__input--desc"> 最多可输入15个字 </view>
-  <view class="name-edit__wrapper">
-    <t-button block shape="round" disabled="{{!nameValue}}" bind:tap="onSubmit">保存</t-button>
+<view class="persona-surface theme-{{currentPersona}} name-page">
+  <view class="persona-page-intro">
+    <view class="persona-page-eyebrow">{{pageCopy.eyebrow}}</view>
+    <view class="persona-page-title">{{pageCopy.title}}</view>
+    <view class="persona-page-description">{{pageCopy.description}}</view>
+  </view>
+
+  <view class="persona-section persona-card name-form">
+    <view class="name-label">{{pageCopy.label}}</view>
+    <view class="name-input-row">
+      <input
+        class="name-input"
+        value="{{nameValue}}"
+        maxlength="15"
+        placeholder="{{pageCopy.placeholder}}"
+        placeholder-class="name-placeholder"
+        bindinput="onInput"
+        focus
+      />
+      <view class="name-clear" wx:if="{{nameValue}}" bindtap="clearContent">清空</view>
+    </view>
+    <view class="persona-meta name-help">{{pageCopy.help}} · {{nameValue.length}}/15</view>
+  </view>
+
+  <view class="persona-primary-button name-submit {{!nameValue ? 'name-submit--disabled' : ''}}" bindtap="onSubmit">
+    {{pageCopy.submit}}
   </view>
 </view>

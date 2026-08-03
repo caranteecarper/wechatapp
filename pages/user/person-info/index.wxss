@@ -1,45 +1,102 @@
-:host {
-  background-color: #f5f5f5;
-}
-page view {
-  box-sizing: border-box;
-}
-.person-info {
-  padding-top: 20rpx;
+.profile-page {
+  padding-bottom: calc(env(safe-area-inset-bottom) + 56rpx);
 }
 
-.person-info__btn {
-  width: 100%;
-  border: 2rpx solid #ddd;
-  border-radius: 48rpx;
-  padding: 18rpx 0;
+.profile-identity {
   display: flex;
-  align-self: center;
-  justify-content: center;
-}
-.person-info__wrapper {
-  width: 100%;
-  padding: 0 32rpx;
-  padding-bottom: calc(env(safe-area-inset-bottom) + 20rpx);
-  position: absolute;
-  bottom: 0;
-  left: 0;
+  margin-top: 24rpx;
+  padding: 36rpx 28rpx;
+  flex-direction: column;
+  align-items: center;
 }
 
-.avatarUrl {
-  width: 80rpx;
-  height: 80rpx;
-  border-radius: 50% !important;
+.profile-avatar-wrap {
+  position: relative;
+  width: 144rpx;
+  height: 144rpx;
+}
+
+.profile-avatar {
+  width: 144rpx !important;
+  height: 144rpx !important;
   overflow: hidden;
+  border: 4rpx solid var(--persona-panel);
+  border-radius: 50% !important;
+  box-shadow: 0 0 0 2rpx var(--persona-border);
 }
 
-.t-class-confirm {
-  color: #fa550f !important;
+.profile-avatar-edit {
+  position: absolute;
+  right: -2rpx;
+  bottom: -2rpx;
+  display: flex;
+  width: 48rpx;
+  height: 48rpx;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border: 4rpx solid var(--persona-panel);
+  border-radius: 50%;
+  background: var(--persona-deep);
 }
 
-.person-info .order-group__left {
-  margin-right: 0;
+.profile-name {
+  margin-top: 22rpx;
+  color: var(--persona-ink);
+  font-size: 34rpx;
+  font-weight: 700;
 }
-.person-info .t-cell-class {
-  height: 112rpx;
+
+.theme-princess .profile-name {
+  font-family: Georgia, "Songti SC", serif;
+}
+
+.profile-role {
+  margin-top: 10rpx;
+  color: var(--persona-accent);
+  font-size: 24rpx;
+}
+
+.profile-private {
+  margin-top: 22rpx;
+  color: var(--persona-muted);
+  font-size: 21rpx;
+}
+
+.profile-fields {
+  padding: 0 28rpx;
+}
+
+.profile-field {
+  display: flex;
+  min-height: 108rpx;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1rpx solid var(--persona-border);
+}
+
+.profile-field:last-child {
+  border-bottom: 0;
+}
+
+.profile-field__label {
+  color: var(--persona-ink);
+  font-size: 27rpx;
+  font-weight: 600;
+}
+
+.profile-field__hint {
+  margin-top: 6rpx;
+  color: var(--persona-muted);
+  font-size: 22rpx;
+}
+
+.profile-field__value {
+  display: flex;
+  max-width: 360rpx;
+  align-items: center;
+  gap: 4rpx;
+  color: var(--persona-muted);
+  font-size: 25rpx;
+  text-align: right;
 }

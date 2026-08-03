@@ -66,3 +66,58 @@
   transform: scale(0.5);
   transform-origin: left top;
 }
+
+.specs-popup.theme-teacher {
+  background-color: #fffaf7;
+}
+
+.specs-popup.theme-teacher .bottom-btn {
+  color: #7d3048;
+  background-color: #fffaf7;
+}
+
+.specs-popup.theme-teacher .bottom-btn::after {
+  border-color: #7d3048;
+}
+
+.specs-popup.theme-baby {
+  border-radius: 16rpx 16rpx 0 0;
+  background-color: #fffdfd;
+  font-family: "Yuanti SC", "STYuanti-SC-Regular", "YouYuan", "PingFang SC", sans-serif;
+}
+
+.specs-popup.theme-baby .section .options .option {
+  color: #9b6d79;
+  background-color: #fff0f3;
+}
+
+.specs-popup.theme-baby .bottom-btn {
+  color: #df6f89;
+  background-color: #fffdfd;
+}
+
+.specs-popup.theme-baby .bottom-btn::after {
+  border-color: #df6f89;
+}
+
+.specs-popup.theme-princess {
+  border-radius: 8rpx 8rpx 0 0;
+  background-color: #fffdfb;
+}
+
+.specs-popup.theme-princess .section .options .option {
+  border-radius: 4rpx;
+  color: #806b69;
+  background-color: #f3e8e5;
+}
+
+.specs-popup.theme-princess .bottom-btn {
+  border-radius: 8rpx;
+  color: #8e3049;
+  background-color: #fffdfb;
+}
+
+.specs-popup.theme-princess .bottom-btn::after {
+  border-color: #8e3049;
+  border-radius: 16rpx;
+}

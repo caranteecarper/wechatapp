@@ -1,10 +1,7 @@
 {
-  "navigationBarTitleText": "营销详情",
+  "navigationBarTitleText": "特别日子",
   "usingComponents": {
     "t-toast": "tdesign-miniprogram/toast/toast",
-    "t-image": "/components/webp-image/index",
-    "t-icon": "tdesign-miniprogram/icon/icon",
-    "count-down": "tdesign-miniprogram/count-down/count-down",
-    "goods-list": "/components/goods-list/index"
+    "t-icon": "tdesign-miniprogram/icon/icon"
   }
 }
