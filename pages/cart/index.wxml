@@ -24,6 +24,7 @@
     fixed="{{true}}"
     bottomHeight="{{110}}"
     theme="{{currentPersona}}"
+    currency="{{currentPersona === 'baby' ? '♡' : '¥'}}"
     send-text="{{personaUi.sendText}}"
     bindhandleSelectAll="onSelectAll"
     bindhandleToSettle="onToSettle"

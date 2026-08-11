@@ -50,12 +50,12 @@ export function getSearchPopular() {
 
 export function getSearchResult(params = {}) {
   const { persona = '', groupId = '' } = params;
-  const spuList = hasPersonaContent(persona) ? getGoodsList(0, 30, persona, groupId) : getGoodsList(7);
+  const spuList = hasPersonaContent(persona) ? getGoodsList(0, 100, persona, groupId) : getGoodsList(7);
   return {
     saasId: null,
     storeId: null,
     pageNum: 1,
-    pageSize: 30,
+    pageSize: 100,
     totalCount: spuList.length,
     spuList,
     algId: 0,

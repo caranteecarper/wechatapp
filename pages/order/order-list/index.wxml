@@ -54,17 +54,24 @@
         wx:for-index="gIndex"
         data="{{goods}}"
         theme="{{currentPersona}}"
+        currency="{{currentPersona === 'baby' ? '♡' : '¥'}}"
         no-top-line="{{gIndex === 0}}"
       />
       <view slot="more">
         <view class="price-total">
           <text>{{personaUi.valueName}}</text>
-          <price fill price="{{order.totalAmount + ''}}" />
+          <price fill price="{{order.totalAmount + ''}}" symbol="{{currentPersona === 'baby' ? '♡' : '¥'}}" />
           <text>{{currentPersona === 'teacher' ? '，私密加成' : (currentPersona === 'baby' ? '，软软加成' : (currentPersona === 'princess' ? '，仪式印章' : '，距离补贴'))}}</text>
-          <price fill price="{{order.freightFee + ''}}" />
+          <price fill price="{{order.freightFee + ''}}" symbol="{{currentPersona === 'baby' ? '♡' : '¥'}}" />
           <text decode>&nbsp;</text>
           <text class="bold-price" decode="{{true}}">合计&nbsp;</text>
-          <price fill class="real-pay" price="{{order.amount + ''}}" decimalSmaller />
+          <price
+            fill
+            class="real-pay"
+            price="{{order.amount + ''}}"
+            symbol="{{currentPersona === 'baby' ? '♡' : '¥'}}"
+            decimalSmaller
+          />
         </view>
         <!-- 订单按钮栏 -->
         <order-button-bar order="{{order}}" bindrefresh="onRefresh" data-order="{{order}}" />

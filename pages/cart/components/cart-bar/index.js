@@ -39,6 +39,10 @@ Component({
       type: String,
       value: '',
     },
+    currency: {
+      type: String,
+      value: '¥',
+    },
     sendText: {
       type: String,
       value: '',

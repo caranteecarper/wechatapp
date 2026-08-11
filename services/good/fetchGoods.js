@@ -13,6 +13,8 @@ function mockFetchGoodsList(pageIndex = 1, pageSize = 20, persona = '', tabKey =
         price: item.minSalePrice,
         originPrice: item.maxLinePrice,
         tags: item.spuTagList.map((tag) => tag.title),
+        desc: item.etitle || '',
+        currency: item.currency || '¥',
       };
     }),
   );

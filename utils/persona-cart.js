@@ -1,7 +1,7 @@
 import { getPersonaContent } from '../model/persona-content';
 
 const CART_CACHE_VERSIONS = {
-  baby: 3,
+  baby: 4,
   princess: 4,
   teacher: 4,
 };
@@ -34,13 +34,15 @@ export function addPersonaCartItem(persona, spuId, quantity = 1, specInfo) {
 
   const store = cartData.storeGoods[0];
   const promotion = store.promotionGoodsList[0];
-  const current = promotion.goodsPromotionList.find((item) => item.spuId === spuId);
+  const next = system.getCartLine(spuId, specInfo);
+  const current = promotion.goodsPromotionList.find(
+    (item) => item.spuId === spuId && item.skuId === next.skuId,
+  );
 
   if (current) {
     current.quantity += quantity;
     current.isSelected = 1;
   } else {
-    const next = system.getCartLine(spuId, specInfo);
     next.quantity = quantity;
     promotion.goodsPromotionList.push(next);
   }
