@@ -109,7 +109,7 @@ Component({
         const message = {
           teacher: '这些指令已经收进姐姐的指令册了',
           baby: '这些抱抱已经装进宝宝篮了',
-          princess: '这些心意已经收进愿望礼册了',
+          princess: '这些想要的已经放进公主清单啦',
         }[this.properties.theme];
         Toast({
           context: this,
@@ -178,7 +178,7 @@ Component({
         const message = {
           teacher: '这句暗号，只留给我们知道',
           baby: '这个抱抱暗号，只给我们知道',
-          princess: '这枚偏爱印章，只盖在我们的礼册里',
+          princess: '这一份偏爱，只留在我们两个人这里',
         }[this.properties.theme];
         Toast({
           context: this,

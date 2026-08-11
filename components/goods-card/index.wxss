@@ -185,10 +185,10 @@
 }
 
 .goods-card.theme-princess .goods-card__main {
-  border: 1rpx solid #dfcdbc;
-  border-radius: 8rpx;
-  background: #fffdfb;
-  box-shadow: 0 10rpx 24rpx rgba(94, 51, 42, 0.07);
+  border: 1rpx solid #ead4e7;
+  border-radius: 12rpx;
+  background: #fffdfd;
+  box-shadow: 0 10rpx 24rpx rgba(111, 58, 96, 0.07);
 }
 
 .goods-card.theme-princess .goods-card__body {
@@ -196,18 +196,18 @@
 }
 
 .goods-card.theme-princess .goods-card__title {
-  color: #4d2732;
+  color: #54304b;
   font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
   font-weight: 600;
 }
 
 .goods-card.theme-princess .goods-card__tag {
-  border-color: #e2d2c4;
-  border-radius: 4rpx;
-  color: #8e3049;
-  background: #f7ebeb;
+  border-color: #e6cce0;
+  border-radius: 6rpx;
+  color: #a5487b;
+  background: #f9eaf4;
 }
 
 .goods-card.theme-princess .spec-for-price {
-  color: #8e3049;
+  color: #b4487d;
 }

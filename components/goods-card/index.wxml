@@ -53,7 +53,7 @@
 				  data-id="{{independentID}}"
 				  catchtap="addCartHandle"
 				  size="48rpx"
-				  color="{{theme === 'teacher' ? '#7D3048' : (theme === 'baby' ? '#DF6F89' : (theme === 'princess' ? '#8E3049' : '#E86F86'))}}"
+				  color="{{theme === 'teacher' ? '#7D3048' : (theme === 'baby' ? '#DF6F89' : (theme === 'princess' ? '#B85088' : '#E86F86'))}}"
 				/>
 			</view>
 		</view>

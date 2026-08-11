@@ -24,7 +24,7 @@
 	<block wx:if="{{buttonType === 1}}">
 		<view class="flex buy-buttons">
 			<view class="bar-separately {{soldout || !isStock ? 'bar-addCart-disabled' : ''}}" bindtap="toAddCart">
-				{{theme === 'teacher' ? '放进指令册' : (theme === 'baby' ? '放进宝宝篮' : (theme === 'princess' ? '收进愿望礼册' : '加入购物车'))}}
+				{{theme === 'teacher' ? '放进指令册' : (theme === 'baby' ? '放进宝宝篮' : (theme === 'princess' ? '放进公主想要的' : '加入购物车'))}}
 			</view>
 			<view class="bar-buy {{soldout || !isStock ? 'bar-buyNow-disabled' : ''}}" bindtap="toBuyNow">
 				{{sendText || '发送需求'}}

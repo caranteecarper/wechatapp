@@ -24,7 +24,7 @@
     normal-bar-height="{{200}}"
     max-bar-height="{{272}}"
     refreshTimeout="{{3000}}"
-    background="{{currentPersona === 'teacher' ? '#f7f0ed' : (currentPersona === 'baby' ? '#fff6f8' : (currentPersona === 'princess' ? '#f8f3f1' : '#f5f5f5'))}}"
+    background="{{currentPersona === 'teacher' ? '#f7f0ed' : (currentPersona === 'baby' ? '#fff6f8' : (currentPersona === 'princess' ? '#fff7fd' : '#f5f5f5'))}}"
     use-loading-slot
     loading-size="60rpx"
     value="{{pullDownRefreshing}}"
@@ -44,7 +44,7 @@
       useLogoSlot
     >
       <view slot="top-left" class="order-number">
-        <text decode>{{currentPersona === 'teacher' ? '指令号' : (currentPersona === 'baby' ? '抱抱号' : (currentPersona === 'princess' ? '礼单号' : '心愿号'))}}&nbsp;</text>
+        <text decode>{{currentPersona === 'teacher' ? '指令号' : (currentPersona === 'baby' ? '抱抱号' : (currentPersona === 'princess' ? '偏爱号' : '心愿号'))}}&nbsp;</text>
         {{order.orderNo}}
       </view>
       <specs-goods-card
@@ -60,7 +60,7 @@
         <view class="price-total">
           <text>{{personaUi.valueName}}</text>
           <price fill price="{{order.totalAmount + ''}}" />
-          <text>{{currentPersona === 'teacher' ? '，私密加成' : (currentPersona === 'baby' ? '，软软加成' : (currentPersona === 'princess' ? '，仪式印章' : '，距离补贴'))}}</text>
+          <text>{{currentPersona === 'teacher' ? '，私密加成' : (currentPersona === 'baby' ? '，软软加成' : (currentPersona === 'princess' ? '，心意加成' : '，距离补贴'))}}</text>
           <price fill price="{{order.freightFee + ''}}" />
           <text decode>&nbsp;</text>
           <text class="bold-price" decode="{{true}}">合计&nbsp;</text>

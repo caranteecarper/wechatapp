@@ -64,10 +64,10 @@
     <view wx:if="{{isInteractionPersona}}" class="interaction-feedback-entry" bindtap="navToCommentsListPage">
       <view>
         <view class="interaction-feedback-entry__title">
-          {{currentPersona === 'baby' ? '互动后的心情' : currentPersona === 'princess' ? '公主的回音' : '姐姐的验收记录'}}
+          {{currentPersona === 'baby' ? '互动后的心情' : currentPersona === 'princess' ? '公主收到后的心情' : '姐姐的验收记录'}}
         </view>
         <view class="interaction-feedback-entry__desc">
-          {{currentPersona === 'baby' ? '把被抱好后的感受留给宝宝' : currentPersona === 'princess' ? '愿望兑现后，留下公主的评价' : '完成后，由姐姐写下这次结论'}}
+          {{currentPersona === 'baby' ? '把被抱好后的感受留给宝宝' : currentPersona === 'princess' ? '收到偏爱以后，告诉他公主开不开心' : '完成后，由姐姐写下这次结论'}}
         </view>
       </view>
       <t-icon name="chevron-right" size="38rpx" />

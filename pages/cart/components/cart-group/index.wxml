@@ -7,7 +7,7 @@
     <view class="cart-store">
       <t-icon
         size="40rpx"
-        color="{{store.isSelected ? (theme === 'teacher' ? '#7D3048' : (theme === 'baby' ? '#DF6F89' : (theme === 'princess' ? '#8E3049' : '#E86F86'))) : '#C9B5BA'}}"
+        color="{{store.isSelected ? (theme === 'teacher' ? '#7D3048' : (theme === 'baby' ? '#DF6F89' : (theme === 'princess' ? '#B85088' : '#E86F86'))) : '#C9B5BA'}}"
         name="{{store.isSelected ? 'check-circle-filled' : 'circle'}}"
         class="cart-store__check"
         bindtap="selectStore"
@@ -18,7 +18,7 @@
           <t-icon prefix="wr" size="40rpx" color="#333333" name="store" />
           <view class="store-name">{{store.storeName}}</view>
         </view>
-        <view class="get-coupon" catch:tap="gotoCoupons">{{theme === 'teacher' ? '私密' : (theme === 'baby' ? '抱抱' : (theme === 'princess' ? '印章' : '暗号'))}}</view>
+        <view class="get-coupon" catch:tap="gotoCoupons">{{theme === 'teacher' ? '私密' : (theme === 'baby' ? '抱抱' : (theme === 'princess' ? '偏爱' : '暗号'))}}</view>
       </view>
     </view>
     <block wx:for="{{store.promotionGoodsList}}" wx:for-item="promotion" wx:for-index="promoindex" wx:key="promoindex">
@@ -50,7 +50,7 @@
             <view class="check-wrap" catchtap="selectGoods" data-goods="{{goods}}">
               <t-icon
                 size="40rpx"
-                color="{{goods.isSelected ? (theme === 'teacher' ? '#7D3048' : (theme === 'baby' ? '#DF6F89' : (theme === 'princess' ? '#8E3049' : '#E86F86'))) : '#C9B5BA'}}"
+                color="{{goods.isSelected ? (theme === 'teacher' ? '#7D3048' : (theme === 'baby' ? '#DF6F89' : (theme === 'princess' ? '#B85088' : '#E86F86'))) : '#C9B5BA'}}"
                 name="{{goods.isSelected ? 'check-circle-filled' : 'circle'}}"
                 class="check"
               />

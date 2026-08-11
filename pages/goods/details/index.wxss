@@ -299,17 +299,17 @@ page {
 
 .goods-detail-page.theme-princess {
   min-height: 100vh;
-  background-color: #f8f3f1;
+  background-color: #fff7fd;
 }
 
 .goods-detail-page.theme-princess .goods-info,
 .goods-detail-page.theme-princess .spu-select,
 .goods-detail-page.theme-princess .desc-content {
-  background-color: #fffdfb;
+  background-color: #fffdfd;
 }
 
 .goods-detail-page.theme-princess .goods-info {
-  border-bottom: 1rpx solid #e2d2c5;
+  border-bottom: 1rpx solid #ead4e7;
 }
 
 .goods-detail-page.theme-princess .goods-info .goods-price .class-goods-price,
@@ -318,19 +318,19 @@ page {
 .goods-detail-page.theme-princess .popup-sku__price,
 .goods-detail-page.theme-princess .popup-sku__price-num,
 .goods-detail-page.theme-princess .popup-sku__price-symbol {
-  color: #8e3049;
+  color: #b4487d;
 }
 
 .goods-detail-page.theme-princess .goods-info .goods-title .goods-name,
 .goods-detail-page.theme-princess .desc-content__title--text {
-  color: #4f2832;
+  color: #54304b;
   font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
   font-weight: 600;
 }
 
 .goods-detail-page.theme-princess .spu-select {
-  border-top: 1rpx solid #e2d2c5;
-  border-bottom: 1rpx solid #e2d2c5;
+  border-top: 1rpx solid #ead4e7;
+  border-bottom: 1rpx solid #ead4e7;
 }
 
 .interaction-feedback-entry {
@@ -368,13 +368,13 @@ page {
 }
 
 .goods-detail-page.theme-princess .interaction-feedback-entry {
-  color: #8e3049;
-  border-color: #e2d2c5;
-  background: #fffdfb;
+  color: #b4487d;
+  border-color: #ead4e7;
+  background: #fffdfd;
 }
 
 .goods-detail-page.theme-princess .interaction-feedback-entry__title {
-  color: #4f2832;
+  color: #54304b;
   font-family: "Songti SC", "STSong", serif;
 }
 
