@@ -45,7 +45,7 @@ Page({
       personaUi: persona.ui,
     });
     this.applyPersona(persona);
-    this.init();
+    this.ensurePersonaAssets(persona).then(() => this.init());
   },
 
   onReachBottom() {
@@ -143,11 +143,15 @@ Page({
       currentPersona: persona.key,
       currentNickname: persona.label,
       personaUi: persona.ui,
+      goodsList: [],
+      tabList: [],
+      homeCopy: {},
+      pageLoading: true,
     });
     this.applyPersona(persona);
     this.privateData.tabIndex = 0;
     this.goodListPagination.index = 0;
-    this.init();
+    this.ensurePersonaAssets(persona).then(() => this.init());
     Toast({
       context: this,
       selector: '#t-toast',
@@ -169,6 +173,20 @@ Page({
     if (tabBar && typeof tabBar.applyTheme === 'function') {
       tabBar.applyTheme(persona.key);
     }
+  },
+
+  ensurePersonaAssets(persona) {
+    if (persona.key !== 'baby' || typeof wx.loadSubPackage !== 'function') {
+      return Promise.resolve();
+    }
+
+    return new Promise((resolve) => {
+      wx.loadSubPackage({
+        name: 'goods',
+        success: resolve,
+        fail: resolve,
+      });
+    });
   },
 
   navToSearchPage() {

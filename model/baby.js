@@ -1,14 +1,17 @@
 import { buildBabyCatalog } from './baby-catalog';
 import { buildCategoryTree, createPersonaSystem } from './persona-system';
 
-const assetBase = '/assets/baby';
+const productBase = '/pages/goods/assets/baby-thumbnails';
+const detailProductBase = '/pages/goods/assets/baby-products';
 
 const assets = {
-  hero: `${assetBase}/baby-hero.jpg`,
-  cuddle: `${assetBase}/cuddle.jpg`,
-  treat: `${assetBase}/treat.jpg`,
-  call: `${assetBase}/call.jpg`,
-  secret: `${assetBase}/secret.jpg`,
+  hero: `${productBase}/baby-hero.webp`,
+  cuddle: `${productBase}/now-hug.webp`,
+  treat: `${productBase}/little-surprise.webp`,
+  call: `${productBase}/ten-minutes.webp`,
+  secret: `${productBase}/answer-me.webp`,
+  products: productBase,
+  detailProducts: detailProductBase,
 };
 
 const { goods, categoryDefinitions, tabs } = buildBabyCatalog(assets);

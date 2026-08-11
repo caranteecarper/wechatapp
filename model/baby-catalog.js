@@ -325,21 +325,27 @@ const buildSpecList = (entry) => {
 
 export function buildBabyCatalog(assets, productImages = {}) {
   const goods = GROUPS.flatMap((group) =>
-    group.items.map((entry, itemIndex) => ({
-      id: `baby-${entry.slug}`,
-      slug: entry.slug,
-      group: group.key,
-      tier: entry.tier,
-      title: entry.title,
-      image: productImages[entry.slug] || assets[group.asset],
-      price: entry.price,
-      linePrice: LINE_PRICES[entry.price] || '2024',
-      soldNum: [5, 13, 21, 52, 99][itemIndex % 5],
-      tags: [group.name, ...entry.tags].slice(0, 3),
-      etitle: entry.subtitle,
-      completionMethod: entry.methods.join(' / '),
-      specList: buildSpecList(entry),
-    })),
+    group.items.map((entry, itemIndex) => {
+      const image =
+        productImages[entry.slug] ||
+        (assets.products ? `${assets.products}/${entry.slug}.webp` : assets[group.asset]);
+      return {
+        id: `baby-${entry.slug}`,
+        slug: entry.slug,
+        group: group.key,
+        tier: entry.tier,
+        title: entry.title,
+        image,
+        detailImage: assets.detailProducts ? `${assets.detailProducts}/${entry.slug}.webp` : image,
+        price: entry.price,
+        linePrice: LINE_PRICES[entry.price] || '2024',
+        soldNum: [5, 13, 21, 52, 99][itemIndex % 5],
+        tags: [group.name, ...entry.tags].slice(0, 3),
+        etitle: entry.subtitle,
+        completionMethod: entry.methods.join(' / '),
+        specList: buildSpecList(entry),
+      };
+    }),
   );
 
   const categoryDefinitions = GROUPS.map((group) => {

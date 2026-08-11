@@ -17,7 +17,7 @@ const PERSONA_DATE_COPY = {
     eyebrow: 'SOFT DATE',
     title: '把特别的日子软软收好',
     subtitle: '每一次想念，都值得被温柔记住',
-    heroImage: '/assets/baby/baby-hero.jpg',
+    heroImage: '/pages/promotion/assets/baby-hero.webp',
     countdownLabel: '距离下一次甜甜的日子',
     pendingDateLabel: '日期等我们一起写下',
     dateSectionEyebrow: 'OUR CALENDAR',
