@@ -3,7 +3,7 @@ import { getPersonaContent } from '../model/persona-content';
 const CART_CACHE_VERSIONS = {
   baby: 4,
   princess: 5,
-  teacher: 4,
+  teacher: 5,
 };
 const getCacheKey = (persona) => `love.cart.${persona}`;
 const getCacheVersionKey = (persona) => `love.cart.version.${persona}`;
