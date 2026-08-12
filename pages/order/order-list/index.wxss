@@ -1,7 +1,6 @@
 :host {
   background-color: #f5f5f5;
 }
-.page-container .tab-bar__placeholder,
 .page-container .tab-bar__inner {
   height: 88rpx;
   line-height: 88rpx;
@@ -10,10 +9,7 @@
 .page-container .tab-bar__inner {
   font-size: 26rpx;
   color: #333333;
-  position: fixed;
-  width: 100vw;
-  top: 0;
-  left: 0;
+  width: 100%;
 }
 .page-container .tab-bar__inner.order-nav .order-nav-item .bottom-line {
   bottom: 12rpx;
@@ -109,7 +105,6 @@ wr-order-goods-card:not(:first-child) .wr-goods-card {
 }
 
 .page-container.theme-teacher,
-.page-container.theme-teacher .tab-bar__placeholder,
 .page-container.theme-teacher .tab-bar__inner {
   background-color: #f7f0ed;
 }
@@ -132,7 +127,6 @@ wr-order-goods-card:not(:first-child) .wr-goods-card {
 }
 
 .page-container.theme-baby,
-.page-container.theme-baby .tab-bar__placeholder,
 .page-container.theme-baby .tab-bar__inner {
   background-color: #fff7f9;
   font-family: "Yuanti SC", "STYuanti-SC-Regular", "YouYuan", "PingFang SC", sans-serif;
@@ -156,7 +150,6 @@ wr-order-goods-card:not(:first-child) .wr-goods-card {
 }
 
 .page-container.theme-princess,
-.page-container.theme-princess .tab-bar__placeholder,
 .page-container.theme-princess .tab-bar__inner {
   background-color: #f8f3f1;
 }

@@ -4,7 +4,7 @@ const PERSONAS = [
     label: '宝宝~',
     interaction: true,
     homeTitle: '宝宝的软软小屋',
-    navigationBar: { backgroundColor: '#ffdfe6', frontColor: '#000000' },
+    navigationBar: { backgroundColor: '#fff7f9', frontColor: '#000000' },
     tabBar: {
       background: '#fffdfd',
       border: '#f3d6dc',
@@ -40,7 +40,7 @@ const PERSONAS = [
     label: '公主~',
     interaction: true,
     homeTitle: '公主的偏爱橱窗',
-    navigationBar: { backgroundColor: '#f5e6fb', frontColor: '#000000' },
+    navigationBar: { backgroundColor: '#f8f3f1', frontColor: '#000000' },
     tabBar: {
       background: '#fffbff',
       border: '#ead7ef',

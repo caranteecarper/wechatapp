@@ -1,13 +1,11 @@
 <view class="page-container theme-{{currentPersona}}">
   <view class="tab-bar">
-    <view class="tab-bar__placeholder" />
     <t-tabs
       t-class="tab-bar__inner"
       t-class-active="tab-bar__active"
       t-class-track="t-tabs-track"
       bind:change="onTabChange"
       value="{{status}}"
-      style="position: fixed; top: 0; left: 0; z-index: 100"
     >
       <t-tab-panel
         wx:for="{{tabs}}"

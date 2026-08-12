@@ -1,5 +1,6 @@
 <view class="wrap theme-{{currentPersona}}">
   <goods-category
+    class="goods-category-host"
     level="{{3}}"
     custom-class="goods-category-class"
     category="{{list}}"

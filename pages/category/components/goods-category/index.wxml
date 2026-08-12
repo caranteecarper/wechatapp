@@ -1,13 +1,23 @@
 <view class="goods-category custom-class theme-{{theme}}">
-  <c-sidebar custom-class="custom-sidebar" bindchange="onParentChange" activeKey="{{activeKey}}" theme="{{theme}}">
-    <c-sidebar-item
-      wx:for="{{ category }}"
-      wx:key="index"
-      title="{{ item.name }}"
-      disabled="{{ item.disabled }}"
+  <view
+    class="custom-sidebar-shell"
+    style="background-color: {{theme === 'teacher' ? '#351820' : theme === 'princess' ? '#512431' : '#ffebf0'}}"
+  >
+    <c-sidebar
+      custom-class="custom-sidebar"
+      bindchange="onParentChange"
+      activeKey="{{activeKey}}"
       theme="{{theme}}"
-    />
-  </c-sidebar>
+    >
+      <c-sidebar-item
+        wx:for="{{ category }}"
+        wx:key="index"
+        title="{{ item.name }}"
+        disabled="{{ item.disabled }}"
+        theme="{{theme}}"
+      />
+    </c-sidebar>
+  </view>
   <view class="goods-category__right">
     <c-tabbar wx:if="{{isSlotRight}}" activeKey="{{subActiveKey}}" bindchange="onChildChange" showMore>
       <slot />
