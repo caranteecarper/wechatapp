@@ -1,5 +1,5 @@
 <view class="flex soldout flex-center wr-sold-out" wx:if="{{soldout ||  !isStock}}">
-	{{theme === 'teacher' ? '今天暂时不能下达指令' : (theme === 'baby' ? '今天先不能抱抱' : (theme === 'princess' ? '这份心意暂时不能收录' : (soldout ? '商品已下架' : '商品已售馨')))}}
+	{{theme === 'teacher' ? '小狗今天暂时接不了这条指令' : (theme === 'baby' ? '宝宝今天暂时做不了这个' : (theme === 'princess' ? '仆人今天暂时准备不了这个' : (soldout ? '内容已下架' : '暂时不可选')))}}
 </view>
 <view class="footer-cont flex flex-between wr-class theme-{{theme}}">
 	<view class="flex flex-between bottom-operate-left" wx:if="{{jumpArray.length > 0}}">
@@ -24,10 +24,10 @@
 	<block wx:if="{{buttonType === 1}}">
 		<view class="flex buy-buttons">
 			<view class="bar-separately {{soldout || !isStock ? 'bar-addCart-disabled' : ''}}" bindtap="toAddCart">
-				{{theme === 'teacher' ? '放进指令册' : (theme === 'baby' ? '放进宝宝篮' : (theme === 'princess' ? '放进公主想要的' : '加入购物车'))}}
+				{{theme === 'teacher' ? '放进指令册' : (theme === 'baby' ? '放进抱抱清单' : (theme === 'princess' ? '放进想要清单' : '加入清单'))}}
 			</view>
 			<view class="bar-buy {{soldout || !isStock ? 'bar-buyNow-disabled' : ''}}" bindtap="toBuyNow">
-				{{sendText || '发送需求'}}
+				{{sendText || '确认'}}
 			</view>
 		</view>
 	</block>

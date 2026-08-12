@@ -35,7 +35,7 @@ Page({
     intro: '',
     goodsTabArray: [
       {
-        name: '商品',
+        name: '内容',
         value: '', // 空字符串代表置顶
       },
       {
@@ -44,15 +44,15 @@ Page({
       },
     ],
     storeLogo: `${imgPrefix}common/store-logo.png`,
-    storeName: '云mall标准版旗舰店',
+    storeName: '我们的小屋',
     jumpArray: [
       {
-        title: '首页',
+        title: '小屋',
         url: '/pages/home/home',
         iconName: 'home',
       },
       {
-        title: '购物车',
+        title: '清单',
         url: '/pages/cart/index',
         iconName: 'cart',
         showCartNum: true,
@@ -244,8 +244,10 @@ Page({
       message: isAllSelectedSku
         ? this.data.isInteractionPersona
           ? this.data.personaUi.addCartToast
-          : '点击加入购物车'
-        : '请选择规格',
+          : '已加入清单'
+        : this.data.isInteractionPersona
+          ? this.data.personaUi.chooseOptionToast
+          : '请选择规格',
       icon: '',
       duration: 1000,
     });
@@ -257,7 +259,7 @@ Page({
       Toast({
         context: this,
         selector: '#t-toast',
-        message: '请选择规格',
+        message: this.data.isInteractionPersona ? this.data.personaUi.chooseOptionToast : '请选择规格',
         icon: '',
         duration: 1000,
       });

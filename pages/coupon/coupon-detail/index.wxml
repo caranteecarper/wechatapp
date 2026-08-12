@@ -20,21 +20,21 @@
       <view class="voucher-rule__index">01</view>
       <view>
         <view class="voucher-rule__title">怎么使用</view>
-        <view class="voucher-rule__description">打开这张券并告诉对方，确认后就进入当前人设的回应记录。</view>
+        <view class="voucher-rule__description">{{pageCopy.useDescription}}</view>
       </view>
     </view>
     <view class="voucher-rule">
       <view class="voucher-rule__index">02</view>
       <view>
         <view class="voucher-rule__title">适用范围</view>
-        <view class="voucher-rule__description">仅限你们两个人，不与现实商品、付款或物流产生关系。</view>
+        <view class="voucher-rule__description">{{pageCopy.scopeDescription}}</view>
       </view>
     </view>
     <view class="voucher-rule">
       <view class="voucher-rule__index">03</view>
       <view>
         <view class="voucher-rule__title">私密说明</view>
-        <view class="voucher-rule__description">这张券和使用记录，只在你们的小屋里显示。</view>
+        <view class="voucher-rule__description">{{pageCopy.privateDescription}}</view>
       </view>
     </view>
   </view>

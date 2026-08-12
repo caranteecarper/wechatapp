@@ -95,7 +95,7 @@ Page({
           this.total = totalCount;
           this.setData({
             emptyInfo: {
-              tip: '抱歉，未找到相关商品',
+              tip: '没有找到相关内容',
             },
             hasLoaded: true,
             loadMoreStatus: 0,
@@ -174,7 +174,7 @@ Page({
     Toast({
       context: this,
       selector: '#t-toast',
-      message: '点击标签',
+      message: this.data.isInteractionPersona ? this.data.personaUi.searchToast : '已经按这个标签查找',
     });
   },
 

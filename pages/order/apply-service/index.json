@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "选择售后类型",
+  "navigationBarTitleText": "调整这次安排",
   "usingComponents": {
     "t-icon": "tdesign-miniprogram/icon/icon",
     "t-toast": "tdesign-miniprogram/toast/toast"

@@ -35,9 +35,11 @@
       <t-icon name="search" size="42rpx" />
     </view>
     <view class="persona-empty__title">{{pageCopy.empty}}</view>
-    <view class="persona-empty__description">换一个词试试，或者回到当前人设的清单慢慢挑。</view>
+    <view class="persona-empty__description">换一个词试试，或者回到清单里慢慢挑。</view>
   </view>
 
-  <view class="result-loading" wx:else>正在找适合这一刻的内容...</view>
+  <view class="result-loading" wx:else>
+    {{currentPersona === 'baby' ? '宝宝正在帮你找...' : currentPersona === 'princess' ? '仆人正在帮公主找...' : '小狗正在替姐姐找...'}}
+  </view>
 </view>
 <t-toast id="t-toast" />

@@ -69,7 +69,7 @@ Page({
       Toast({
         context: this,
         selector: '#t-toast',
-        message: '先写下一点真实感受',
+        message: this.data.personaUi.feedbackRequiredToast,
       });
       return;
     }

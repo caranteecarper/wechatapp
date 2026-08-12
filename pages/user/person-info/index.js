@@ -71,7 +71,7 @@ Page({
       Toast({
         context: this,
         selector: '#t-toast',
-        message: '头像已经换好',
+        message: this.data.personaUi.avatarSavedToast,
         theme: 'success',
       });
     } catch (error) {
@@ -79,7 +79,7 @@ Page({
       Toast({
         context: this,
         selector: '#t-toast',
-        message: '这次没有选好头像',
+        message: this.data.personaUi.avatarFailedToast,
       });
     }
   },

@@ -238,13 +238,13 @@ export function getTeacherUsercenter() {
 export function getTeacherMenuData() {
   return [
     [
-      { title: '小狗表现', tit: '', url: '', type: 'address' },
-      { title: '专属奖励', tit: '', url: '', type: 'coupon' },
-      { title: '姐姐问话', tit: '', url: '', type: 'point' },
+      { title: '检查小狗表现', tit: '', url: '', type: 'catalog', groupId: 'performance' },
+      { title: '姐姐的专属券', tit: '', url: '', type: 'vouchers' },
+      { title: '姐姐问话', tit: '', url: '', type: 'catalog', groupId: 'questions' },
     ],
     [
-      { title: '姐姐管教', tit: '', url: '', type: 'help-center' },
-      { title: '给小狗留一句话', tit: '', url: '', type: 'service', icon: 'service' },
+      { title: '姐姐的重要日子', tit: '', url: '', type: 'dates' },
+      { title: '把小狗叫过来', tit: '', url: '', type: 'response', icon: 'service' },
     ],
   ];
 }

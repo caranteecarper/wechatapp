@@ -19,9 +19,9 @@ const categories = buildCategoryTree(categoryDefinitions);
 
 const orderTags = [
   { title: '等宝宝回应', iconName: 'wallet', orderNum: 0, tabType: 5, status: 1 },
-  { title: '宝宝已收到', iconName: 'deliver', orderNum: 0, tabType: 10, status: 1 },
-  { title: '正在抱好', iconName: 'package', orderNum: 0, tabType: 40, status: 1 },
-  { title: '已经抱好', iconName: 'comment', orderNum: 0, tabType: 50, status: 1 },
+  { title: '宝宝知道啦', iconName: 'deliver', orderNum: 0, tabType: 10, status: 1 },
+  { title: '宝宝正在做', iconName: 'package', orderNum: 0, tabType: 40, status: 1 },
+  { title: '宝宝做到啦', iconName: 'comment', orderNum: 0, tabType: 50, status: 1 },
 ];
 
 const system = createPersonaSystem({
@@ -35,17 +35,17 @@ const system = createPersonaSystem({
   home: {
     eyebrow: 'SOFT MODE',
     title: '宝宝的软软小屋',
-    subtitle: '今天想让宝宝怎么陪我呀',
+    subtitle: '今天宝宝会好好陪你~',
     searchPlaceholder: '搜一搜今天想让宝宝做什么',
     tabs,
   },
   categories,
   cart: {
-    storeName: '宝宝的软软清单',
+    storeName: '宝宝的抱抱清单',
     title: '今天想让宝宝做这些',
     tagText: '每一件都要认真回应',
-    tag: '软软心愿',
-    description: '这里装着准备告诉宝宝的小心愿',
+    tag: '小心愿',
+    description: '想告诉宝宝的，都先放在这里',
     itemIds: ['baby-now-hug', 'baby-ten-minutes', 'baby-answer-me'],
     discountAmount: '0',
     joinTime: '2026-08-03T21:05:00.000+0800',
@@ -53,7 +53,7 @@ const system = createPersonaSystem({
   usercenter: {
     userInfo: {
       avatarUrl: assets.cuddle,
-      nickName: '想被宝宝抱好的我',
+      nickName: '宝宝最喜欢的我',
       phoneNumber: '',
       gender: 2,
     },
@@ -74,13 +74,13 @@ const system = createPersonaSystem({
   },
   menuData: [
     [
-      { title: '今天的心情', tit: '', url: '', type: 'address' },
-      { title: '抱抱收藏', tit: '', url: '', type: 'coupon' },
-      { title: '想宝宝的暗号', tit: '', url: '', type: 'point' },
+      { title: '现在想要抱抱', tit: '', url: '', type: 'catalog', groupId: 'cuddle' },
+      { title: '宝宝的抱抱券', tit: '', url: '', type: 'vouchers' },
+      { title: '只属于我们的', tit: '', url: '', type: 'catalog', groupId: 'private' },
     ],
     [
-      { title: '睡前小话', tit: '', url: '', type: 'help-center' },
-      { title: '给宝宝留个抱抱', tit: '', url: '', type: 'service', icon: 'service' },
+      { title: '我们的特别日子', tit: '', url: '', type: 'dates' },
+      { title: '叫宝宝来抱抱', tit: '', url: '', type: 'response', icon: 'service' },
     ],
   ],
   orderTags,
@@ -96,7 +96,7 @@ const system = createPersonaSystem({
     {
       goodId: 'baby-ten-minutes',
       status: 10,
-      statusName: '宝宝已经收到',
+      statusName: '宝宝知道啦',
       amount: '0',
       createTime: '1785772800000',
       specifications: [{ specTitle: '完成方式', specValue: '语音通话' }],
@@ -104,7 +104,7 @@ const system = createPersonaSystem({
     {
       goodId: 'baby-bedtime-story',
       status: 40,
-      statusName: '正在认真抱好',
+      statusName: '宝宝正在做',
       amount: '520',
       createTime: '1785686400000',
       specifications: [{ specTitle: '故事长度', specValue: '十分钟' }],
@@ -112,7 +112,7 @@ const system = createPersonaSystem({
     {
       goodId: 'baby-mini-love-letter',
       status: 50,
-      statusName: '已经甜甜收好',
+      statusName: '宝宝做到啦',
       amount: '999',
       createTime: '1785600000000',
       specifications: [{ specTitle: '完成方式', specValue: '手写照片' }],

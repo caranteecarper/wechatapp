@@ -72,7 +72,9 @@
                   今日想要
                 </view>
                 <view slot="append-body" class="goods-stepper">
-                  <view class="stepper-tip" wx:if="{{goods.shortageStock}}">库存不足</view>
+                  <view class="stepper-tip" wx:if="{{goods.shortageStock}}">
+                    {{theme === 'teacher' ? '这次先缓缓' : (theme === 'baby' ? '宝宝晚点再做' : (theme === 'princess' ? '仆人晚点准备' : '暂时不能选'))}}
+                  </view>
                   <t-stepper
                     classname="stepper-info"
                     value="{{goods.quantity}}"

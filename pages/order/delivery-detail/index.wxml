@@ -28,6 +28,6 @@
 
   <view class="progress-private">
     <t-icon name="lock-on" size="24rpx" />
-    <text>这份进度只在你们两个人之间显示</text>
+    <text>这份进度只留在我们之间</text>
   </view>
 </view>

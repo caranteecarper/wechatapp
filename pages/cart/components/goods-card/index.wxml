@@ -30,7 +30,9 @@
 					<view class="wr-goods-card__specs__desc-text">{{ goods.specs }}</view>
 					<t-icon name="chevron-down" size="32rpx" color="#999999" />
 				</view>
-				<view class="goods_tips" wx:if="{{goods.stockQuantity !== 0 && goods.quantity >= goods.stockQuantity}}">库存不足</view>
+				<view class="goods_tips" wx:if="{{goods.stockQuantity !== 0 && goods.quantity >= goods.stockQuantity}}">
+					{{theme === 'teacher' ? '这次先缓缓' : (theme === 'baby' ? '宝宝晚点再做' : (theme === 'princess' ? '仆人晚点准备' : '暂时不能选'))}}
+				</view>
 			</view>
 			<view class="wr-goods-card__short_content">
 				<block wx:if="{{goods.stockQuantity !== 0}}">

@@ -93,7 +93,7 @@ Page({
       Toast({
         context: this,
         selector: '#t-toast',
-        message: '这份心愿暂时没有整理好',
+        message: this.data.personaUi.loadFailedToast,
       });
     }
   },
@@ -108,7 +108,7 @@ Page({
       Toast({
         context: this,
         selector: '#t-toast',
-        message: '先选一件想告诉对方的事',
+        message: this.data.personaUi.emptySubmitToast,
       });
       return;
     }
@@ -130,7 +130,7 @@ Page({
       Toast({
         context: this,
         selector: '#t-toast',
-        message: '这条记录暂时没有保存好，请再试一次',
+        message: this.data.personaUi.saveFailedToast,
         icon: '',
       });
       return;

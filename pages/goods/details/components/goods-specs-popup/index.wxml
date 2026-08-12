@@ -69,12 +69,12 @@
     >
       <view class="sku-operate">
         <view class="selected-sku-btn sku-operate-addCart {{!isStock ? 'disabled' : ''}}" bindtap="addCart">
-          {{theme === 'teacher' ? '放进指令册' : (theme === 'baby' ? '放进宝宝篮' : (theme === 'princess' ? '放进公主想要的' : '加入购物车'))}}
+          {{theme === 'teacher' ? '放进指令册' : (theme === 'baby' ? '放进抱抱清单' : (theme === 'princess' ? '放进想要清单' : '加入清单'))}}
         </view>
       </view>
       <view class="sku-operate">
         <view class="selected-sku-btn sku-operate-buyNow  {{!isStock ? 'disabled' : ''}}" bindtap="buyNow">
-          {{sendText || '发送需求'}}
+          {{sendText || '确认'}}
         </view>
       </view>
     </view>

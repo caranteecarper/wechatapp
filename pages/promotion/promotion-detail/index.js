@@ -40,7 +40,7 @@ Page({
     Toast({
       context: this,
       selector: '#t-toast',
-      message: event ? event.stateText : this.data.pageCopy.pendingDateLabel,
+      message: `${this.data.pageCopy.tapPrefix || ''}${event ? event.stateText : this.data.pageCopy.pendingDateLabel}`,
       icon: '',
     });
   },

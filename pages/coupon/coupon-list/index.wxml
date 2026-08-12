@@ -43,8 +43,8 @@
     <view class="persona-empty__mark">
       <t-icon name="ticket" size="42rpx" />
     </view>
-    <view class="persona-empty__title">这里暂时是空的</view>
-    <view class="persona-empty__description">以后使用过或收藏起来的专属券，会按照当前人设放在这里。</view>
+    <view class="persona-empty__title">这里还没有专属券</view>
+    <view class="persona-empty__description">{{pageCopy.emptyDescription}}</view>
   </view>
 
   <view class="voucher-add persona-secondary-button" bindtap="addVoucher">

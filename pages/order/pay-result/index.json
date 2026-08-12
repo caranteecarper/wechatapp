@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "支付结果",
+  "navigationBarTitleText": "已经记下",
   "usingComponents": {
     "t-icon": "tdesign-miniprogram/icon/icon"
   }

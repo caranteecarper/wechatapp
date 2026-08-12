@@ -7,11 +7,13 @@
       {{currentPersona === 'baby' ? '把这份心愿告诉宝宝' : currentPersona === 'princess' ? '确认公主想要的' : '确认姐姐的指令'}}
     </view>
     <view class="persona-page-description">
-      {{currentPersona === 'baby' ? '确认后，宝宝会看到这份软软的期待。' : currentPersona === 'princess' ? '确认后，仆人就知道今天该怎么宠公主啦。' : '确认后，小狗会收到姐姐清楚明确的要求。'}}
+      {{currentPersona === 'baby' ? '告诉宝宝以后，宝宝会认真记下来。' : currentPersona === 'princess' ? '告诉仆人以后，仆人会按公主的要求准备。' : '吩咐以后，小狗会照姐姐的要求认真执行。'}}
     </view>
   </view>
 
-  <view class="confirm-loading persona-card" wx:if="{{loading}}">正在整理这份心意...</view>
+  <view class="confirm-loading persona-card" wx:if="{{loading}}">
+    {{currentPersona === 'baby' ? '宝宝正在看看你选了什么...' : currentPersona === 'princess' ? '仆人正在看看公主想要什么...' : '小狗正在听姐姐的指令...'}}
+  </view>
 
   <view class="persona-section" wx:for="{{orderCardList}}" wx:key="id" wx:for-item="group">
     <view class="persona-section-heading">{{group.title || personaUi.basketName}}</view>
@@ -50,7 +52,7 @@
       <text>{{currentPersona === 'baby' ? '♡' : ''}}{{totalValue}}</text>
     </view>
     <view class="confirm-summary__row">
-      <text>私密状态</text>
+      <text>谁可以看</text>
       <text>{{currentPersona === 'teacher' ? '仅姐姐和小狗可见' : currentPersona === 'baby' ? '只留在软软小屋' : '只留在公主的偏爱记录'}}</text>
     </view>
   </view>
@@ -63,7 +65,7 @@
     class="persona-primary-button {{submitting ? 'persona-primary-button--disabled' : ''}}"
     bindtap="submitOrder"
   >
-    {{submitting ? '正在保存...' : personaUi.sendText}}
+    {{submitting ? (currentPersona === 'baby' ? '正在告诉宝宝...' : currentPersona === 'princess' ? '正在告诉仆人...' : '正在吩咐小狗...') : personaUi.sendText}}
   </view>
 </view>
 <t-toast id="t-toast" />

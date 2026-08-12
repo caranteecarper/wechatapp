@@ -50,7 +50,9 @@
   </view>
 
   <view class="persona-section" wx:if="{{feedbackSummary}}">
-    <view class="persona-section-heading">最近一次验收</view>
+    <view class="persona-section-heading">
+      {{currentPersona === 'teacher' ? '姐姐最近一次验收' : currentPersona === 'princess' ? '公主最近一次心情' : '最近一次感受'}}
+    </view>
     <view class="persona-card record-feedback">
       <view class="record-feedback__score">{{feedbackSummary.score}} / 5</view>
       <view class="record-feedback__content">{{feedbackSummary.content}}</view>

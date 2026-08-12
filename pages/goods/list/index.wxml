@@ -43,7 +43,7 @@
     <t-empty
       t-class="empty-tips"
       size="240rpx"
-      description="{{isInteractionPersona ? '这里暂时还没有可选互动' : '暂无相关商品'}}"
+      description="{{isInteractionPersona ? (currentPersona === 'baby' ? '宝宝还没找到这个小心愿' : currentPersona === 'princess' ? '仆人还没找到公主想要的' : '小狗还没找到这条指令') : '暂无相关内容'}}"
     />
   </view>
   <view class="category-goods-list" wx:if="{{goodsList.length}}">

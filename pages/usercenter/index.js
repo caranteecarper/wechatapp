@@ -7,7 +7,7 @@ import { isInteractionPersona, syncPersonaPage } from '../../utils/personas';
 const menuData = [
   [
     {
-      title: '她的小档案',
+      title: '我的小档案',
       tit: '',
       url: '',
       type: 'address',
@@ -51,7 +51,7 @@ const orderTagInfos = [
     status: 1,
   },
   {
-    title: '已被收到',
+    title: '已收到',
     iconName: 'deliver',
     orderNum: 0,
     tabType: 10,
@@ -158,43 +158,31 @@ Page({
   },
 
   onClickCell({ currentTarget }) {
-    const { type } = currentTarget.dataset;
+    const { type, groupId = '' } = currentTarget.dataset;
 
     if (this.data.isInteractionPersona) {
-      if (type === 'address') {
-        const groupId = {
-          teacher: 'report',
-          baby: 'cuddle',
-          princess: 'favor',
-        }[this.data.currentPersona];
+      if (type === 'catalog') {
         wx.navigateTo({ url: `/pages/goods/list/index?groupId=${groupId}` });
         return;
       }
-      if (type === 'coupon') {
+      if (type === 'vouchers') {
         wx.navigateTo({ url: '/pages/coupon/coupon-list/index' });
         return;
       }
-      const messageByType = {
-        point: {
-          teacher: '这里以后放只属于我们的专属暗号',
-          baby: '这里收藏只有我们懂的想宝宝暗号',
-          princess: '这里收藏公主专属的奶茶、约会和惊喜券',
-        }[this.data.currentPersona],
-        'help-center': {
-          teacher: '深夜谈话，已经留好位置了',
-          baby: '今晚的睡前小话，已经留好位置了',
-          princess: '每个纪念日都会被认真记住，还要有一点仪式感',
-        }[this.data.currentPersona],
-        service: {
-          teacher: '要小狗做的事，可以先放进今晚的指令里',
-          baby: '想要的抱抱，可以先放进宝宝篮',
-          princess: '想喝什么、想要什么，都可以先告诉仆人',
-        }[this.data.currentPersona],
-      };
+      if (type === 'dates') {
+        wx.navigateTo({ url: '/pages/promotion/promotion-detail/index' });
+        return;
+      }
+      const message =
+        {
+          teacher: '小狗在，姐姐想吩咐什么？',
+          baby: '宝宝在，今天想要什么抱抱？',
+          princess: '仆人在，公主今天想要什么？',
+        }[this.data.currentPersona] || this.data.personaUi.receivedText;
       Toast({
         context: this,
         selector: '#t-toast',
-        message: messageByType[type] || '这件事已经记下来了',
+        message,
         icon: '',
         duration: 1200,
       });
@@ -224,7 +212,7 @@ Page({
         Toast({
           context: this,
           selector: '#t-toast',
-          message: '这里以后放我们才懂的暗号',
+          message: '我们的暗号都放在这里',
           icon: '',
           duration: 1000,
         });
@@ -238,7 +226,7 @@ Page({
         Toast({
           context: this,
           selector: '#t-toast',
-          message: '未知跳转',
+          message: '这个入口暂时还没准备好',
           icon: '',
           duration: 1000,
         });
@@ -282,7 +270,7 @@ Page({
       Toast({
         context: this,
         selector: '#t-toast',
-        message: '这套安排不需要拨打电话',
+        message: '这里不用打电话',
       });
       return;
     }

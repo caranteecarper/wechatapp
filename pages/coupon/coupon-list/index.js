@@ -50,7 +50,7 @@ Page({
     Toast({
       context: this,
       selector: '#t-toast',
-      message: '新的专属券入口已经留好，内容我们后面再定',
+      message: this.data.personaUi.voucherComingToast,
     });
   },
 });

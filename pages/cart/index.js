@@ -224,9 +224,7 @@ Page({
     Toast({
       context: this,
       selector: '#t-toast',
-      message: `${isSelected ? '选择' : '取消'}"${
-        currentGoods.title.length > 5 ? `${currentGoods.title.slice(0, 5)}...` : currentGoods.title
-      }"`,
+      message: isSelected ? this.data.personaUi.selectToast : this.data.personaUi.unselectToast,
       icon: '',
     });
     this.selectGoodsService({ spuId, skuId, isSelected }).then(() => this.refreshData());
@@ -254,15 +252,15 @@ Page({
         Toast({
           context: this,
           selector: '#t-toast',
-          message: '这个心愿今天先缓一缓',
+          message: this.data.personaUi.quantityLimitToast,
         });
         return;
       }
       Dialog.confirm({
-        title: '心愿太满啦',
-        content: `今天最多先放${stockQuantity}个同样的心愿`,
-        confirmBtn: '改成今天能兑现的数量',
-        cancelBtn: '取消',
+        title: this.data.personaUi.quantityLimitTitle,
+        content: this.data.personaUi.quantityLimitContent.replace('{count}', stockQuantity),
+        confirmBtn: this.data.personaUi.quantityLimitConfirm,
+        cancelBtn: '再想想',
       })
         .then(() => {
           this.changeQuantityService({
@@ -302,15 +300,15 @@ Page({
       goods: { spuId, skuId },
     } = e.detail;
     Dialog.confirm({
-      content: `确认从${this.data.personaUi.basketName}移除吗?`,
-      confirmBtn: '确定',
-      cancelBtn: '取消',
+      content: this.data.personaUi.removeConfirmText,
+      confirmBtn: this.data.personaUi.removeConfirmButton,
+      cancelBtn: this.data.personaUi.removeCancelButton,
     }).then(() => {
       this.deleteGoodsService({ spuId, skuId }).then(() => {
         Toast({
           context: this,
           selector: '#t-toast',
-          message: `已从${this.data.personaUi.basketName}移除`,
+          message: this.data.personaUi.removeToast,
         });
         this.refreshData();
       });
@@ -330,9 +328,7 @@ Page({
     Toast({
       context: this,
       selector: '#t-toast',
-      message: nextSelected
-        ? `已选中全部${this.data.personaUi.basketName}`
-        : `已取消全部${this.data.personaUi.basketName}`,
+      message: nextSelected ? this.data.personaUi.selectAllToast : this.data.personaUi.unselectAllToast,
     });
     this.refreshData();
   },

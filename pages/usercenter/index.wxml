@@ -31,6 +31,7 @@
         arrow="{{!xitem.icon}}"
         note="{{xitem.tit}}"
         data-type="{{xitem.type}}"
+        data-group-id="{{xitem.groupId}}"
         bordered="{{false}}"
         bind:click="onClickCell"
         t-class="t-cell-padding"

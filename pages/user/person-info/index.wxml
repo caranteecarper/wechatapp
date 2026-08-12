@@ -13,7 +13,7 @@
       </view>
     </view>
     <view class="profile-name">{{profile.nickName}}</view>
-    <view class="profile-role">{{personaUi ? personaUi.detailTitle : ''}}</view>
+    <view class="profile-role">{{personaLabel}}</view>
     <view class="profile-private">{{pageCopy.privacy}}</view>
   </view>
 
@@ -21,7 +21,7 @@
     <view class="profile-field" bindtap="editAvatar">
       <view>
         <view class="profile-field__label">{{pageCopy.avatarLabel}}</view>
-        <view class="profile-field__hint">换一张她喜欢的照片</view>
+        <view class="profile-field__hint">换一张我喜欢的照片</view>
       </view>
       <t-icon name="chevron-right" size="36rpx" />
     </view>
@@ -37,7 +37,7 @@
     </view>
     <view class="profile-field">
       <view class="profile-field__label">{{pageCopy.roleLabel}}</view>
-      <view class="profile-field__value">{{personaUi.detailTitle}}</view>
+      <view class="profile-field__value">{{personaLabel}}</view>
     </view>
     <view class="profile-field">
       <view class="profile-field__label">{{pageCopy.callLabel}}</view>

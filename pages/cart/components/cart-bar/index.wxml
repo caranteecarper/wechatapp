@@ -18,20 +18,10 @@
 			 decimalSmaller
 			 class="cart-bar__total--bold cart-bar__total--price"
 			/>
-			<text class="cart-bar__total--normal">{{theme === 'teacher' ? '（只给我们看的约定）' : (theme === 'baby' ? '（抱抱不嫌多）' : (theme === 'princess' ? '（公主想要的都要记住）' : '（部分为仪式感）'))}}</text>
-		</view>
-		<view wx:if="{{totalDiscountAmount}}">
-			<text class="cart-bar__total--normal text-padding-right">{{theme === 'teacher' ? '专属偏爱' : (theme === 'baby' ? '软软加成' : (theme === 'princess' ? '偏爱加冕' : '甜度加成'))}}</text>
-			<price
-			 class="cart-bar__total--normal"
-			 price="{{totalDiscountAmount || '0'}}"
-			 symbol="{{currency}}"
-			 fill="{{false}}"
-			 />
 		</view>
 	</view>
 	<view catchtap="handleToSettle" class="{{!isDisabled ? '' : 'disabled-btn'}} account-btn" hover-class="{{!isDisabled ? '' : 'hover-btn'}}">
-		{{sendText || '发送需求'}}({{totalGoodsNum}})
+		{{sendText || '确认'}}({{totalGoodsNum}})
 	</view>
 </view>
 

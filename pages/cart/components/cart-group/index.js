@@ -95,7 +95,24 @@ Component({
     },
 
     overlimit(e) {
-      const text = e.detail.type === 'minus' ? '该商品数量不能减少了哦' : '同一商品最多购买999件';
+      const copy = {
+        teacher: {
+          minus: '小狗记得，至少要留一条指令~',
+          plus: '小狗先记这么多，姐姐还可以再吩咐~',
+        },
+        baby: {
+          minus: '宝宝记得，至少要留一个小心愿~',
+          plus: '宝宝先记这么多，想要更多再告诉我~',
+        },
+        princess: {
+          minus: '仆人记得，至少要留一个想要~',
+          plus: '仆人先记这么多，公主还可以继续选~',
+        },
+      }[this.properties.theme] || {
+        minus: '至少保留一项',
+        plus: '这次先选这么多',
+      };
+      const text = e.detail.type === 'minus' ? copy.minus : copy.plus;
       Toast({
         context: this,
         selector: '#t-toast',
@@ -107,9 +124,9 @@ Component({
     gotoBuyMore(e) {
       if (isInteractionPersona(this.properties.theme)) {
         const message = {
-          teacher: '这些指令已经收进姐姐的指令册了',
-          baby: '这些抱抱已经装进宝宝篮了',
-          princess: '这些想要的已经放进公主清单啦',
+          teacher: '小狗已经替姐姐收进指令册啦~',
+          baby: '宝宝已经替你收进抱抱清单啦~',
+          princess: '仆人已经替公主收进想要清单啦~',
         }[this.properties.theme];
         Toast({
           context: this,
@@ -131,7 +148,13 @@ Component({
         Toast({
           context: this,
           selector: '#t-toast',
-          message: '部分商品库存不足',
+          message: isInteractionPersona(this.properties.theme)
+            ? {
+                teacher: '小狗今天暂时接不了这几条指令~',
+                baby: '宝宝今天暂时做不了这几个心愿~',
+                princess: '仆人今天暂时准备不了这几项~',
+              }[this.properties.theme]
+            : '部分商品库存不足',
         });
         return;
       }

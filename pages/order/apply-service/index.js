@@ -37,7 +37,7 @@ Page({
       Toast({
         context: this,
         selector: '#t-toast',
-        message: '先选择一种调整方式',
+        message: this.data.personaUi.chooseOptionToast,
       });
       return;
     }

@@ -20,15 +20,16 @@
             price="{{minSalePrice}}"
             type="lighter"
           />
-          <view class="goods-price-up">起</view>
+          <view class="goods-price-up" wx:if="{{!isInteractionPersona}}">起</view>
           <price
+            wx:if="{{!isInteractionPersona}}"
             wr-class="class-goods-del"
             symbol="{{currentPersona === 'baby' ? '♡' : '¥'}}"
             price="{{maxLinePrice}}"
             type="delthrough"
           />
         </view>
-        <view class="sold-num">{{isInteractionPersona ? '已收录' : '已售'}}{{soldNum}}</view>
+        <view class="sold-num" wx:if="{{!isInteractionPersona}}">已售{{soldNum}}</view>
       </view>
       <view
         wx:if="{{!isInteractionPersona && activityList.length > 0}}"
@@ -73,7 +74,7 @@
           {{currentPersona === 'baby' ? '互动后的心情' : currentPersona === 'princess' ? '公主收到后的心情' : '姐姐的验收记录'}}
         </view>
         <view class="interaction-feedback-entry__desc">
-          {{currentPersona === 'baby' ? '把被抱好后的感受留给宝宝' : currentPersona === 'princess' ? '收到偏爱以后，告诉他公主开不开心' : '完成后，由姐姐写下这次结论'}}
+          {{currentPersona === 'baby' ? '完成以后，把这次的感受告诉宝宝' : currentPersona === 'princess' ? '收到以后，告诉仆人公主开不开心' : '完成后，由姐姐写下这次结论'}}
         </view>
       </view>
       <t-icon name="chevron-right" size="38rpx" />
@@ -81,7 +82,7 @@
     <view wx:if="{{ !isInteractionPersona && commentsStatistics.commentCount > 0 }}" class="comments-wrap">
       <view class="comments-head" bindtap="navToCommentsListPage">
         <view class="comments-title-wrap">
-          <view class="comments-title-label">商品评价</view>
+          <view class="comments-title-label">大家怎么说</view>
           <view class="comments-title-count"> ({{ commentsStatistics.commentCount }}) </view>
         </view>
         <view class="comments-rate-wrap">

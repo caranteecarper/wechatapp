@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "评价商品",
+  "navigationBarTitleText": "写下感受",
   "usingComponents": {
     "t-rate": "tdesign-miniprogram/rate/rate",
     "t-textarea": "tdesign-miniprogram/textarea/textarea",
