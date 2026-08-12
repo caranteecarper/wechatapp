@@ -384,7 +384,7 @@ page {
 
 .theme-princess.home-page-header,
 .theme-princess.home-page-container {
-  background: #f8f3f1;
+  background: #fff7fd;
 }
 
 .theme-princess .love-hero {
@@ -392,8 +392,8 @@ page {
   margin: 0 -24rpx;
   padding: 46rpx 32rpx 32rpx;
   overflow: hidden;
-  background: #f3e5e3;
-  border-bottom: 1rpx solid #dbc5b1;
+  background: #f4e5f8;
+  border-bottom: 1rpx solid #e3cae2;
 }
 
 .theme-princess .love-hero::after {
@@ -402,38 +402,38 @@ page {
   right: 30rpx;
   bottom: 24rpx;
   width: 82rpx;
-  border-top: 1rpx solid rgba(151, 102, 63, 0.45);
-  border-bottom: 1rpx solid rgba(151, 102, 63, 0.45);
+  border-top: 1rpx solid rgba(187, 137, 77, 0.52);
+  border-bottom: 1rpx solid rgba(187, 137, 77, 0.52);
   content: '';
 }
 
 .theme-princess .love-hero__eyebrow {
-  color: #96633f;
+  color: #a66d92;
 }
 
 .theme-princess .love-hero__title {
-  color: #60293a;
+  color: #57304f;
   font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
   font-size: 50rpx;
   font-weight: 600;
 }
 
 .theme-princess .love-hero__subtitle {
-  color: #84646a;
+  color: #876d83;
 }
 
 .theme-princess .nickname-chip {
-  border-color: rgba(163, 116, 78, 0.35);
-  border-radius: 8rpx;
-  color: #84615d;
-  background: rgba(255, 253, 250, 0.64);
+  border-color: rgba(184, 104, 151, 0.3);
+  border-radius: 10rpx;
+  color: #8a5f7f;
+  background: rgba(255, 253, 255, 0.78);
 }
 
 .theme-princess .nickname-chip--active {
-  border-color: #a36c73;
-  color: #fffaf6;
-  background: #8e3049;
-  box-shadow: 0 10rpx 24rpx rgba(94, 35, 53, 0.16);
+  border-color: #c06b9b;
+  color: #ffffff;
+  background: #b85088;
+  box-shadow: 0 10rpx 24rpx rgba(139, 61, 108, 0.18);
 }
 
 .theme-princess .search {
@@ -441,33 +441,33 @@ page {
 }
 
 .theme-princess .t-search__input-container {
-  border: 1rpx solid #dfd0c5;
-  border-radius: 8rpx !important;
-  background: #fffdfb !important;
+  border: 1rpx solid #ead4e7;
+  border-radius: 12rpx !important;
+  background: #fffdfd !important;
 }
 
 .theme-princess .t-image__swiper {
-  border: 1rpx solid #d9c2b1;
-  border-radius: 8rpx;
+  border: 1rpx solid #e4cde2;
+  border-radius: 12rpx;
 }
 
 .theme-princess .t-tabs,
 .theme-princess .goods-list-container {
-  background: #f8f3f1 !important;
+  background: #fff7fd !important;
 }
 
 .theme-princess .tabs-external__active {
-  color: #4f2832 !important;
+  color: #56304d !important;
 }
 
 .theme-princess .tabs-external__track {
   height: 4rpx !important;
   width: 52rpx !important;
   border-radius: 0 !important;
-  background: #8e3049 !important;
+  background: #b85088 !important;
 }
 
 .theme-princess .home-page-tabs {
-  --td-tab-item-color: #8d7774;
-  --td-tab-track-color: #8e3049;
+  --td-tab-item-color: #8c7489;
+  --td-tab-track-color: #b85088;
 }

@@ -30,16 +30,16 @@
 }
 
 .persona-surface.theme-princess {
-  --persona-bg: #f7f1ef;
-  --persona-panel: #fffdf9;
-  --persona-ink: #372526;
-  --persona-muted: #8c7470;
-  --persona-accent: #8e3049;
-  --persona-deep: #6d2339;
-  --persona-soft: #f1e2df;
-  --persona-border: #dfcbc5;
-  --persona-gold: #b38a4d;
-  --persona-radius: 10rpx;
+  --persona-bg: #fff7fd;
+  --persona-panel: #fffdfd;
+  --persona-ink: #4b3045;
+  --persona-muted: #8c7087;
+  --persona-accent: #b85088;
+  --persona-deep: #8e3f70;
+  --persona-soft: #f7e8f4;
+  --persona-border: #ead4e7;
+  --persona-gold: #c69b55;
+  --persona-radius: 12rpx;
 }
 
 .persona-surface.theme-teacher {

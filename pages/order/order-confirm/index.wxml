@@ -4,10 +4,10 @@
       {{currentPersona === 'baby' ? 'SEND A HUG' : currentPersona === 'princess' ? 'ROYAL WISH' : 'PRIVATE ARRANGEMENT'}}
     </view>
     <view class="persona-page-title">
-      {{currentPersona === 'baby' ? '把这份心愿告诉宝宝' : currentPersona === 'princess' ? '确认公主的愿望' : '确认姐姐的指令'}}
+      {{currentPersona === 'baby' ? '把这份心愿告诉宝宝' : currentPersona === 'princess' ? '确认公主想要的' : '确认姐姐的指令'}}
     </view>
     <view class="persona-page-description">
-      {{currentPersona === 'baby' ? '确认后，宝宝会看到这份软软的期待。' : currentPersona === 'princess' ? '确认后，仆人会按照礼册里的要求认真准备。' : '确认后，小狗会收到姐姐清楚明确的要求。'}}
+      {{currentPersona === 'baby' ? '确认后，宝宝会看到这份软软的期待。' : currentPersona === 'princess' ? '确认后，仆人就知道今天该怎么宠公主啦。' : '确认后，小狗会收到姐姐清楚明确的要求。'}}
     </view>
   </view>
 
@@ -43,7 +43,7 @@
   <view class="persona-section persona-card confirm-summary">
     <view class="confirm-summary__row">
       <text>一共选择</text>
-      <text>{{totalCount}} 个{{currentPersona === 'teacher' ? '指令' : currentPersona === 'princess' ? '愿望' : '抱抱'}}</text>
+      <text>{{totalCount}} 个{{currentPersona === 'teacher' ? '指令' : currentPersona === 'princess' ? '想要' : '抱抱'}}</text>
     </view>
     <view class="confirm-summary__row">
       <text>{{personaUi.valueName}}</text>
@@ -51,7 +51,7 @@
     </view>
     <view class="confirm-summary__row">
       <text>私密状态</text>
-      <text>{{currentPersona === 'teacher' ? '仅姐姐和小狗可见' : currentPersona === 'baby' ? '只留在软软小屋' : '只收入偏爱礼册'}}</text>
+      <text>{{currentPersona === 'teacher' ? '仅姐姐和小狗可见' : currentPersona === 'baby' ? '只留在软软小屋' : '只留在公主的偏爱记录'}}</text>
     </view>
   </view>
 

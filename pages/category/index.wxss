@@ -25,7 +25,7 @@
 }
 
 .wrap.theme-princess .goods-category-class {
-  background-color: #f8f3f1 !important;
+  background-color: #fff7fd !important;
 }
 .goods-category-class .goods-category-normal-item-container-item {
   margin-top: 20rpx;

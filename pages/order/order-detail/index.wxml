@@ -38,7 +38,7 @@
     <view class="persona-section-heading">{{pageCopy.noteTitle}}</view>
     <view class="persona-card record-note">
       <view wx:if="{{orderNote}}">
-        <view class="record-note__tag">下达时补充</view>
+        <view class="record-note__tag">{{currentPersona === 'teacher' ? '下达时补充' : currentPersona === 'princess' ? '公主的小备注' : '当时的小备注'}}</view>
         <view class="record-note__text">{{orderNote}}</view>
       </view>
       <view class="record-note__change" wx:if="{{changeNote}}">

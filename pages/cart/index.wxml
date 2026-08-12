@@ -34,9 +34,9 @@
 <cart-empty
   wx:else
   theme="{{currentPersona}}"
-  img-url="{{currentPersona === 'teacher' ? '/assets/teacher/night-talk-card.jpg' : (currentPersona === 'baby' ? '/pages/goods/assets/baby-thumbnails/now-hug.webp' : (currentPersona === 'princess' ? '/assets/princess/wish.jpg' : 'https://tdesign.gtimg.com/miniprogram/template/retail/template/empty-cart.png'))}}"
+  img-url="{{currentPersona === 'teacher' ? '/assets/teacher/night-talk-card.jpg' : (currentPersona === 'baby' ? '/pages/goods/assets/baby-thumbnails/now-hug.webp' : (currentPersona === 'princess' ? '/assets/princess/princess-avatar.webp' : 'https://tdesign.gtimg.com/miniprogram/template/retail/template/empty-cart.png'))}}"
   tip="{{personaUi.basketName}}还是空的"
-  btn-text="{{currentPersona === 'teacher' ? '去看看姐姐指令' : (currentPersona === 'baby' ? '去选一个抱抱' : (currentPersona === 'princess' ? '去收录愿望' : '去写心愿'))}}"
+  btn-text="{{currentPersona === 'teacher' ? '去看看姐姐指令' : (currentPersona === 'baby' ? '去选一个抱抱' : (currentPersona === 'princess' ? '去看看公主想要的' : '去写心愿'))}}"
   bind:handleClick="onGotoHome"
 />
 </view>

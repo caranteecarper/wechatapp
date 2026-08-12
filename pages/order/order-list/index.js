@@ -12,12 +12,12 @@ const getOrderTabs = (persona = '') => [
   },
   {
     key: OrderStatus.PENDING_RECEIPT,
-    text: { teacher: '执行中', baby: '正在抱好', princess: '准备中' }[persona] || '兑现中',
+    text: { teacher: '执行中', baby: '正在抱好', princess: '准备偏爱' }[persona] || '兑现中',
     info: '',
   },
   {
     key: OrderStatus.COMPLETE,
-    text: { teacher: '已完成', baby: '已抱好', princess: '已兑现' }[persona] || '已兑现',
+    text: { teacher: '已完成', baby: '已抱好', princess: '公主收到啦' }[persona] || '已兑现',
     info: '',
   },
 ];

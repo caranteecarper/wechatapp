@@ -15,12 +15,12 @@ const PERSONA_ORDER_COPY = {
   princess: {
     prefix: 'PR',
     storeId: 'princess-room',
-    storeName: '公主的愿望礼册',
+    storeName: '公主想要的',
     statusNames: {
-      5: '等待仆人的郑重答复',
-      10: '仆人已接旨',
-      40: '正在认真准备',
-      50: '惊喜已被认真兑现',
+      5: '等他来宠',
+      10: '他记住啦',
+      40: '正在准备偏爱',
+      50: '公主收到啦',
     },
   },
   teacher: {

@@ -178,17 +178,17 @@ Page({
         point: {
           teacher: '这里以后放只属于我们的专属暗号',
           baby: '这里收藏只有我们懂的想宝宝暗号',
-          princess: '这里收藏只属于公主的偏爱印章',
+          princess: '这里收藏公主专属的奶茶、约会和惊喜券',
         }[this.data.currentPersona],
         'help-center': {
           teacher: '深夜谈话，已经留好位置了',
           baby: '今晚的睡前小话，已经留好位置了',
-          princess: '每个纪念日都会被郑重收进礼册',
+          princess: '每个纪念日都会被认真记住，还要有一点仪式感',
         }[this.data.currentPersona],
         service: {
           teacher: '要小狗做的事，可以先放进今晚的指令里',
           baby: '想要的抱抱，可以先放进宝宝篮',
-          princess: '想对仆人说的话，可以封进公主的愿望信',
+          princess: '想喝什么、想要什么，都可以先告诉仆人',
         }[this.data.currentPersona],
       };
       Toast({
