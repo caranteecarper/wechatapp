@@ -16,11 +16,17 @@
           <price
             wr-class="class-goods-price"
             symbol-class="class-goods-symbol"
+            symbol="{{currentPersona === 'baby' ? '♡' : '¥'}}"
             price="{{minSalePrice}}"
             type="lighter"
           />
           <view class="goods-price-up">起</view>
-          <price wr-class="class-goods-del" price="{{maxLinePrice}}" type="delthrough" />
+          <price
+            wr-class="class-goods-del"
+            symbol="{{currentPersona === 'baby' ? '♡' : '¥'}}"
+            price="{{maxLinePrice}}"
+            type="delthrough"
+          />
         </view>
         <view class="sold-num">{{isInteractionPersona ? '已收录' : '已售'}}{{soldNum}}</view>
       </view>
@@ -150,12 +156,14 @@
         <price
           wx:if="{{!isAllSelectedSku || (!promotionSubCode && isAllSelectedSku)}}"
           price="{{selectSkuSellsPrice ? selectSkuSellsPrice : minSalePrice }}"
+          symbol="{{currentPersona === 'baby' ? '♡' : '¥'}}"
           wr-class="popup-sku__price-num"
           symbol-class="popup-sku__price-symbol"
         />
         <price
           wx:if="{{selectSkuSellsPrice === 0 && minSalePrice !== maxSalePrice && !isAllSelectedSku}}"
           price="{{maxSalePrice}}"
+          symbol="{{currentPersona === 'baby' ? '♡' : '¥'}}"
           wr-class="popup-sku__price-del"
           type="delthrough"
         />

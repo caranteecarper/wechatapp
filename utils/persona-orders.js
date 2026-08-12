@@ -4,12 +4,12 @@ const PERSONA_ORDER_COPY = {
   baby: {
     prefix: 'BB',
     storeId: 'baby-room',
-    storeName: '宝宝的抱抱',
+    storeName: '宝宝的软软清单',
     statusNames: {
-      5: '等宝宝来抱好',
+      5: '等宝宝来抱抱',
       10: '宝宝已收到',
-      40: '正在温柔回应',
-      50: '宝宝已温柔回应',
+      40: '正在认真抱好',
+      50: '已经甜甜收好',
     },
   },
   princess: {

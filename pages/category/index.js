@@ -31,6 +31,12 @@ Page({
   onChange(e) {
     const { item } = e.detail || {};
     if (!item) return;
+    if (item.spuId) {
+      wx.navigateTo({
+        url: `/pages/goods/details/index?spuId=${item.spuId}`,
+      });
+      return;
+    }
     wx.navigateTo({
       url: `/pages/goods/list/index?groupId=${item.groupId || ''}`,
     });

@@ -47,7 +47,7 @@
     </view>
     <view class="confirm-summary__row">
       <text>{{personaUi.valueName}}</text>
-      <text>{{totalValue}}</text>
+      <text>{{currentPersona === 'baby' ? '♡' : ''}}{{totalValue}}</text>
     </view>
     <view class="confirm-summary__row">
       <text>私密状态</text>

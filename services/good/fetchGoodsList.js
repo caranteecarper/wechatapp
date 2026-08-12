@@ -15,7 +15,8 @@ function mockFetchGoodsList(params) {
       item.title = item.title;
       item.price = item.minSalePrice;
       item.originPrice = item.maxLinePrice;
-      item.desc = '';
+      item.desc = item.etitle || '';
+      item.currency = item.currency || '¥';
       if (item.spuTagList) {
         item.tags = item.spuTagList.map((tag) => tag.title);
       } else {

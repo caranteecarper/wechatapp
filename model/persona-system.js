@@ -9,65 +9,107 @@ export function buildCategoryTree(definitions) {
       groupId: sectionId,
       name: sectionName,
       thumbnail: sectionThumbnail,
-      children: items.map(([itemGroupId, itemName, itemThumbnail]) => ({
+      children: items.map(([itemGroupId, itemName, itemThumbnail, spuId]) => ({
         groupId: itemGroupId,
         name: itemName,
         thumbnail: itemThumbnail,
+        spuId: spuId || '',
       })),
     })),
   }));
 }
 
-const createGood = (definition, priceName) => {
-  const { id, group, title, image, price, linePrice, tags, etitle, specList } = definition;
+const buildSkuList = ({ id, image, price, specList, priceName }) => {
+  const combinations = specList.reduce(
+    (result, spec) =>
+      result.flatMap((selectedValues) =>
+        spec.specValueList.map((value) => [
+          ...selectedValues,
+          {
+            specId: spec.specId,
+            specValueId: value.specValueId,
+            specValue: value.specValue,
+          },
+        ]),
+      ),
+    [[]],
+  );
+
+  return combinations.map((specInfo, index) => ({
+    skuId: `${id}-sku-${index + 1}`,
+    skuImage: image,
+    specInfo,
+    priceInfo: [{ priceType: 1, price, priceTypeName: priceName }],
+    stockInfo: { stockQuantity: 999, safeStockQuantity: 0, soldQuantity: 0 },
+  }));
+};
+
+const createGood = (definition, priceName, currency) => {
+  const {
+    id,
+    group,
+    tier,
+    title,
+    image,
+    detailImage,
+    price,
+    linePrice,
+    tags,
+    etitle,
+    completionMethod,
+    soldNum,
+    specList = [],
+  } = definition;
   return {
     spuId: id,
     group,
     title,
     primaryImage: image,
-    images: [image],
+    images: [detailImage || image],
     minSalePrice: price,
     minLinePrice: linePrice,
     maxSalePrice: price,
     maxLinePrice: linePrice,
     spuStockQuantity: 999,
-    soldNum: 1,
+    soldNum: soldNum || 1,
     isPutOnSale: 1,
     available: 1,
     limitInfo: [{ text: '' }],
     specList,
-    skuList: [
-      {
-        skuId: `${id}-default`,
-        skuImage: image,
-        specInfo: specList.map((item) => ({
-          specId: item.specId,
-          specValueId: item.specValueList[0].specValueId,
-          specValue: item.specValueList[0].specValue,
-        })),
-        priceInfo: [{ priceType: 1, price, priceTypeName: priceName }],
-        stockInfo: { stockQuantity: 999, safeStockQuantity: 0, soldQuantity: 0 },
-      },
-    ],
+    skuList: buildSkuList({ id, image, price, specList, priceName }),
     spuTagList: tags.map((tag, index) => ({ id: `${id}-tag-${index}`, title: tag })),
-    desc: [image],
+    desc: [detailImage || image],
     etitle,
+    completionMethod,
+    currency: currency || '¥',
+    tier,
   };
 };
 
 export function createPersonaSystem(config) {
-  const goods = config.goods.map((item) => createGood(item, config.priceName));
+  const goods = config.goods.map((item) => createGood(item, config.priceName, config.currency));
   const getGoodById = (id) => goods.find((item) => item.spuId === `${id}`) || goods[0];
 
   const cartLine = (id, specInfo) => {
     const good = getGoodById(id);
+    const selectedSku = specInfo
+      ? good.skuList.find((sku) =>
+          specInfo.every((selected) =>
+            sku.specInfo.some(
+              (value) =>
+                value.specValue === selected.specValue &&
+                (!selected.specId || value.specId === selected.specId),
+            ),
+          ),
+        )
+      : good.skuList[0];
     return {
       uid: `${config.key}-uid`,
       saasId: config.key,
       storeId: config.storeId,
       storeName: config.cart.storeName,
       spuId: good.spuId,
-      skuId: good.skuList[0].skuId,
+      skuId: (selectedSku || good.skuList[0]).skuId,
       isSelected: 1,
       thumb: good.primaryImage,
       title: good.title,
@@ -77,6 +119,7 @@ export function createPersonaSystem(config) {
       stockQuantity: 999,
       price: good.minSalePrice,
       originPrice: good.maxLinePrice,
+      currency: good.currency,
       tagPrice: null,
       titlePrefixTags: [{ text: good.spuTagList[0].title }],
       specInfo:

@@ -13,6 +13,7 @@
 			<text class="cart-bar__total--bold text-padding-right">{{theme === 'teacher' ? '听话值' : (theme === 'baby' ? '软糖值' : (theme === 'princess' ? '偏爱值' : '心愿值'))}}</text>
 			<price
 			 price="{{totalAmount || '0'}}"
+			 symbol="{{currency}}"
 			 fill="{{false}}"
 			 decimalSmaller
 			 class="cart-bar__total--bold cart-bar__total--price"
@@ -21,7 +22,12 @@
 		</view>
 		<view wx:if="{{totalDiscountAmount}}">
 			<text class="cart-bar__total--normal text-padding-right">{{theme === 'teacher' ? '专属偏爱' : (theme === 'baby' ? '软软加成' : (theme === 'princess' ? '偏爱加冕' : '甜度加成'))}}</text>
-			<price class="cart-bar__total--normal" price="{{totalDiscountAmount || '0'}}" fill="{{false}}" />
+			<price
+			 class="cart-bar__total--normal"
+			 price="{{totalDiscountAmount || '0'}}"
+			 symbol="{{currency}}"
+			 fill="{{false}}"
+			 />
 		</view>
 	</view>
 	<view catchtap="handleToSettle" class="{{!isDisabled ? '' : 'disabled-btn'}} account-btn" hover-class="{{!isDisabled ? '' : 'hover-btn'}}">
