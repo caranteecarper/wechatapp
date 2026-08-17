@@ -1,4 +1,4 @@
-import { fetchGoodsList } from '../../../services/good/fetchGoodsList';
+import { fetchGoodsList } from '../services/fetchGoodsList';
 import Toast from 'tdesign-miniprogram/toast/index';
 import { isInteractionPersona, syncPersonaPage } from '../../../utils/personas';
 import { addPersonaCartItem } from '../../../utils/persona-cart';

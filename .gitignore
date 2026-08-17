@@ -1,4 +1,6 @@
 node_modules/
+.npm-cache/
+.npm-temp/
 yarn-error.log
 miniprogram/
 miniprogram_npm/

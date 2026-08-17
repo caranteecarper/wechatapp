@@ -1,5 +1,5 @@
 import Toast from 'tdesign-miniprogram/toast/index';
-import { fetchSettleDetail } from '../../../services/order/orderConfirm';
+import { fetchSettleDetail } from '../services/orderConfirm';
 import { removePersonaCartItems } from '../../../utils/persona-cart';
 import { createPersonaOrder } from '../../../utils/persona-orders';
 import { syncPersonaPage } from '../../../utils/personas';

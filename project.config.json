@@ -8,7 +8,19 @@
       },
       {
         "type": "folder",
+        "value": ".npm-temp"
+      },
+      {
+        "type": "folder",
+        "value": ".image-work"
+      },
+      {
+        "type": "folder",
         "value": "node_modules"
+      },
+      {
+        "type": "file",
+        "value": "package-lock.json"
       }
     ],
     "include": []

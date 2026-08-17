@@ -1,10 +1,10 @@
 /* eslint-disable no-param-reassign */
-import { config } from '../../config/index';
+import { config } from '../../../config/index';
 
-/** 获取商品列表 */
+/** 获取互动清单 */
 function mockFetchGoodsList(params) {
-  const { delay } = require('../_utils/delay');
-  const { getSearchResult } = require('../../model/search');
+  const { delay } = require('../../../services/_utils/delay');
+  const { getSearchResult } = require('../model/search');
 
   const data = getSearchResult(params);
 
@@ -24,12 +24,9 @@ function mockFetchGoodsList(params) {
       }
     });
   }
-  return delay().then(() => {
-    return data;
-  });
+  return delay().then(() => data);
 }
 
-/** 获取商品列表 */
 export function fetchGoodsList(params) {
   if (config.useMock) {
     return mockFetchGoodsList(params);

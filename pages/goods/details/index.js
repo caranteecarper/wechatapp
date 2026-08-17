@@ -1,5 +1,5 @@
 import Toast from 'tdesign-miniprogram/toast/index';
-import { fetchGood } from '../../../services/good/fetchGood';
+import { fetchGood } from '../services/fetchGood';
 
 import { cdnBase } from '../../../config/index';
 import { isInteractionPersona, syncPersonaPage } from '../../../utils/personas';

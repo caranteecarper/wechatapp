@@ -1,4 +1,5 @@
-.persona-surface {
+.persona-surface,
+.persona-fixed-actions {
   --persona-bg: #f5f0f1;
   --persona-panel: #fffdfc;
   --persona-ink: #28191d;
@@ -9,6 +10,9 @@
   --persona-border: #dfd0d4;
   --persona-gold: #b79768;
   --persona-radius: 12rpx;
+}
+
+.persona-surface {
   box-sizing: border-box;
   min-height: 100vh;
   padding: 24rpx 28rpx calc(env(safe-area-inset-bottom) + 40rpx);
@@ -16,7 +20,8 @@
   background: var(--persona-bg);
 }
 
-.persona-surface.theme-baby {
+.persona-surface.theme-baby,
+.persona-fixed-actions.theme-baby {
   --persona-bg: #fff5f7;
   --persona-panel: #fffdfd;
   --persona-ink: #4b3038;
@@ -29,7 +34,8 @@
   --persona-radius: 16rpx;
 }
 
-.persona-surface.theme-princess {
+.persona-surface.theme-princess,
+.persona-fixed-actions.theme-princess {
   --persona-bg: #fff7fd;
   --persona-panel: #fffdfd;
   --persona-ink: #4b3045;
@@ -42,7 +48,8 @@
   --persona-radius: 12rpx;
 }
 
-.persona-surface.theme-teacher {
+.persona-surface.theme-teacher,
+.persona-fixed-actions.theme-teacher {
   --persona-bg: #f3eeef;
   --persona-panel: #fffdfc;
   --persona-ink: #25171b;
@@ -171,7 +178,7 @@
 
 .persona-primary-button {
   color: #fff;
-  background: var(--persona-deep);
+  background: var(--persona-deep, #321820);
 }
 
 .theme-princess .persona-primary-button {
@@ -255,7 +262,7 @@
   display: flex;
   gap: 16rpx;
   padding: 16rpx 28rpx calc(env(safe-area-inset-bottom) + 16rpx);
-  border-top: 1rpx solid var(--persona-border);
+  border-top: 1rpx solid var(--persona-border, #dfd0d4);
   background: rgba(255, 253, 252, 0.96);
 }
 

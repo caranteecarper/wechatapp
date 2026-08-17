@@ -2,6 +2,7 @@ import { fetchUserCenter } from '../../services/usercenter/fetchUsercenter';
 import { fetchOrdersCount } from '../../services/order/orderList';
 import Toast from 'tdesign-miniprogram/toast/index';
 import { getPersonaContent } from '../../model/persona-content';
+import { getPersonaPageCopy } from '../../utils/persona-pages';
 import { isInteractionPersona, syncPersonaPage } from '../../utils/personas';
 
 const menuData = [
@@ -129,6 +130,11 @@ Page({
       const [{ userInfo, countsData, orderTagInfos: orderInfo, customerServiceInfo }, orderCountResult] = results;
       const currentOrderInfo = orderCountResult?.data || orderInfo;
       const system = getPersonaContent(persona);
+      const profileCopy = getPersonaPageCopy(persona, 'profile');
+      const resolvedUserInfo = {
+        ...(userInfo || {}),
+        nickName: userInfo?.nickName || profileCopy.defaultName || '我的小档案',
+      };
       const activeMenuData = system ? system.getMenuData() : getDefaultMenuData();
       const activeOrderTags = system ? system.getOrderTags() : getDefaultOrderTags();
       const primaryMenu = activeMenuData[0] || [];
@@ -144,7 +150,7 @@ Page({
         ...(currentOrderInfo.find((item) => item.tabType === v.tabType) || currentOrderInfo[index] || {}),
       }));
       this.setData({
-        userInfo,
+        userInfo: resolvedUserInfo,
         menuData: activeMenuData,
         orderTagInfos: info,
         customerServiceInfo,
