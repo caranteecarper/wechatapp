@@ -77,9 +77,19 @@
 
   <view class="record-loading persona-card" wx:if="{{loading}}">正在打开这条记录...</view>
 
+  <view class="responder-action persona-card" wx:if="{{order && statusAction}}">
+    <view class="responder-action__copy">
+      <view class="responder-action__title">把现在的状态告诉她</view>
+      <view class="persona-meta">点一下，她的手机很快就会看到新的进度。</view>
+    </view>
+    <view class="persona-primary-button" bindtap="updateCloudStatus">
+      {{statusUpdating ? '正在更新...' : statusAction.text}}
+    </view>
+  </view>
+
   <view class="record-actions" wx:if="{{order}}">
     <view class="persona-primary-button" bindtap="openProgress">{{pageCopy.progress}}</view>
-    <view class="record-actions__secondary">
+    <view class="record-actions__secondary" wx:if="{{cloudSession.role !== 'responder'}}">
       <view class="persona-secondary-button" bindtap="openChange">{{pageCopy.change}}</view>
       <view class="persona-secondary-button" bindtap="openFeedback">{{pageCopy.feedback}}</view>
     </view>

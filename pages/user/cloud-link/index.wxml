@@ -1,0 +1,82 @@
+<view class="persona-surface theme-{{currentPersona}} link-page">
+  <view class="persona-page-intro">
+    <view class="persona-page-eyebrow">{{pageCopy.eyebrow}}</view>
+    <view class="persona-page-title">{{pageCopy.title}}</view>
+    <view class="persona-page-description">{{pageCopy.description}}</view>
+  </view>
+
+  <view class="link-loading persona-card" wx:if="{{loading}}">正在看看我们的连接...</view>
+
+  <block wx:elif="{{session && session.paired}}">
+    <view class="link-status persona-card">
+      <view class="link-status__icon">
+        <t-icon name="{{session.connected ? 'check-circle-filled' : 'time-filled'}}" size="52rpx" />
+      </view>
+      <view class="link-status__content">
+        <view class="link-status__title">{{session.connected ? '我们已经连上了' : '正在等另一个人加入'}}</view>
+        <view class="link-status__desc">
+          {{session.role === 'requester' ? '我是发出想要的人' : pageCopy.responder}}
+        </view>
+      </view>
+    </view>
+
+    <view class="persona-section" wx:if="{{!session.connected}}">
+      <view class="persona-section-heading">把连接码告诉另一个人</view>
+      <view class="invite-card persona-card" bindtap="copyInviteCode">
+        <view class="invite-code">{{session.inviteCode}}</view>
+        <view class="invite-copy"><t-icon name="file-copy" size="30rpx" /> 复制连接码</view>
+      </view>
+      <view class="persona-meta link-help">另一个人进入“我们 → 我们的连接”，输入这 6 位连接码。</view>
+      <view class="persona-secondary-button link-reset" bindtap="resetLink">重新选择身份</view>
+    </view>
+
+    <view class="connected-note persona-card" wx:else>
+      <view class="connected-note__title">两部手机会同步这些内容</view>
+      <view class="connected-note__row"><t-icon name="check" size="28rpx" /> 新的想要和指令</view>
+      <view class="connected-note__row"><t-icon name="check" size="28rpx" /> 收到、进行中和完成状态</view>
+      <view class="connected-note__row"><t-icon name="check" size="28rpx" /> 悄悄话、反馈和图片</view>
+    </view>
+  </block>
+
+  <block wx:elif="{{session}}">
+    <view class="persona-section-heading link-heading">先选一下你是谁</view>
+    <view class="role-grid">
+      <view
+        class="role-card persona-card {{selectedRole === 'requester' ? 'role-card--active' : ''}}"
+        data-role="requester"
+        bindtap="chooseRole"
+      >
+        <view class="role-card__check"><t-icon name="{{selectedRole === 'requester' ? 'check-circle-filled' : 'circle'}}" size="34rpx" /></view>
+        <view class="role-card__title">我是使用小屋的人</view>
+        <view class="role-card__desc">我会挑选想要、发布指令和留下反馈</view>
+      </view>
+      <view
+        class="role-card persona-card {{selectedRole === 'responder' ? 'role-card--active' : ''}}"
+        data-role="responder"
+        bindtap="chooseRole"
+      >
+        <view class="role-card__check"><t-icon name="{{selectedRole === 'responder' ? 'check-circle-filled' : 'circle'}}" size="34rpx" /></view>
+        <view class="role-card__title">{{pageCopy.responder}}</view>
+        <view class="role-card__desc">我会接收需求，并更新现在做到哪了</view>
+      </view>
+    </view>
+
+    <view class="persona-primary-button link-create" bindtap="createLink">
+      {{submitting ? '正在准备...' : '创建我们的连接'}}
+    </view>
+
+    <view class="join-divider"><text>已经有连接码</text></view>
+    <view class="join-box persona-card">
+      <input
+        class="join-input"
+        maxlength="6"
+        value="{{joinCode}}"
+        placeholder="输入 6 位连接码"
+        bindinput="onCodeInput"
+      />
+      <view class="persona-secondary-button join-button" bindtap="joinLink">加入连接</view>
+    </view>
+  </block>
+
+  <t-toast id="t-toast" />
+</view>

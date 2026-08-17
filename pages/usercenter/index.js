@@ -2,6 +2,7 @@ import { fetchUserCenter } from '../../services/usercenter/fetchUsercenter';
 import { fetchOrdersCount } from '../../services/order/orderList';
 import Toast from 'tdesign-miniprogram/toast/index';
 import { getPersonaContent } from '../../model/persona-content';
+import { getCloudSession } from '../../utils/cloud-sync';
 import { getPersonaPageCopy } from '../../utils/persona-pages';
 import { isInteractionPersona, syncPersonaPage } from '../../utils/personas';
 
@@ -85,6 +86,31 @@ const clone = (data) => JSON.parse(JSON.stringify(data));
 const getDefaultMenuData = () => clone(menuData);
 const getDefaultOrderTags = () => clone(orderTagInfos);
 
+const getCloudStatusText = (session) => {
+  if (session?.connected && session?.errorCode) return '暂时离线';
+  if (!session?.available) return '待部署';
+  if (session.connected) return '已连接';
+  if (session?.errorCode) return '连接失败';
+  if (session.paired) return '等对方加入';
+  return '未连接';
+};
+
+const decorateMenuData = (source, persona, session) => {
+  const groups = clone(source || []);
+  const whisperTitle = {
+    baby: '悄悄告诉宝宝',
+    princess: '悄悄告诉仆人',
+    teacher: '悄悄告诉小狗',
+  }[persona];
+  const cloudItems = [
+    { title: '我们的连接', tit: getCloudStatusText(session), type: 'cloud-link' },
+    { title: whisperTitle || '留一句悄悄话', tit: '', type: 'cloud-feedback' },
+  ];
+  if (!groups[1]) groups[1] = [];
+  groups[1] = cloudItems.concat(groups[1]);
+  return groups;
+};
+
 const getDefaultData = () => ({
   showMakePhone: false,
   userInfo: {
@@ -102,6 +128,7 @@ const getDefaultData = () => ({
   isTeacher: false,
   isInteractionPersona: false,
   personaUi: {},
+  cloudSession: null,
 });
 
 Page({
@@ -126,8 +153,16 @@ Page({
   },
 
   fetUseriInfoHandle(persona = this.data.currentPersona) {
-    Promise.all([fetchUserCenter(persona), fetchOrdersCount(null, persona)]).then((results) => {
-      const [{ userInfo, countsData, orderTagInfos: orderInfo, customerServiceInfo }, orderCountResult] = results;
+    Promise.all([
+      fetchUserCenter(persona),
+      fetchOrdersCount(null, persona),
+      getCloudSession({ force: true }),
+    ]).then((results) => {
+      const [
+        { userInfo, countsData, orderTagInfos: orderInfo, customerServiceInfo },
+        orderCountResult,
+        cloudSession,
+      ] = results;
       const currentOrderInfo = orderCountResult?.data || orderInfo;
       const system = getPersonaContent(persona);
       const profileCopy = getPersonaPageCopy(persona, 'profile');
@@ -135,7 +170,11 @@ Page({
         ...(userInfo || {}),
         nickName: userInfo?.nickName || profileCopy.defaultName || '我的小档案',
       };
-      const activeMenuData = system ? system.getMenuData() : getDefaultMenuData();
+      const activeMenuData = decorateMenuData(
+        system ? system.getMenuData() : getDefaultMenuData(),
+        persona,
+        cloudSession,
+      );
       const activeOrderTags = system ? system.getOrderTags() : getDefaultOrderTags();
       const primaryMenu = activeMenuData[0] || [];
       primaryMenu.forEach((v) => {
@@ -158,6 +197,7 @@ Page({
         currentPersona: persona,
         isTeacher: persona === 'teacher',
         isInteractionPersona: isInteractionPersona(persona),
+        cloudSession,
       });
       wx.stopPullDownRefresh();
     });
@@ -165,6 +205,16 @@ Page({
 
   onClickCell({ currentTarget }) {
     const { type, groupId = '' } = currentTarget.dataset;
+
+    if (type === 'cloud-link') {
+      wx.navigateTo({ url: '/pages/user/cloud-link/index' });
+      return;
+    }
+
+    if (type === 'cloud-feedback') {
+      wx.navigateTo({ url: '/pages/goods/comments/create/index' });
+      return;
+    }
 
     if (this.data.isInteractionPersona) {
       if (type === 'catalog') {

@@ -109,8 +109,8 @@ export function createPersonaOrder(persona, goodsList, note = '') {
     orderId: `${persona}-local-${now}`,
     orderNo,
     parentOrderNo: orderNo,
-    orderStatus: 10,
-    orderStatusName: getPersonaOrderStatusName(persona, 10),
+    orderStatus: 5,
+    orderStatusName: getPersonaOrderStatusName(persona, 5),
     totalAmount: `${totalAmount}`,
     paymentAmount: `${totalAmount}`,
     freightFee: '0',
@@ -152,10 +152,11 @@ export function completePersonaOrder(persona, orderNo) {
   return updatePersonaOrder(persona, orderNo, { orderStatus: 50 });
 }
 
-export function mergePersonaOrders(persona, seedOrders = []) {
+export function mergePersonaOrders(persona, seedOrders = [], cloudOrders = []) {
   const merged = [];
   const knownOrderNos = new Set();
-  readPersonaOrders(persona)
+  (Array.isArray(cloudOrders) ? cloudOrders : [])
+    .concat(readPersonaOrders(persona))
     .concat(Array.isArray(seedOrders) ? seedOrders : [])
     .forEach((order) => {
       if (!order || !order.orderNo || knownOrderNos.has(order.orderNo)) return;

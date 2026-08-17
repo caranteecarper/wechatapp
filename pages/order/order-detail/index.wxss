@@ -164,6 +164,21 @@
   gap: 14rpx;
 }
 
+.responder-action {
+  display: grid;
+  margin-top: 26rpx;
+  padding: 26rpx;
+  gap: 22rpx;
+  border-color: var(--persona-accent);
+}
+
+.responder-action__title {
+  margin-bottom: 6rpx;
+  color: var(--persona-ink);
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
 .record-actions__secondary {
   display: grid;
   grid-template-columns: 1fr 1fr;

@@ -66,6 +66,8 @@
     </view>
   </view>
 
-  <view class="persona-primary-button feedback-submit" bindtap="submitFeedback">{{pageCopy.submit}}</view>
+  <view class="persona-primary-button feedback-submit" bindtap="submitFeedback">
+    {{submitting ? '正在告诉对方...' : pageCopy.submit}}
+  </view>
 </view>
 <t-toast id="t-toast" />

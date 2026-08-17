@@ -1,4 +1,6 @@
 import { fetchOrders } from '../../../services/order/orderList';
+import { fetchCloudFeedback, getCloudSession, updateCloudRecordStatus } from '../../../utils/cloud-sync';
+import { updatePersonaOrder } from '../../../utils/persona-orders';
 import { syncPersonaPage } from '../../../utils/personas';
 import { getPersonaPageCopy } from '../../../utils/persona-pages';
 
@@ -15,6 +17,27 @@ const getProgressIndex = (status) => {
   return statusMap[Number(status)] ?? 0;
 };
 
+const getStatusAction = (persona, status) => {
+  const actions = {
+    baby: {
+      5: { status: 10, text: '宝宝收到了' },
+      10: { status: 40, text: '宝宝开始做' },
+      40: { status: 50, text: '宝宝做好啦' },
+    },
+    princess: {
+      5: { status: 10, text: '仆人收到了' },
+      10: { status: 40, text: '仆人开始准备' },
+      40: { status: 50, text: '仆人准备好了' },
+    },
+    teacher: {
+      5: { status: 10, text: '小狗收到了' },
+      10: { status: 40, text: '小狗开始做' },
+      40: { status: 50, text: '小狗完成了' },
+    },
+  };
+  return actions[persona]?.[Number(status)] || null;
+};
+
 Page({
   data: {
     currentPersona: '',
@@ -28,6 +51,9 @@ Page({
     changeNote: null,
     feedbackSummary: null,
     loading: true,
+    cloudSession: null,
+    statusAction: null,
+    statusUpdating: false,
   },
 
   onLoad(query = {}) {
@@ -40,9 +66,17 @@ Page({
     if (!this.data.currentPersona) return;
     if (this.hasShown) {
       this.loadOrder();
-      return;
     }
     this.hasShown = true;
+    this.startCloudPolling();
+  },
+
+  onHide() {
+    this.stopCloudPolling();
+  },
+
+  onUnload() {
+    this.stopCloudPolling();
   },
 
   syncPage() {
@@ -56,18 +90,21 @@ Page({
     wx.setNavigationBarTitle({ title: pageCopy.navTitle });
   },
 
-  async loadOrder() {
-    this.setData({ loading: true });
+  async loadOrder(silent = false) {
+    if (!silent) this.setData({ loading: true });
     try {
-      const result = await fetchOrders(
-        {
-          parameter: {
-            pageNum: 1,
-            pageSize: 100,
+      const [result, cloudSession] = await Promise.all([
+        fetchOrders(
+          {
+            parameter: {
+              pageNum: 1,
+              pageSize: 100,
+            },
           },
-        },
-        this.data.currentPersona,
-      );
+          this.data.currentPersona,
+        ),
+        getCloudSession(),
+      ]);
       const orders = result?.data?.orders || [];
       const order = this.orderNo
         ? orders.find((item) => item.orderNo === this.orderNo) || null
@@ -86,12 +123,54 @@ Page({
         createdAt: formatDate(order?.createTime),
         progressIndex: getProgressIndex(order?.orderStatus),
         orderNote: order?.remark || '',
+        cloudSession,
+        statusAction:
+          cloudSession.connected && cloudSession.role === 'responder' && order?.isCloudRecord
+            ? getStatusAction(this.data.currentPersona, order.orderStatus)
+            : null,
         loading: false,
       });
       this.loadChangeNote();
       this.loadFeedbackSummary();
     } catch (error) {
-      this.setData({ loading: false });
+      if (!silent) this.setData({ loading: false });
+    }
+  },
+
+  startCloudPolling() {
+    this.stopCloudPolling();
+    this.cloudTimer = setInterval(() => {
+      if (!this.data.loading && !this.data.statusUpdating) this.loadOrder(true);
+    }, 6000);
+  },
+
+  stopCloudPolling() {
+    if (!this.cloudTimer) return;
+    clearInterval(this.cloudTimer);
+    this.cloudTimer = null;
+  },
+
+  async updateCloudStatus() {
+    const action = this.data.statusAction;
+    if (!action || this.data.statusUpdating) return;
+    this.setData({ statusUpdating: true });
+    try {
+      const order = await updateCloudRecordStatus(
+        this.data.currentPersona,
+        this.data.orderNo,
+        action.status,
+      );
+      updatePersonaOrder(this.data.currentPersona, this.data.orderNo, order);
+      this.setData({
+        order,
+        progressIndex: getProgressIndex(order.orderStatus),
+        statusAction: getStatusAction(this.data.currentPersona, order.orderStatus),
+      });
+      wx.showToast({ title: action.text, icon: 'none' });
+    } catch (error) {
+      wx.showToast({ title: error.message || '刚才没有更新成功', icon: 'none' });
+    } finally {
+      this.setData({ statusUpdating: false });
     }
   },
 
@@ -101,8 +180,10 @@ Page({
     this.setData({ changeNote: wx.getStorageSync(key) || this.data.order?.changeNote || null });
   },
 
-  loadFeedbackSummary() {
-    const feedbackList = wx.getStorageSync(`love.feedback.${this.data.currentPersona}`) || [];
+  async loadFeedbackSummary() {
+    const localFeedback = wx.getStorageSync(`love.feedback.${this.data.currentPersona}`) || [];
+    const cloudFeedback = await fetchCloudFeedback(this.data.currentPersona, this.data.orderNo);
+    const feedbackList = cloudFeedback.concat(localFeedback);
     this.setData({
       feedbackSummary: feedbackList.find((item) => item.orderNo === this.data.orderNo) || null,
     });

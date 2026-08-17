@@ -1,4 +1,5 @@
 import Toast from 'tdesign-miniprogram/toast/index';
+import { saveCloudRecordChange } from '../../../utils/cloud-sync';
 import { updatePersonaOrder } from '../../../utils/persona-orders';
 import { syncPersonaPage } from '../../../utils/personas';
 import { getPersonaPageCopy } from '../../../utils/persona-pages';
@@ -53,6 +54,7 @@ Page({
     };
     wx.setStorageSync(key, changeNote);
     updatePersonaOrder(this.data.currentPersona, orderNo, { changeNote });
+    saveCloudRecordChange(this.data.currentPersona, orderNo, changeNote).catch(() => {});
     Toast({
       context: this,
       selector: '#t-toast',

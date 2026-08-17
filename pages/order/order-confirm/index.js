@@ -1,5 +1,6 @@
 import Toast from 'tdesign-miniprogram/toast/index';
 import { fetchSettleDetail } from '../services/orderConfirm';
+import { syncPersonaOrderToCloud } from '../../../utils/cloud-sync';
 import { removePersonaCartItems } from '../../../utils/persona-cart';
 import { createPersonaOrder } from '../../../utils/persona-orders';
 import { syncPersonaPage } from '../../../utils/personas';
@@ -119,6 +120,7 @@ Page({
     try {
       order = createPersonaOrder(this.data.currentPersona, this.goodsRequestList, note);
       if (!order) throw new Error('empty order');
+      syncPersonaOrderToCloud(this.data.currentPersona, order).catch(() => {});
       if (note) {
         wx.setStorageSync(`love.latestNote.${this.data.currentPersona}`, note);
       }

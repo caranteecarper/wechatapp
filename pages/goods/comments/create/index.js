@@ -1,6 +1,6 @@
 import Toast from 'tdesign-miniprogram/toast/index';
 import { getPersonaContent } from '../../../../model/persona-content';
-import { completePersonaOrder } from '../../../../utils/persona-orders';
+import { syncFeedbackToCloud } from '../../../../utils/cloud-sync';
 import { syncPersonaPage } from '../../../../utils/personas';
 import { getPersonaPageCopy } from '../../../../utils/persona-pages';
 
@@ -27,6 +27,7 @@ Page({
     spuId: '',
     title: '',
     imgUrl: '',
+    submitting: false,
   },
 
   onLoad(options = {}) {
@@ -63,7 +64,8 @@ Page({
     this.setData({ uploadFiles });
   },
 
-  submitFeedback() {
+  async submitFeedback() {
+    if (this.data.submitting) return;
     const content = this.data.content.trim();
     if (!content) {
       Toast({
@@ -79,7 +81,7 @@ Page({
     const images = this.data.uploadFiles
       .map((item) => item.url || item.tempFilePath || item.path || '')
       .filter(Boolean);
-    feedbackList.unshift({
+    const feedback = {
       id: `${Date.now()}`,
       orderNo: this.data.orderNo,
       spuId: this.data.spuId,
@@ -90,10 +92,14 @@ Page({
       content,
       images,
       createdAt: formatDate(new Date()),
-    });
+    };
+    feedbackList.unshift(feedback);
     wx.setStorageSync(key, feedbackList);
-    if (this.data.orderNo) {
-      completePersonaOrder(this.data.currentPersona, this.data.orderNo);
+    this.setData({ submitting: true });
+    const cloudResult = await syncFeedbackToCloud(this.data.currentPersona, feedback);
+    if (cloudResult.synced) {
+      feedbackList[0] = cloudResult.feedback;
+      wx.setStorageSync(key, feedbackList);
     }
     Toast({
       context: this,
@@ -101,6 +107,7 @@ Page({
       message: this.data.pageCopy.success,
       icon: 'check-circle',
     });
+    this.setData({ submitting: false });
     setTimeout(() => wx.navigateBack(), 600);
   },
 });

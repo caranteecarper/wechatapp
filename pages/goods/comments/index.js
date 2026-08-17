@@ -1,5 +1,6 @@
 import { syncPersonaPage } from '../../../utils/personas';
 import { getPersonaPageCopy } from '../../../utils/persona-pages';
+import { fetchCloudFeedback } from '../../../utils/cloud-sync';
 
 const getFeedbackKey = (persona) => `love.feedback.${persona}`;
 
@@ -36,8 +37,18 @@ Page({
     wx.setNavigationBarTitle({ title: pageCopy.navTitle });
   },
 
-  loadFeedback() {
-    const feedbackList = wx.getStorageSync(getFeedbackKey(this.data.currentPersona)) || [];
+  async loadFeedback() {
+    const key = getFeedbackKey(this.data.currentPersona);
+    const localFeedback = wx.getStorageSync(key) || [];
+    const cloudFeedback = await fetchCloudFeedback(this.data.currentPersona);
+    const feedbackMap = new Map();
+    localFeedback.forEach((item) => feedbackMap.set(item.id, item));
+    cloudFeedback.forEach((item) => feedbackMap.set(item.id, item));
+    const feedbackList = [...feedbackMap.values()].sort(
+      (left, right) =>
+        Number(right.createdAtTimestamp || right.id || 0) - Number(left.createdAtTimestamp || left.id || 0),
+    );
+    wx.setStorageSync(key, feedbackList);
     this.setData({ feedbackList }, () => this.filterFeedback());
   },
 

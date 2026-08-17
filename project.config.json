@@ -72,6 +72,7 @@
     "disableSWC": true
   },
   "compileType": "miniprogram",
+  "cloudfunctionRoot": "cloudfunctions/",
   "libVersion": "3.17.0",
   "appid": "wx4cde019b1bf1711e",
   "projectname": "tdesign-miniprogram-starter-retail",
