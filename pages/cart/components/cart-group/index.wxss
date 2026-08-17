@@ -150,6 +150,34 @@
   right: 0;
   bottom: 8rpx;
 }
+
+.cart-item-delete {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56rpx;
+  height: 56rpx;
+  box-sizing: border-box;
+  border: 1rpx solid #ead8dc;
+  border-radius: 50%;
+  background-color: #fff7f8;
+}
+
+.cart-group.theme-teacher .cart-item-delete {
+  border-color: #dfcdd2;
+  background-color: #f6e9eb;
+}
+
+.cart-group.theme-baby .cart-item-delete {
+  border-color: #f0d9df;
+  background-color: #fff0f3;
+}
+
+.cart-group.theme-princess .cart-item-delete {
+  border-color: #dfcdbf;
+  border-radius: 4rpx;
+  background-color: #f7e9ea;
+}
 .cart-group .goods-item-info .goods-sku-info .goods-stepper .stepper-tip {
   position: absolute;
   top: -36rpx;

@@ -12,6 +12,7 @@
     bindgoodsclick="goGoodsDetail"
     bindclearinvalidgoods="clearInvalidGoods"
     binddelete="onGoodsDelete"
+    bindcontinuebrowse="onContinueBrowse"
   />
 
   <view class="gap" />

@@ -57,10 +57,6 @@
 .wrap.theme-princess .goods-category-class {
   background-color: #f8f3f1 !important;
 }
-.goods-category-class .goods-category-normal-item-container-item {
-  margin-top: 20rpx;
-}
-
 page {
   height: 100%;
   min-height: 100%;

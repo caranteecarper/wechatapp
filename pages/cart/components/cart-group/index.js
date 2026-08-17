@@ -123,16 +123,7 @@ Component({
     // 继续选择内容
     gotoBuyMore(e) {
       if (isInteractionPersona(this.properties.theme)) {
-        const message = {
-          teacher: '小狗收好了，姐姐',
-          baby: '宝宝收好啦，等你来要~',
-          princess: '仆人收好了，公主想要再来挑',
-        }[this.properties.theme];
-        Toast({
-          context: this,
-          selector: '#t-toast',
-          message,
-        });
+        this.triggerEvent('continuebrowse');
         return;
       }
       const { promotion, storeId = '' } = e.currentTarget.dataset;

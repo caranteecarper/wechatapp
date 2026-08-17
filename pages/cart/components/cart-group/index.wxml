@@ -75,7 +75,22 @@
                   <view class="stepper-tip" wx:if="{{goods.shortageStock}}">
                     {{theme === 'teacher' ? '这次先缓缓' : (theme === 'baby' ? '宝宝晚点再做' : (theme === 'princess' ? '仆人晚点准备' : '暂时不能选'))}}
                   </view>
+                  <view
+                    wx:if="{{theme === 'teacher' || theme === 'baby' || theme === 'princess'}}"
+                    class="cart-item-delete"
+                    catchtap="deleteGoods"
+                    data-goods="{{goods}}"
+                    aria-role="button"
+                    aria-label="删除{{goods.title}}"
+                  >
+                    <t-icon
+                      name="delete"
+                      size="34rpx"
+                      color="{{theme === 'teacher' ? '#7D3048' : (theme === 'baby' ? '#DF6F89' : '#8E3049')}}"
+                    />
+                  </view>
                   <t-stepper
+                    wx:else
                     classname="stepper-info"
                     value="{{goods.quantity}}"
                     min="{{1}}"
@@ -130,6 +145,25 @@
               >
                 <view slot="thumb-cover" class="no-storage-mask" wx:if="{{goods.stockQuantity <=0}}">
                   <view class="no-storage-content">暂缓</view>
+                </view>
+                <view
+                  slot="append-body"
+                  class="goods-stepper"
+                  wx:if="{{theme === 'teacher' || theme === 'baby' || theme === 'princess'}}"
+                >
+                  <view
+                    class="cart-item-delete"
+                    catchtap="deleteGoods"
+                    data-goods="{{goods}}"
+                    aria-role="button"
+                    aria-label="删除{{goods.title}}"
+                  >
+                    <t-icon
+                      name="delete"
+                      size="34rpx"
+                      color="{{theme === 'teacher' ? '#7D3048' : (theme === 'baby' ? '#DF6F89' : '#8E3049')}}"
+                    />
+                  </view>
                 </view>
               </goods-card>
             </view>

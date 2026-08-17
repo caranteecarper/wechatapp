@@ -283,6 +283,10 @@ Page({
     });
   },
 
+  onContinueBrowse() {
+    wx.switchTab({ url: '/pages/category/index' });
+  },
+
   goGoodsDetail(e) {
     const { spuId, storeId } = e.detail.goods;
     wx.navigateTo({
@@ -303,16 +307,18 @@ Page({
       content: this.data.personaUi.removeConfirmText,
       confirmBtn: this.data.personaUi.removeConfirmButton,
       cancelBtn: this.data.personaUi.removeCancelButton,
-    }).then(() => {
-      this.deleteGoodsService({ spuId, skuId }).then(() => {
-        Toast({
-          context: this,
-          selector: '#t-toast',
-          message: this.data.personaUi.removeToast,
+    })
+      .then(() => {
+        this.deleteGoodsService({ spuId, skuId }).then(() => {
+          Toast({
+            context: this,
+            selector: '#t-toast',
+            message: this.data.personaUi.removeToast,
+          });
+          this.refreshData();
         });
-        this.refreshData();
-      });
-    });
+      })
+      .catch(() => {});
   },
 
   onSelectAll(event) {
