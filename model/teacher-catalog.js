@@ -153,7 +153,7 @@ export const teacherGoodsDefinitions = catalog.flatMap((category) =>
 const definitionById = Object.fromEntries(teacherGoodsDefinitions.map((item) => [item.id, item]));
 
 export const teacherHome = {
-  eyebrow: '姐姐时间',
+  eyebrow: '今天听姐姐的',
   title: '姐姐上线',
   subtitle: '今天小狗会乖乖的',
   searchPlaceholder: '今天让小狗做什么好呢？',

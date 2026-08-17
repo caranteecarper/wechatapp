@@ -71,9 +71,9 @@ const PERSONAS = [
     ui: {
       receiverName: '仆人',
       switchToast: '仆人来了，我的小公主',
-      addCartToast: '仆人收好了，公主要这个',
+      addCartToast: '仆人记下了',
       removeToast: '公主不想要了，仆人拿掉了',
-      selectToast: '仆人看见了，公主要这个',
+      selectToast: '好，这个给公主留着',
       unselectToast: '好，这个先不要',
       selectAllToast: '公主选的，仆人都收好了',
       unselectAllToast: '好，那就先不选',
@@ -127,7 +127,7 @@ const PERSONAS = [
     ui: {
       receiverName: '小狗',
       switchToast: '小狗来了，姐姐',
-      addCartToast: '小狗收好了，等姐姐吩咐',
+      addCartToast: '小狗收好了，姐姐',
       removeToast: '姐姐不想要这条了，小狗拿掉了',
       selectToast: '小狗看到了，姐姐要这条',
       unselectToast: '知道了，这条先不做',

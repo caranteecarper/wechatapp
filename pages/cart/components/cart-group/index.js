@@ -124,7 +124,7 @@ Component({
     gotoBuyMore(e) {
       if (isInteractionPersona(this.properties.theme)) {
         const message = {
-          teacher: '小狗收好了，等姐姐吩咐',
+          teacher: '小狗收好了，姐姐',
           baby: '宝宝收好啦，等你来要~',
           princess: '仆人收好了，公主想要再来挑',
         }[this.properties.theme];
