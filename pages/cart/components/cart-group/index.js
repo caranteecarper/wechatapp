@@ -97,16 +97,16 @@ Component({
     overlimit(e) {
       const copy = {
         teacher: {
-          minus: '小狗记得，至少要留一条指令~',
-          plus: '小狗先记这么多，姐姐还可以再吩咐~',
+          minus: '这一条先留着，姐姐',
+          plus: '这些小狗先记住，姐姐想加再加',
         },
         baby: {
-          minus: '宝宝记得，至少要留一个小心愿~',
-          plus: '宝宝先记这么多，想要更多再告诉我~',
+          minus: '至少留一个嘛，宝宝想知道你要什么~',
+          plus: '这些宝宝先做，想要更多再告诉宝宝~',
         },
         princess: {
-          minus: '仆人记得，至少要留一个想要~',
-          plus: '仆人先记这么多，公主还可以继续选~',
+          minus: '公主至少留一个，仆人才知道准备什么',
+          plus: '这些仆人先准备，公主想加再加',
         },
       }[this.properties.theme] || {
         minus: '至少保留一项',
@@ -120,13 +120,13 @@ Component({
       });
     },
 
-    // 去凑单/再逛逛
+    // 继续选择内容
     gotoBuyMore(e) {
       if (isInteractionPersona(this.properties.theme)) {
         const message = {
-          teacher: '小狗已经替姐姐收进指令册啦~',
-          baby: '宝宝已经替你收进抱抱清单啦~',
-          princess: '仆人已经替公主收进想要清单啦~',
+          teacher: '小狗收好了，等姐姐吩咐',
+          baby: '宝宝收好啦，等你来要~',
+          princess: '仆人收好了，公主想要再来挑',
         }[this.properties.theme];
         Toast({
           context: this,
@@ -150,9 +150,9 @@ Component({
           selector: '#t-toast',
           message: isInteractionPersona(this.properties.theme)
             ? {
-                teacher: '小狗今天暂时接不了这几条指令~',
-                baby: '宝宝今天暂时做不了这几个心愿~',
-                princess: '仆人今天暂时准备不了这几项~',
+                teacher: '这几条小狗今天接不了，姐姐换几条',
+                baby: '这几个想要宝宝今天做不了，换几个好不好~',
+                princess: '这几样今天准备不了，公主换几个',
               }[this.properties.theme]
             : '部分商品库存不足',
         });

@@ -6,7 +6,7 @@
   </view>
 
   <view class="persona-section">
-    <view class="persona-section-heading">选择调整方式</view>
+    <view class="persona-section-heading">这次想怎么改</view>
     <view class="change-options">
       <view
         class="change-option persona-card {{selectedKey === item.key ? 'change-option--active' : ''}}"

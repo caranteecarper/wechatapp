@@ -47,7 +47,7 @@
 <t-popup wx:if="{{!isInteractionPersona}}" visible="{{showMakePhone}}" placement="bottom" bind:visible-change="closeMakePhone" data-index="2">
   <view class="popup-content">
     <view class="popup-title border-bottom-1px" wx:if="{{customerServiceInfo.serviceTimeDuration}}">
-      服务时间: {{customerServiceInfo.serviceTimeDuration}}
+      可以联系的时间：{{customerServiceInfo.serviceTimeDuration}}
     </view>
     <view class="popup-phone {{showKefu ? 'border-bottom-1px' : ''}}" bind:tap="call">电话联系</view>
     <button class="popup-phone border-bottom-1px online" open-type="contact" wx:if="{{showKefu}}">微信联系</button>

@@ -1,49 +1,9 @@
 <view class="goods-list-container theme-{{currentPersona}}">
-  <filter
-    wx:if="{{!isInteractionPersona}}"
-    wr-class="filter-container"
-    bind:change="handleFilterChange"
-    layout="{{layout}}"
-    sorts="{{sorts}}"
-    overall="{{overall}}"
-    bind:showFilterPopup="showFilterPopup"
-  >
-    <filter-popup
-      slot="filterPopup"
-      show="{{show}}"
-      bind:showFilterPopupClose="showFilterPopupClose"
-      bind:reset="reset"
-      bind:confirm="confirm"
-    >
-      <view class="price-container" slot="filterSlot">
-        <view class="price-between">价格区间</view>
-        <view class="price-ipts-wrap">
-          <t-input
-            align="center"
-            type="number"
-            t-class="price-ipt"
-            placeholder="最低价"
-            value="{{minVal}}"
-            bindchange="onMinValAction"
-          />
-          <view class="price-divided">-</view>
-          <t-input
-            align="center"
-            type="number"
-            t-class="price-ipt"
-            placeholder="最高价"
-            value="{{maxVal}}"
-            bindchange="onMaxValAction"
-          />
-        </view>
-      </view>
-    </filter-popup>
-  </filter>
   <view class="empty-wrap" wx:if="{{goodsList.length === 0 && hasLoaded}}">
     <t-empty
       t-class="empty-tips"
       size="240rpx"
-      description="{{isInteractionPersona ? (currentPersona === 'baby' ? '宝宝还没找到这个小心愿' : currentPersona === 'princess' ? '仆人还没找到公主想要的' : '小狗还没找到这条指令') : '暂无相关内容'}}"
+      description="{{isInteractionPersona ? (currentPersona === 'baby' ? '宝宝没找到这个想要' : currentPersona === 'princess' ? '仆人没找到公主想要的' : '小狗没找到这条指令') : '暂无相关内容'}}"
     />
   </view>
   <view class="category-goods-list" wx:if="{{goodsList.length}}">
@@ -55,6 +15,6 @@
       bind:addcart="handleAddCart"
     />
   </view>
-  <load-more wx:if="{{goodsList.length > 0}}" status="{{loadMoreStatus}}" no-more-text="没有更多了" />
+  <load-more wx:if="{{goodsList.length > 0}}" status="{{loadMoreStatus}}" no-more-text="都在这里了" />
 </view>
 <t-toast id="t-toast" />

@@ -92,7 +92,7 @@ const teacherCartData = {
           promotionCode: 'TEACHER',
           promotionSubCode: 'PRIVATE',
           promotionId: 'teacher-private',
-          tagText: ['只给姐姐和小狗看的安排'],
+          tagText: ['姐姐和小狗的安排'],
           promotionStatus: 3,
           tag: '私密',
           description: '今天先让小狗做好这三件事',
@@ -184,14 +184,14 @@ const teacherOrders = [
     id: '02',
     goodId: 'teacher-whose-puppy',
     status: 10,
-    statusName: '小狗已领命',
+    statusName: '小狗收到了',
     createTime: '1785758400000',
   }),
   createOrder({
     id: '03',
     goodId: 'teacher-sister-praise',
     status: 50,
-    statusName: '姐姐已验收',
+    statusName: '姐姐验收了',
     createTime: '1785672000000',
   }),
 ];
@@ -252,9 +252,9 @@ export function getTeacherMenuData() {
 export function getTeacherOrderTags() {
   return [
     { title: '待小狗执行', iconName: 'wallet', orderNum: 0, tabType: 5, status: 1 },
-    { title: '小狗已领命', iconName: 'deliver', orderNum: 0, tabType: 10, status: 1 },
-    { title: '执行中', iconName: 'package', orderNum: 0, tabType: 40, status: 1 },
-    { title: '姐姐已验收', iconName: 'comment', orderNum: 0, tabType: 50, status: 1 },
+    { title: '小狗收到了', iconName: 'deliver', orderNum: 0, tabType: 10, status: 1 },
+    { title: '小狗正在做', iconName: 'package', orderNum: 0, tabType: 40, status: 1 },
+    { title: '姐姐验收了', iconName: 'comment', orderNum: 0, tabType: 50, status: 1 },
   ];
 }
 

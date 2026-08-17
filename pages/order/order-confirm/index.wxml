@@ -1,13 +1,13 @@
 <view class="persona-surface theme-{{currentPersona}} confirm-page">
   <view class="persona-page-intro">
     <view class="persona-page-eyebrow">
-      {{currentPersona === 'baby' ? 'SEND A HUG' : currentPersona === 'princess' ? 'ROYAL WISH' : 'PRIVATE ARRANGEMENT'}}
+      {{currentPersona === 'baby' ? '告诉宝宝' : currentPersona === 'princess' ? '公主想要' : '姐姐吩咐'}}
     </view>
     <view class="persona-page-title">
       {{currentPersona === 'baby' ? '把这份心愿告诉宝宝' : currentPersona === 'princess' ? '确认公主想要的' : '确认姐姐的指令'}}
     </view>
     <view class="persona-page-description">
-      {{currentPersona === 'baby' ? '告诉宝宝以后，宝宝会认真记下来。' : currentPersona === 'princess' ? '告诉仆人以后，仆人会按公主的要求准备。' : '吩咐以后，小狗会照姐姐的要求认真执行。'}}
+      {{currentPersona === 'baby' ? '宝宝会把这些都记住。' : currentPersona === 'princess' ? '仆人会照公主说的准备。' : '小狗会照姐姐说的做。'}}
     </view>
   </view>
 
@@ -45,7 +45,7 @@
   <view class="persona-section persona-card confirm-summary">
     <view class="confirm-summary__row">
       <text>一共选择</text>
-      <text>{{totalCount}} 个{{currentPersona === 'teacher' ? '指令' : currentPersona === 'princess' ? '想要' : '抱抱'}}</text>
+      <text>{{totalCount}} {{currentPersona === 'teacher' ? '条指令' : currentPersona === 'princess' ? '样想要' : '项想要'}}</text>
     </view>
     <view class="confirm-summary__row">
       <text>{{personaUi.valueName}}</text>

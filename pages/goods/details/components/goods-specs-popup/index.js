@@ -261,7 +261,7 @@ Component({
               teacher: '这条指令今天先缓一缓',
               baby: '这个抱抱今天先等等',
               princess: '这份心意今天先等等',
-            }[this.properties.theme] || '该规格已售罄',
+            }[this.properties.theme] || '这个选项暂时不能选',
           icon: '',
           duration: 1000,
         });

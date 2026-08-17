@@ -9,7 +9,7 @@
     <view class="voucher-detail-card__symbol">
       <t-icon name="{{voucher.icon}}" size="58rpx" />
     </view>
-    <view class="voucher-detail-card__label">ONLY FOR US</view>
+    <view class="voucher-detail-card__label">{{currentPersona === 'teacher' ? '姐姐和小狗' : currentPersona === 'princess' ? '公主和仆人' : '我们两个人'}}</view>
     <view class="voucher-detail-card__title">{{voucher.title}}</view>
     <view class="voucher-detail-card__subtitle">{{voucher.subtitle}}</view>
     <view class="voucher-detail-card__meta">{{voucher.meta}}</view>
@@ -19,21 +19,21 @@
     <view class="voucher-rule">
       <view class="voucher-rule__index">01</view>
       <view>
-        <view class="voucher-rule__title">怎么使用</view>
+        <view class="voucher-rule__title">怎么用</view>
         <view class="voucher-rule__description">{{pageCopy.useDescription}}</view>
       </view>
     </view>
     <view class="voucher-rule">
       <view class="voucher-rule__index">02</view>
       <view>
-        <view class="voucher-rule__title">适用范围</view>
+        <view class="voucher-rule__title">谁能用</view>
         <view class="voucher-rule__description">{{pageCopy.scopeDescription}}</view>
       </view>
     </view>
     <view class="voucher-rule">
       <view class="voucher-rule__index">03</view>
       <view>
-        <view class="voucher-rule__title">私密说明</view>
+        <view class="voucher-rule__title">用过以后</view>
         <view class="voucher-rule__description">{{pageCopy.privateDescription}}</view>
       </view>
     </view>

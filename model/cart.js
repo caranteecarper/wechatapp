@@ -27,7 +27,7 @@ export function genCartGroupData(persona = '') {
           totalDiscountSalePrice: '520',
           promotionGoodsList: [
             {
-              title: '今日要被认真宠一下',
+              title: '今天想被宠一下',
               promotionCode: 'LOVE',
               promotionSubCode: 'DAILY',
               promotionId: 'love-daily',
@@ -111,7 +111,7 @@ export function genCartGroupData(persona = '') {
                   tagPrice: null,
                   titlePrefixTags: [{ text: '私密' }],
                   specInfo: [
-                    { specTitle: '长度', specValue: '认真写长一点' },
+                    { specTitle: '长度', specValue: '写长一点' },
                     { specTitle: '位置', specValue: '只放在我们的小屋' },
                   ],
                   joinCartTime: '2026-07-29T21:05:00.000+0800',

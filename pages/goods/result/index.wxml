@@ -39,7 +39,7 @@
   </view>
 
   <view class="result-loading" wx:else>
-    {{currentPersona === 'baby' ? '宝宝正在帮你找...' : currentPersona === 'princess' ? '仆人正在帮公主找...' : '小狗正在替姐姐找...'}}
+    {{currentPersona === 'baby' ? '宝宝在找...' : currentPersona === 'princess' ? '仆人在找...' : '小狗在找...'}}
   </view>
 </view>
 <t-toast id="t-toast" />

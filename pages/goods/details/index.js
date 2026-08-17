@@ -85,7 +85,7 @@ Page({
     autoplay: true,
     duration: 500,
     interval: 5000,
-    soldNum: 0, // 已售数量
+    soldNum: 0,
     currentPersona: '',
     isTeacher: false,
     isInteractionPersona: false,

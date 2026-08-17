@@ -199,20 +199,32 @@ Page({
         break;
       }
       case 'help-center': {
+        const message =
+          {
+            teacher: '小狗知道，这些话只给姐姐看',
+            baby: '宝宝知道，这些话只在我们之间~',
+            princess: '仆人知道，公主的话不会让别人看',
+          }[this.data.currentPersona] || '这些话只在我们之间';
         Toast({
           context: this,
           selector: '#t-toast',
-          message: '悄悄话只放在我们的小屋里',
+          message,
           icon: '',
           duration: 1000,
         });
         break;
       }
       case 'point': {
+        const message =
+          {
+            teacher: '姐姐的安排，小狗都收在这里',
+            baby: '宝宝把我们的暗号都记着~',
+            princess: '公主想要的，仆人都记在这里',
+          }[this.data.currentPersona] || '我们的记录都在这里';
         Toast({
           context: this,
           selector: '#t-toast',
-          message: '我们的暗号都放在这里',
+          message,
           icon: '',
           duration: 1000,
         });
@@ -223,10 +235,16 @@ Page({
         break;
       }
       default: {
+        const message =
+          {
+            teacher: '这个入口小狗还没准备好，姐姐等等',
+            baby: '这个宝宝还没准备好，再等一下~',
+            princess: '这个仆人还没准备好，公主等等',
+          }[this.data.currentPersona] || '这个入口还没准备好';
         Toast({
           context: this,
           selector: '#t-toast',
-          message: '这个入口暂时还没准备好',
+          message,
           icon: '',
           duration: 1000,
         });

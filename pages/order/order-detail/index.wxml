@@ -8,7 +8,7 @@
   <view class="record-status persona-card" wx:if="{{order}}">
     <view class="record-status__dot"></view>
     <view>
-      <view class="record-status__label">CURRENT STATUS</view>
+      <view class="record-status__label">现在的状态</view>
       <view class="record-status__title">{{order.orderStatusName}}</view>
     </view>
     <view class="record-status__index">0{{progressIndex + 1}}</view>
@@ -70,8 +70,8 @@
       <text>{{createdAt}}</text>
     </view>
     <view class="record-meta__row">
-      <text>私密范围</text>
-      <text>只在我们之间</text>
+      <text>谁能看</text>
+      <text>我们两个人</text>
     </view>
   </view>
 

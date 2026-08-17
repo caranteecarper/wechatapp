@@ -32,7 +32,7 @@ const loveGoods = [
       },
       {
         specId: 'time',
-        title: '兑现时间',
+        title: '什么时候兑现',
         specValueList: [
           { specValueId: 'now', specValue: '现在就要', image: null },
           { specValueId: 'night', specValue: '睡前', image: null },
@@ -101,11 +101,11 @@ const loveGoods = [
     ],
     spuTagList: [{ id: 'tag-2', title: '投喂' }, { id: 'tag-3', title: '甜甜的' }],
     desc: wishDetails,
-    etitle: '想被你隔着城市认真照顾一下。',
+    etitle: '想让你隔着城市照顾我一下。',
   },
   {
     spuId: '2',
-    title: '今天想要一个超认真抱抱',
+    title: '今天想要一个大抱抱',
     primaryImage: `${wishImageBase}/nz-09a.png`,
     images: [`${wishImageBase}/nz-09a.png`, `${wishImageBase}/nz-09b.png`],
     minSalePrice: '000',
@@ -142,7 +142,7 @@ const loveGoods = [
   },
   {
     spuId: '3',
-    title: '安排一场只属于我们的云约会',
+    title: '安排一场我们的云约会',
     primaryImage: `${wishImageBase}/dz-3a.png`,
     images: [`${wishImageBase}/dz-3a.png`, `${wishImageBase}/dz-3b.png`],
     minSalePrice: '520',
@@ -196,7 +196,7 @@ const loveGoods = [
         title: '信的长度',
         specValueList: [
           { specValueId: 'short', specValue: '一句就好', image: null },
-          { specValueId: 'long', specValue: '认真写长一点', image: null },
+          { specValueId: 'long', specValue: '写长一点', image: null },
         ],
       },
     ],
@@ -204,7 +204,7 @@ const loveGoods = [
       {
         skuId: 'wish-4-0',
         skuImage: `${wishImageBase}/mz-20a1.png`,
-        specInfo: [{ specId: 'letter', specValueId: 'long', specValue: '认真写长一点' }],
+        specInfo: [{ specId: 'letter', specValueId: 'long', specValue: '写长一点' }],
         priceInfo: [{ priceType: 1, price: '000', priceTypeName: '心动值' }],
         stockInfo: { stockQuantity: 999, safeStockQuantity: 0, soldQuantity: 0 },
       },
@@ -232,7 +232,7 @@ const loveGoods = [
         title: '惊喜等级',
         specValueList: [
           { specValueId: 'tiny', specValue: '小小仪式', image: null },
-          { specValueId: 'big', specValue: '认真准备', image: null },
+          { specValueId: 'big', specValue: '用心准备', image: null },
         ],
       },
     ],
@@ -247,7 +247,7 @@ const loveGoods = [
     ],
     spuTagList: [{ id: 'tag-10', title: '纪念日' }, { id: 'tag-11', title: '惊喜' }],
     desc: wishDetails,
-    etitle: '重要的日子，要被认真记住。',
+    etitle: '重要的日子要记得。',
   },
 ];
 
