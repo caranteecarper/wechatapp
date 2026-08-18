@@ -4,8 +4,8 @@ const assetBase = '/assets/teacher';
 const productBase = `${assetBase}/products`;
 
 export const teacherAssets = {
-  hero: `${assetBase}/teacher-hero.webp`,
-  avatar: `${assetBase}/teacher-avatar.webp`,
+  hero: `${assetBase}/teacher-hero-persona.jpg`,
+  avatar: `${assetBase}/teacher-avatar.jpg`,
   products: {},
 };
 
@@ -134,7 +134,7 @@ export const teacherGoodsDefinitions = catalog.flatMap((category) =>
   category.products.map(([slug, title, etitle, tag, specs], index) => {
     productNumber += 1;
     const id = `teacher-${slug}`;
-    const image = `${productBase}/${`${productNumber}`.padStart(2, '0')}-${slug}.webp`;
+    const image = `${productBase}/${`${productNumber}`.padStart(2, '0')}-${slug}.jpg`;
     teacherAssets.products[id] = image;
     return {
       id,

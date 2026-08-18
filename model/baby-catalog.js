@@ -339,7 +339,7 @@ export function buildBabyCatalog(assets, productImages = {}) {
     group.items.map((entry, itemIndex) => {
       const image =
         productImages[entry.slug] ||
-        (assets.products ? `${assets.products}/${entry.slug}.webp` : assets[group.asset]);
+        (assets.products ? `${assets.products}/${entry.slug}.jpg` : assets[group.asset]);
       return {
         id: `baby-${entry.slug}`,
         slug: entry.slug,
@@ -347,7 +347,7 @@ export function buildBabyCatalog(assets, productImages = {}) {
         tier: entry.tier,
         title: entry.title,
         image,
-        detailImage: assets.detailProducts ? `${assets.detailProducts}/${entry.slug}.webp` : image,
+        detailImage: assets.detailProducts ? `${assets.detailProducts}/${entry.slug}.jpg` : image,
         price: entry.price,
         linePrice: LINE_PRICES[entry.price] || '2024',
         soldNum: [5, 13, 21, 52, 99][itemIndex % 5],

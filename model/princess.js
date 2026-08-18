@@ -5,8 +5,8 @@ const productBase = `${assetBase}/products`;
 const productImage = (filename) => `${productBase}/${filename}`;
 
 const assets = {
-  hero: `${assetBase}/princess-hero.webp`,
-  avatar: `${assetBase}/princess-avatar.webp`,
+  hero: `${assetBase}/princess-hero.jpg`,
+  avatar: `${assetBase}/princess-avatar.jpg`,
 };
 
 const product = (id, filename, title, subtitle, method, price, choiceTitle, choices) => ({
@@ -29,7 +29,7 @@ const catalogGroups = [
     items: [
       product(
         '01',
-        '01-milk-tea.webp',
+        '01-milk-tea.jpg',
         '今天想喝奶茶',
         '这杯要按公主喜欢的来',
         '外卖下单',
@@ -39,7 +39,7 @@ const catalogGroups = [
       ),
       product(
         '02',
-        '02-cake.webp',
+        '02-cake.jpg',
         '一块小蛋糕就能哄好我',
         '一块小蛋糕就能把公主哄开心',
         '甜点外卖',
@@ -49,7 +49,7 @@ const catalogGroups = [
       ),
       product(
         '03',
-        '03-ice-cream.webp',
+        '03-ice-cream.jpg',
         '冰淇淋会让心情变好',
         '今天就想吃一份冰淇淋',
         '外卖或到店',
@@ -59,7 +59,7 @@ const catalogGroups = [
       ),
       product(
         '04',
-        '04-afternoon-tea.webp',
+        '04-afternoon-tea.jpg',
         '给公主安排下午茶',
         '忙了一下午，想喝点甜的',
         '奶茶加甜点',
@@ -69,7 +69,7 @@ const catalogGroups = [
       ),
       product(
         '05',
-        '05-sweet-treat.webp',
+        '05-sweet-treat.jpg',
         '今天想吃一点甜甜的',
         '具体吃什么，就看你有多懂公主啦',
         '自选甜品',
@@ -86,7 +86,7 @@ const catalogGroups = [
     items: [
       product(
         '06',
-        '06-choice-free-takeout.webp',
+        '06-choice-free-takeout.jpg',
         '今天不想决定吃什么',
         '今天不想选，仆人来决定',
         '自选外卖',
@@ -96,7 +96,7 @@ const catalogGroups = [
       ),
       product(
         '07',
-        '07-favorite-meal.webp',
+        '07-favorite-meal.jpg',
         '给公主点顿喜欢的',
         '想吃喜欢的，仆人来安排',
         '外卖下单',
@@ -106,7 +106,7 @@ const catalogGroups = [
       ),
       product(
         '08',
-        '08-breakfast.webp',
+        '08-breakfast.jpg',
         '早餐也想被惦记',
         '睁开眼就收到早餐，才像公主待遇',
         '早餐外卖',
@@ -116,7 +116,7 @@ const catalogGroups = [
       ),
       product(
         '09',
-        '09-nice-dinner.webp',
+        '09-nice-dinner.jpg',
         '今晚想吃得好一点',
         '今天辛苦了，晚饭想吃好一点',
         '晚餐外卖',
@@ -126,7 +126,7 @@ const catalogGroups = [
       ),
       product(
         '10',
-        '10-midnight-snack.webp',
+        '10-midnight-snack.jpg',
         '夜宵来一点嘛',
         '公主突然馋了，仆人管不管',
         '夜宵外卖',
@@ -143,7 +143,7 @@ const catalogGroups = [
     items: [
       product(
         '11',
-        '11-linked-item.webp',
+        '11-linked-item.jpg',
         '公主看中这个了',
         '链接都给仆人了，还要公主再说嘛',
         '商品链接',
@@ -153,7 +153,7 @@ const catalogGroups = [
       ),
       product(
         '12',
-        '12-shopping-cart.webp',
+        '12-shopping-cart.jpg',
         '购物车里有个小东西',
         '购物车里那个小东西，仆人看见了吗',
         '购物链接',
@@ -161,14 +161,14 @@ const catalogGroups = [
         '购物车心愿',
         ['挑一件', '给公主选颜色', '先偷偷准备'],
       ),
-      product('13', '13-flowers.webp', '给公主买束花', '没有节日，也可以收到花呀', '鲜花下单', 9900, '花束风格', [
+      product('13', '13-flowers.jpg', '给公主买束花', '没有节日，也可以收到花呀', '鲜花下单', 9900, '花束风格', [
         '粉色花束',
         '白色花束',
         '按公主气质选',
       ]),
       product(
         '14',
-        '14-snack-restock.webp',
+        '14-snack-restock.jpg',
         '零食柜要补货啦',
         '喜欢的零食吃完了，记得补上',
         '零食下单',
@@ -178,7 +178,7 @@ const catalogGroups = [
       ),
       product(
         '15',
-        '15-small-gift.webp',
+        '15-small-gift.jpg',
         '给我一个小礼物',
         '礼物不用贵，想到我就好',
         '自选礼物',
@@ -195,7 +195,7 @@ const catalogGroups = [
     items: [
       product(
         '16',
-        '16-first-priority.webp',
+        '16-first-priority.jpg',
         '今天先想到我',
         '今天第一顺位要留给公主',
         '偏爱表达',
@@ -205,7 +205,7 @@ const catalogGroups = [
       ),
       product(
         '17',
-        '17-save-one-for-me.webp',
+        '17-save-one-for-me.jpg',
         '好东西要给公主留一份',
         '看到好东西的时候，要记得给公主留一份',
         '给公主留一份',
@@ -215,7 +215,7 @@ const catalogGroups = [
       ),
       product(
         '18',
-        '18-remember-favorites.webp',
+        '18-remember-favorites.jpg',
         '记住我最近喜欢什么',
         '我提过的小事，仆人要记得',
         '喜好记录',
@@ -225,7 +225,7 @@ const catalogGroups = [
       ),
       product(
         '19',
-        '19-exclusive-thought.webp',
+        '19-exclusive-thought.jpg',
         '给公主一份独有的小惊喜',
         '这一份别人不能有',
         '准备小惊喜',
@@ -235,7 +235,7 @@ const catalogGroups = [
       ),
       product(
         '20',
-        '20-break-rule.webp',
+        '20-break-rule.jpg',
         '今天为公主破例一次',
         '今天偏心公主一次，不过分吧',
         '公主来选',
@@ -252,7 +252,7 @@ const catalogGroups = [
     items: [
       product(
         '21',
-        '21-comfort-first.webp',
+        '21-comfort-first.jpg',
         '先哄公主再解释',
         '道理可以等等，公主开心比较重要',
         '文字或语音',
@@ -262,7 +262,7 @@ const catalogGroups = [
       ),
       product(
         '22',
-        '22-unconditional-favor.webp',
+        '22-unconditional-favor.jpg',
         '今天什么都先依我一次',
         '公主只是想听你说“好，都依你”',
         '偏爱回应',
@@ -272,7 +272,7 @@ const catalogGroups = [
       ),
       product(
         '23',
-        '23-milk-tea-apology.webp',
+        '23-milk-tea-apology.jpg',
         '奶茶赔罪也不是不可以',
         '一杯不够的话，那就再加一份甜点嘛',
         '外卖下单',
@@ -282,7 +282,7 @@ const catalogGroups = [
       ),
       product(
         '24',
-        '24-sweet-words.webp',
+        '24-sweet-words.jpg',
         '说点公主爱听的',
         '哄公主开心，是仆人该会的',
         '文字或语音',
@@ -292,7 +292,7 @@ const catalogGroups = [
       ),
       product(
         '25',
-        '25-make-me-happy.webp',
+        '25-make-me-happy.jpg',
         '用你的办法让我开心',
         '公主只负责期待，惊喜由你来想',
         '你来想办法',
@@ -309,7 +309,7 @@ const catalogGroups = [
     items: [
       product(
         '26',
-        '26-flowers-any-day.webp',
+        '26-flowers-any-day.jpg',
         '普通日子也可以有花',
         '没有节日，也想收到一束花',
         '鲜花下单',
@@ -319,7 +319,7 @@ const catalogGroups = [
       ),
       product(
         '27',
-        '27-small-ritual.webp',
+        '27-small-ritual.jpg',
         '给今天准备一个小仪式',
         '不是什么节日，也可以过得特别一点',
         '自定义安排',
@@ -329,7 +329,7 @@ const catalogGroups = [
       ),
       product(
         '28',
-        '28-anniversary.webp',
+        '28-anniversary.jpg',
         '纪念日要好好过',
         '我们的日子不能随便带过',
         '日期安排',
@@ -339,7 +339,7 @@ const catalogGroups = [
       ),
       product(
         '29',
-        '29-card.webp',
+        '29-card.jpg',
         '写一张给公主的小卡片',
         '几句话也可以，但要专门写给公主',
         '文字或手写',
@@ -349,7 +349,7 @@ const catalogGroups = [
       ),
       product(
         '30',
-        '30-princess-date.webp',
+        '30-princess-date.jpg',
         '安排一次公主约会',
         '地点、吃什么和小惊喜都要有心思',
         '预约或线下',
@@ -366,7 +366,7 @@ const catalogGroups = [
     items: [
       product(
         '31',
-        '31-small-wish.webp',
+        '31-small-wish.jpg',
         '公主有一个小愿望',
         '这个愿望，仆人要记住',
         '自定义心愿',
@@ -376,7 +376,7 @@ const catalogGroups = [
       ),
       product(
         '32',
-        '32-next-meeting-place.webp',
+        '32-next-meeting-place.jpg',
         '下次见面想去这里',
         '公主负责选地方，仆人负责陪公主去',
         '地点和日期',
@@ -386,7 +386,7 @@ const catalogGroups = [
       ),
       product(
         '33',
-        '33-do-together.webp',
+        '33-do-together.jpg',
         '想和你一起做这件事',
         '和你做完，就多一段共同回忆',
         '约好一起做',
@@ -396,7 +396,7 @@ const catalogGroups = [
       ),
       product(
         '34',
-        '34-wishlist-item.webp',
+        '34-wishlist-item.jpg',
         '公主最近想要这个',
         '先放进心愿单，仆人记得别忘了',
         '图片或链接',
@@ -406,7 +406,7 @@ const catalogGroups = [
       ),
       product(
         '35',
-        '35-future-wish.webp',
+        '35-future-wish.jpg',
         '和公主存一个未来愿望',
         '先写下来，以后一起完成',
         '文字和日期',
@@ -423,7 +423,7 @@ const catalogGroups = [
     items: [
       product(
         '36',
-        '36-secret-surprise.webp',
+        '36-secret-surprise.jpg',
         '给公主一个没想到的',
         '这次让仆人自己猜公主会喜欢什么',
         '自定义惊喜',
@@ -433,7 +433,7 @@ const catalogGroups = [
       ),
       product(
         '37',
-        '37-mystery-takeout.webp',
+        '37-mystery-takeout.jpg',
         '来一份神秘外卖',
         '吃什么不知道，只知道是专门为我挑的',
         '外卖下单',
@@ -443,7 +443,7 @@ const catalogGroups = [
       ),
       product(
         '38',
-        '38-lucky-red-packet.webp',
+        '38-lucky-red-packet.jpg',
         '发一个公主好运红包',
         '今天想收一个好运红包，数字由仆人选',
         '微信红包',
@@ -453,7 +453,7 @@ const catalogGroups = [
       ),
       product(
         '39',
-        '39-gift-blind-box.webp',
+        '39-gift-blind-box.jpg',
         '准备一个小礼物盲盒',
         '打开以前，公主也不知道会收到什么',
         '实物礼物',
@@ -463,7 +463,7 @@ const catalogGroups = [
       ),
       product(
         '40',
-        '40-date-blind-box.webp',
+        '40-date-blind-box.jpg',
         '抽一个约会惊喜盲盒',
         '随机决定下次约会的主题和内容',
         '抽一个约会',

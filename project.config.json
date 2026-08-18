@@ -64,7 +64,7 @@
     "showES6CompileOption": false,
     "useCompilerPlugins": false,
     "ignoreUploadUnusedFiles": true,
-    "useStaticServer": true,
+    "useStaticServer": false,
     "compileWorklet": false,
     "localPlugins": false,
     "condition": false,
